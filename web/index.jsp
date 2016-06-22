@@ -14,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 --%>
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,team.hustsoft.fixer.Test" pageEncoding="UTF-8"%>
 <html>
   <head>
     <title>JSP 2.0 Expression Language - Basic Arithmetic</title>
@@ -30,7 +30,7 @@
     String a = "2";
     String b = "b";
     String c = a + b;
-    out.println("<h1>" + a + " + " + b + " = " + c + "</h1>");
+    out.println("<h1>" + a + " + " + b + " = " + c + "</h1>"+Test.test());
     %>
   </body>
 </html>
