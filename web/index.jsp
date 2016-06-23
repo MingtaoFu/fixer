@@ -1,36 +1,16 @@
-<%--
- Licensed to the Apache Software Foundation (ASF) under one or more
-  contributor license agreements.  See the NOTICE file distributed with
-  this work for additional information regarding copyright ownership.
-  The ASF licenses this file to You under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with
-  the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
---%>
-<%@ page language="java" import="java.util.*,team.hustsoft.fixer.Test" pageEncoding="UTF-8"%>
-<html>
-  <head>
-    <title>JSP 2.0 Expression Language - Basic Arithmetic</title>
+<%@ page language="java"
+  pageEncoding="UTF-8"
+  import="java.util.*,team.hustsoft.fixer.SHA"
+  %>
+  <html>
+    <head>
+        <title>JSP 2.0 Expression Language - Basic Arithmetic</title>
     <meta charset="utf-8">
   </head>
   <body>
-    <h1>服务器成功运行！</h1>
-    <hr>
-    以下运算成功说明JSP成功运行。
-    <br>
-    
     <%
-    String a = "2";
-    String b = "b";
-    String c = a + b;
-    out.println("<h1>" + a + " + " + b + " = " + c + "</h1>"+Test.test());
+    String str = request.getParameter("param");
+    out.println(SHA.encode(str));
     %>
   </body>
 </html>
