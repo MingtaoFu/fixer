@@ -1,6 +1,6 @@
 <%@ page language="java"
   pageEncoding="UTF-8"
-  import="java.util.*,team.hustsoft.fixer.SHA"
+  import="java.util.*,team.hustsoft.PD.*"
   %>
   <html>
     <head>
@@ -11,6 +11,7 @@
     <%
     String str = request.getParameter("param");
     out.println(SHA.encode(str));
+    out.println(Account.authorized());
     %>
   </body>
 </html>

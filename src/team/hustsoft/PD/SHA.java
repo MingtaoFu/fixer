@@ -2,7 +2,7 @@
  * SHA加密算法
  * SHA.encode(str)即可返回加密后的字符串
  */
-package team.hustsoft.fixer;
+package team.hustsoft.PD;
 import java.security.MessageDigest;
 
 public class SHA{
