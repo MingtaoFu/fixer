@@ -123,6 +123,15 @@
       </description>
     </servlet>
 
+		<servlet>
+			<servlet-name>servlet_test</servlet-name>
+			<servlet-class>Servlet_test</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>servlet_test</servlet-name>
+			<url-pattern>/servlet_test</url-pattern>
+		</servlet-mapping>
+
 
     <!-- Define mappings that are used by the servlet container to
          translate a particular request URI (context-relative) to a
