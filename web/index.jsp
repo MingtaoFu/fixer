@@ -11,7 +11,19 @@
     <%
     String str = request.getParameter("param");
     out.println(SHA.encode(str));
-    out.println(Account.authorized());
+    //out.println(Account.authorized());
     %>
+    <script>
+		var xhr = new XMLHttpRequest();
+		xhr.open("get", "./servlet_test");
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState === 4) {
+				if(xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
+					console.log(JSON.parse(xhr.responseText));
+				}
+			}
+		}	
+		xhr.send(null);
+		</script>
   </body>
 </html>
