@@ -7,3 +7,13 @@ public class Account{
     return false;
   }
 }
+
+abstract class Staff{
+	private int id;
+	private String name;
+	private String password;
+	private int permission;
+}
+
+class CustomerCare extends Staff{
+}
