@@ -1,3 +1,5 @@
+package team.hustsoft.Servlet;
+
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -8,7 +10,7 @@ public class Servlet_test extends HttpServlet {
 	public void init() throws ServletException{
 		message = "hello world";
 	}
-	public void doGet(HttpServletRequest request,	
+	public void doGet(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException{
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
