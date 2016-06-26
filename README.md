@@ -54,16 +54,16 @@ PS:Servlet_test.java中有测试servlet访问数据库的代码，可自行测�
 ####PS：数据表字段说明：
 1. 为相互区别，作为各表主键的id采用了表名缩写+id的形式，看起来很怪异，不要不认识23333
 2. 未注释枚举类型字段对照：  
-	|ite|value|  
-	|:-:|:-:|  
-	|Customer.property:|0 家庭用户，1 单位用户，2 代理商，3 签约用户|    
-	|CallToRepairRecord.status:|0 进行中，1 结束，2 撤销|  
-	|Device.deviceType:|0 台式机，1 笔记本，2 投影仪，3 打印机，4 其他|  
-	|Device.breakdownType:|0 固定性故障,1 间隙性故障|  
-	|RepairRecord.status:|0 未分配，1 分配未检测，2 检测完成维修未完成，3 维修完成|  
-	|RepairRecord.delayDegree:|0 一般，1 比较严重，2 严重|  
-	|Parts.status:|0 正常，1 临界，2 警示，3 缺货|  
-	|User.characters:|0 系统管理员，1 客服，2 任务调度，3 技术工程师，4 财务人员，5 库管，6 运营监督|  
+|item|value|  
+|:-:|:-:|  
+|Customer.property|0 家庭用户，1 单位用户，2 代理商，3 签约用户|    
+|CallToRepairRecord.status|0 进行中，1 结束，2 撤销|  
+|Device.deviceType|0 台式机，1 笔记本，2 投影仪，3 打印机，4 其他|  
+|Device.breakdownType|0 固定性故障,1 间隙性故障|  
+|RepairRecord.status|0 未分配，1 分配未检测，2 检测完成维修未完成，3 维修完成|  
+|RepairRecord.delayDegree|0 一般，1 比较严重，2 严重|  
+|Parts.status|0 正常，1 临界，2 警示，3 缺货|  
+|User.characters|0 系统管理员，1 客服，2 任务调度，3 技术工程师，4 财务人员，5 库管，6 运营监督|  
 
 
 
