@@ -70,6 +70,6 @@ PS:Servlet_test.java中有测试servlet访问数据库的代码，可自行测�
 |User.characters|0 系统管理员，1 客服，2 任务调度，3 技术工程师，4 财务人员，5 库管，6 运营监督|  
 
 ####一个完整的路由示例
-CustomerDA->CustomerInfoList  
+Customer->CustomerDA->CustomerInfoList  
 在web/WEB-INF/web.xml中添加相关路由项  
 访问 http://localhost:8080/fixer/customer_info_list 即可  
