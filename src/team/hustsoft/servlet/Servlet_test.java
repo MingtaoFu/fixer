@@ -14,7 +14,7 @@ public class Servlet_test extends HttpServlet {
 	}
 	public void doGet(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException{
-		response.setContentType("text/html");
+		response.setContentType("text/html;charset=utf-8");////设置字符集，重要！
 		PrintWriter out = response.getWriter();
 		JSONObject ss = new JSONObject();
 		JSONObject ss2 = new JSONObject();
@@ -23,19 +23,46 @@ public class Servlet_test extends HttpServlet {
 		ss.put("data", ss2);
 		out.print(ss);
 		//out.print();
-
-
+		Connection conn = null;
+		Statement  statement = null;
 		try {
 		//	DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/fixer" +
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306?" +
 							"user=taotao&password=taotao666");
 
-			Statement  statement = conn.createStatement();         //??
-			out.print("ex");
+			statement = conn.createStatement();         //??
+			//out.print("ex");
+			PreparedStatement preparedStatement;
+			String[] sqlArr={
+				"USE fixer",
+				"CREATE TABLE IF NOT EXISTS User("+
+					"uid INT(5) AUTO_INCREMENT NOT NULL,"+
+					"userName VARCHAR(50) NOT NULL UNIQUE,"+
+					"passWord VARCHAR(50) NOT NULL,"+
+					"characters enum(\"0\",\"1\",\"2\",\"3\",\"4\",\"5\",\"6\")  NOT NULL,"+
+					"CONSTRAINT PK_UID PRIMARY KEY(uid))"+
+					"DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;"
+			};
 
-			conn.close();
-			statement.close();
+			//out.print(sqlArr[0]);
+			for(int i = 0; i < sqlArr.length; i++) {
+				preparedStatement = conn.prepareStatement(sqlArr[i]);
+				preparedStatement.execute();
+			}
+
+			ResultSet rs = statement.executeQuery("select *from User;");
+			if(!rs.next())
+				statement.executeUpdate("insert into User(userName,passWord,characters) VALUES('套套','taotao666','0');");
+
+			rs = statement.executeQuery("select *from User;");
+			while(rs.next())
+			{
+				out.print(rs.getString("uid")+"\n");
+				out.print(rs.getString("userName")+"\n");
+				out.print(rs.getString("passWord")+"\n");
+				out.print(rs.getString("characters"));
+			}
 
 		} catch (SQLException ex) {
 			// handle any errors
@@ -46,6 +73,20 @@ public class Servlet_test extends HttpServlet {
 		catch(ClassNotFoundException ex){
 			out.print(ex);
 		}
+		finally{
+			try {
+				statement.close();
+			}
+			catch (SQLException e) {
+				System.out.println(e);
+			}
+			try{
+				conn.close();
+			}
+			catch (SQLException e) {
+				System.out.println(e);
+			}
+		}
 	}
-	public void destroy(){}
+//	public void destroy(){}
 }
