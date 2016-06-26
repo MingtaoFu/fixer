@@ -1,4 +1,4 @@
-package team.hustsoft.Servlet;
+package team.hustsoft.servlet;
 
 import java.io.*;
 import javax.servlet.*;
@@ -37,7 +37,7 @@ public class Servlet_test extends HttpServlet {
 			conn.close();
 			statement.close();
 
-		} catch (SQLException ex) {	
+		} catch (SQLException ex) {
 			// handle any errors
 			out.print("SQLException: " + ex.getMessage());
 			out.print("SQLState: " + ex.getSQLState());

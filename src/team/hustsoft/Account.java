@@ -1,5 +1,5 @@
-package team.hustsoft.PD;
-import team.hustsoft.PD.SHA;
+package team.hustsoft;
+import team.hustsoft.SHA;
 
 public class Account{
   public static Boolean authorized(int id, String pwd) {

@@ -1,4 +1,4 @@
-package team.hustsoft.PD;
+package team.hustsoft;
 import java.security.MessageDigest;
 
 public class SHA{

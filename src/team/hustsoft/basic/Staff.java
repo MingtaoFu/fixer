@@ -1,4 +1,4 @@
-package team.hustsoft.PD.TableClass;
+package team.hustsoft.basic;
 import team.hustsoft.PD.SHA;
 public class Staff{
 	private int id;
@@ -13,10 +13,4 @@ public class Staff{
   public int getType() {
     return this.type;
   }
-}
-
-class CustomerCare extends Staff{
-	public CustomerCare(String name, String password) {
-		super(name, password);
-	}
 }
