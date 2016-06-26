@@ -1,18 +1,24 @@
 package team.hustsoft.servlet;
 
 import java.io.*;
+import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import org.json.simple.JSONObject;
+import team.hustsoft.DA.CustomerDA;
+import team.hustsoft.basic.Customer;
 
-public void doGet(HttpServletRequest request,
-		HttpServletResponse response) throws ServletException, IOException{
-		response.setContentType("text/html");
+public class CustomerInfoList extends HttpServlet {
+	public void doGet(HttpServletRequest request,
+	HttpServletResponse response) throws ServletException, IOException{
+		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
-		JSONObject ss = new JSONObject();
-		JSONObject ss2 = new JSONObject();
-		ss2.put("value", 1);
-		ss.put("status", true);
-		ss.put("data", ss2);
-		out.print(ss);
-  }
+		ArrayList<JSONObject> list = new ArrayList<JSONObject>();
+		CustomerDA customerDA = new CustomerDA();
+		ArrayList<Customer> customers = customerDA.query();
+		for(int i = 0; i < customers.size(); i++) {
+			list.add(customers.get(i).toJSON());
+		}
+		out.print(list);
+	}
+}

@@ -3,3 +3,4 @@ dist
 build.xml
 .idea
 *.swp
+src/CreateTable.class

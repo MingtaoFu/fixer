@@ -11,7 +11,7 @@ public class CreateTable {
 		try {
 		//	DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306?" +
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/fixer?" +
 							"user=taotao&password=taotao666");
 
 			statement = conn.createStatement();         //??
@@ -34,7 +34,7 @@ public class CreateTable {
 	public static void terminate() {
 		try {
 			statement.close();
-		} 
+		}
 		catch (SQLException e) {
 			System.out.println(e);
 		}
@@ -46,12 +46,30 @@ public class CreateTable {
 		}
 	}
 
+	public static void insert_test_data() {
+		PreparedStatement preparedStatement;
+		String sqlArr[] = {
+			"insert into Customer values(null,\'1\',\'google\',\'027-111111\',"+
+			"\'13222222222\',\'Luoyu Road\', \'070000\', \'mingtao\', \'eeeee@ee.com\');",
+			"insert into Customer values(null,\'2\',\'ms\',\'027-111111\',"+
+			"\'13222222222\',\'Mount great gay\', \'070000\', \'xiuxiu\', \'eeeee@ee.com\');"
+		};
+		try {
+			for(int i = 0; i < sqlArr.length; i++) {
+				preparedStatement = conn.prepareStatement(sqlArr[i]);
+				preparedStatement.execute();
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally{
+			terminate();
+		}
+	}
 	public static void createTables(int choice) {
 		PreparedStatement preparedStatement;
 		String[] sqlArr;
 		if(choice == 0)
 			sqlArr = new String[]{
-				"USE fixer",
 				"CREATE TABLE IF NOT EXISTS Customer(									/* 客户*/"+
 					"cid INT(5) NOT NULL AUTO_INCREMENT,"+
 					"property  enum(\"0\",\"1\",\"2\",\"3\"),								/* 客户属性*/"+
@@ -63,7 +81,7 @@ public class CreateTable {
 					"contactPersonName VARCHAR(20) NOT NULL UNIQUE,				/* 联系人*/"+
 					"email VARCHAR(50),													/* 电子邮件*/"+
 					"CONSTRAINT PK_CID PRIMARY KEY(cid))DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;",
-				
+
 				"CREATE TABLE IF NOT EXISTS CallToRepairRecord(						/* 报修记录*/"+
 					"ctrrid INT(5) AUTO_INCREMENT NOT NULL,"+
 					"cid INT(5)  NOT NULL,													/* 客户id*/"+
@@ -182,7 +200,7 @@ public class CreateTable {
 				preparedStatement = conn.prepareStatement(sqlArr[i]);
 				preparedStatement.execute();
 			}
-		} 
+		}
 		catch (Exception e) {
 				System.out.println(e);
 		}
@@ -199,24 +217,26 @@ public class CreateTable {
 		}
 
 		String command = args[0];
-		if(command.equals("create")){
-			initialize();
-			createTables(0);
+		switch(command) {
+			case "create":
+				initialize();
+				createTables(0);
+				break;
+			case "remove":
+				initialize();
+				createTables(1);
+				break;
+			case "update":
+				System.out.println("this command is reserved for future use");
+				break;
+			case "insert_test_data":
+				initialize();
+				insert_test_data();
+				break;
+			default:
+				System.out.println("wrong param!");
 		}
-		else if(command.equals("remove")){
-			initialize();
-			createTables(1);
-		}
-		else if(command.equals("update")){
-			System.out.println("this command is reserved for future use");
-		}
-		else {
-			System.out.println("wrong param!");
-		}
-
 		//terminate();
 		return;
-
-
 	}
 }
