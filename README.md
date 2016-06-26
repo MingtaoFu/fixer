@@ -28,23 +28,27 @@ collation-server = utf8_general_ci
 skip-character-set-client-handshake  
 ```
 在[mysql]下加入：  
-default-character-set = utf8  
-（测试：在mysql命令行下输入show variables like "%char%";查看除character_set_filesystem外，其他字段是否全为utf8）
-3. 开启mysql服务 service mysql start（关闭是service mysql stop）
-4. 进入mysql控制台 mysql -u root -p，输入密码
-5. 创建我们这次用到的数据库，依次输入以下命令：
+```default-character-set = utf8```  
+（测试：在mysql命令行下输入show variables like "%char%";查看除character_set_filesystem外，其他字段是否全为utf8）  
+3. 开启mysql服务 service mysql start（关闭是service mysql stop）  
+4. 进入mysql控制台 mysql -u root -p，输入密码  
+5. 创建我们这次用到的数据库，依次输入以下命令：  
+```
 CREATE DATABASE fixer character SET utf8 COLLATE utf8_general_ci; 
 CREATE USER 'taotao'@'localhost' IDENTIFIED BY 'taotao666';
 GRANT ALL ON fixer.* TO 'taotao'@'localhost';
+```
 然后可以用show databases;验证一下是否创建成功。
 6. 创建数据表
 	1. 首先下载jdbc：http://dev.mysql.com/downloads/connector/j/，解压后将jar文件（只有一个）拷入$APP/web/WEB-INF/lib下。（为以后项目中servlet访问数据库做准备）
 	2. 再将这个文件拷入$JAVA_HOME/jre/lib/ext下(为建表做准备)
 	3. 将目录切换到$APP/src，输入
+		```
 		javac CreateTable.java
 		java CreateTable create（建表）
 		java CreateTable remove（删表）（！！！删表将会将所有表删除，其中的数据也将被删除，请谨慎操作）
 		java CreateTable update（改表）（未实现，留作后用）
+		```
 PS:Servlet_test.java中有测试servlet访问数据库的代码，可自行测试
 
 ####PS：数据表字段说明：
