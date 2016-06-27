@@ -65,6 +65,30 @@ public class CreateTable {
 			terminate();
 		}
 	}
+
+	public static void updateTables(){
+		PreparedStatement preparedStatement;
+		String[] sqlArr = new String[]{
+			"USE fixer",
+			"ALTER TABLE `Customer` DROP`contactPersonName` ;",
+			"ALTER TABLE `Customer` add `contactPersonName` VARCHAR(20) NOT NULL;",
+			"ALTER TABLE `Customer` add `id` VARCHAR(20) NOT NULL UNIQUE;"
+		};
+
+		try {
+			for(int i = 0; i < sqlArr.length; i++) {
+				preparedStatement = conn.prepareStatement(sqlArr[i]);
+				preparedStatement.execute();
+			}
+		}
+		catch (Exception e) {
+				System.out.println(e);
+		}
+		finally{
+			terminate();
+		}
+	}
+
 	public static void createTables(int choice) {
 		PreparedStatement preparedStatement;
 		String[] sqlArr;
@@ -72,13 +96,14 @@ public class CreateTable {
 			sqlArr = new String[]{
 				"CREATE TABLE IF NOT EXISTS Customer(									/* 客户*/"+
 					"cid INT(5) NOT NULL AUTO_INCREMENT,"+
+					"id VARCHAR(20) NOT NULL UNIQUE,									/* 身份证号*/"+
 					"property  enum(\"0\",\"1\",\"2\",\"3\"),								/* 客户属性*/"+
 					"companyName VARCHAR(100),										/* 单位名称*/"+
 					"tel VARCHAR(15),														/* 座机*/"+
 					"mobilePhone VARCHAR(15) NOT NULL,								/* 移动电话*/"+
 					"address VARCHAR(100) NOT NULL,									/* 地址*/"+
 					"zipCode VARCHAR(10),													/* 邮编*/"+
-					"contactPersonName VARCHAR(20) NOT NULL UNIQUE,				/* 联系人*/"+
+					"contactPersonName VARCHAR(20) NOT NULL ,						/* 联系人*/"+
 					"email VARCHAR(50),													/* 电子邮件*/"+
 					"CONSTRAINT PK_CID PRIMARY KEY(cid))DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;",
 
@@ -227,7 +252,9 @@ public class CreateTable {
 				createTables(1);
 				break;
 			case "update":
-				System.out.println("this command is reserved for future use");
+				//System.out.println("this command is reserved for future use");
+				initialize();
+				updateTables();
 				break;
 			case "insert_test_data":
 				initialize();
