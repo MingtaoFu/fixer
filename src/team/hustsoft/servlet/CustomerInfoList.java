@@ -5,7 +5,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import org.json.simple.JSONObject;
-import team.hustsoft.DA.CustomerDA;
+import team.hustsoft.PD.CustomerManageService;
 import team.hustsoft.basic.Customer;
 
 public class CustomerInfoList extends HttpServlet {
@@ -21,8 +21,7 @@ public class CustomerInfoList extends HttpServlet {
 		int offset = Integer.parseInt(request.getParameter("offset"));
 		int limit = Integer.parseInt(request.getParameter("limit"));
 
-		CustomerDA customerDA = new CustomerDA();
-		ArrayList<Customer> customers = customerDA.query(search, order);
+		ArrayList<Customer> customers = CustomerManageService.getInstance().query(search, order);
 
 		int count = limit + offset < customers.size() ? limit + offset: customers.size();
 		for(int i = offset; i < count; i++) {
