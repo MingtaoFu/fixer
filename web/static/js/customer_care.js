@@ -10,45 +10,104 @@ function initTable() {
         {
           field: 'state',
           checkbox: true,
-          rowspan: 2,
+          rowspan: 1,
           align: 'center',
           valign: 'middle'
         }, {
-          title: '客户 ID',
+          title: 'ID',
           field: 'id',
-          rowspan: 2,
+          rowspan: 1,
           align: 'center',
           valign: 'middle',
           sortable: true,
           footerFormatter: totalTextFormatter
-        }, {
-          title: '详细',
-          colspan: 5,
-          align: 'center'
-        }
-      ],
-      [
+        },
         {
           field: 'name',
           title: '客户姓名',
-          sortable: true,
           editable: true,
+          footerFormatter: totalNameFormatter,
+          align: 'center',
+          editable: {
+            validate: function (value) {
+              value = $.trim(value);
+              if (!value) {
+                return 'This field is required';
+              }
+              var data = $table.bootstrapTable('getData'),
+              index = $(this).parents('tr').data('index');
+              console.log(data[index]);
+              return '';
+            }
+          }
+        },
+        {
+          field: 'mobilePhone',
+          title: '手机',
+          editable: {
+            validate: function (value) {
+              value = $.trim(value);
+              if (!value) {
+                return 'This field is required';
+              }
+              if (!/^1[0-9]{10}$/.test(value)) {
+                return '请输入合法的手机';
+              }
+              var data = $table.bootstrapTable('getData'),
+              index = $(this).parents('tr').data('index');
+              console.log(data[index]);
+              return '';
+            }
+          },
           footerFormatter: totalNameFormatter,
           align: 'center'
         },
         {
-          field: 'mobilePhone',
-          title: '电话',
-          sortable: true,
-          editable: true,
+          field: 'email',
+          title: 'email',
+          editable: {
+            type: "email"
+          },
           footerFormatter: totalNameFormatter,
           align: 'center'
         },
         {
           field: 'property',
           title: '客户性质',
-          sortable: true,
-          editable: {type: 'select'},
+          editable: {
+            type: 'select',
+            source: [
+              {value: 1, text: '家庭用户'},
+              {value: 2, text: '单位用户'},
+              {value: 3, text: '代理商'},
+              {value: 4, text: '签约用户'}
+            ]
+          },
+          footerFormatter: totalNameFormatter,
+          align: 'center'
+        },
+        {
+          field: 'companyName',
+          title: '单位名称',
+          editable: true,
+          footerFormatter: totalNameFormatter,
+          align: 'center'
+        },
+        {
+          field: 'companyPhone',
+          title: '单位电话',
+          editable: {
+            validate: function (value) {
+              value = $.trim(value);
+              if (!/^[0-9]*[-,0-9][0-9]*$/.test(value) && value != '') {
+                return '请输入合法的电话';
+              }
+              var data = $table.bootstrapTable('getData'),
+              index = $(this).parents('tr').data('index');
+              console.log(data[index]);
+              return '';
+            }
+          },
           footerFormatter: totalNameFormatter,
           align: 'center'
         },
@@ -57,16 +116,32 @@ function initTable() {
           title: '地址',
           sortable: true,
           align: 'center',
+          editable: true,
+          footerFormatter: totalPriceFormatter
+        },
+        {
+          field: 'zipCode',
+          title: '邮编',
+          sortable: true,
+          align: 'center',
+          editable: true,
+          footerFormatter: totalPriceFormatter
+        },
+        {
+          field: 'citizenId',
+          title: '身份证',
+          sortable: false,
+          align: 'center',
           editable: {
             type: 'text',
-            title: '地址',
+            title: '身份证',
             validate: function (value) {
               value = $.trim(value);
               if (!value) {
                 return 'This field is required';
               }
-              if (!/^\$/.test(value)) {
-                return 'This field needs to start width $.'
+              if (!/^[0-9]{17}([0-9,x])$/.test(value)) {
+                return '请输入合法身份证号';
               }
               var data = $table.bootstrapTable('getData'),
               index = $(this).parents('tr').data('index');
@@ -75,7 +150,8 @@ function initTable() {
             }
           },
           footerFormatter: totalPriceFormatter
-        }, {
+        },
+        {
           field: 'operate',
           title: '操作',
           align: 'center',

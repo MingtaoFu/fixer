@@ -20,6 +20,7 @@ public class CustomerDA extends DABase{
        ResultSet rs = statement.executeQuery(sql);
        while(rs.next()) {
          int id = rs.getInt("cid");
+         String citizenId = rs.getString("id");
          int property = rs.getInt("property");
          String companyName = rs.getString("companyName");
          String companyPhone = rs.getString("tel");
@@ -30,7 +31,7 @@ public class CustomerDA extends DABase{
          String email = rs.getString("email");
 
          Customer customer = new Customer(id, property, companyName, companyPhone,
-         mobilePhone, addr, zipCode, name, email);
+         mobilePhone, addr, zipCode, name, email, citizenId);
          customers.add(customer);
        }
      } catch (SQLException e) {

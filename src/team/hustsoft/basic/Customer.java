@@ -10,14 +10,14 @@ public class Customer{
 	private String mobilePhone;
 	private String addr;
 	private String zipCode;
-	//private String citizenId;
+	private String citizenId;
 	private String name;
 	private String email;
 
 	//setters and getters
 	public Customer(int id, int property, String companyName,
 	 	String companyPhone, String mobilePhone, String addr,
-		String zipCode, String name, String email) {
+		String zipCode, String name, String email, String citizenId) {
 			this.id = id;
 			this.property = property;
 			this.mobilePhone = mobilePhone;
@@ -27,6 +27,7 @@ public class Customer{
 			this.email = email;
 			this.companyPhone = companyPhone;
 			this.companyName = companyName;
+			this.citizenId = citizenId;
  	}
 	public JSONObject toJSON() {
 		JSONObject json = new JSONObject();
