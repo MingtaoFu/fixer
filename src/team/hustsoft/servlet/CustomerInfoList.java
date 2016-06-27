@@ -14,14 +14,22 @@ public class CustomerInfoList extends HttpServlet {
 		response.setContentType("application/json;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		ArrayList<JSONObject> list = new ArrayList<JSONObject>();
+
+		String search = request.getParameter("search");
+		String order = request.getParameter("order");
+		//to get the total num, do not add offset and limit in SQL
+		int offset = Integer.parseInt(request.getParameter("offset"));
+		int limit = Integer.parseInt(request.getParameter("limit"));
+
 		CustomerDA customerDA = new CustomerDA();
-		ArrayList<Customer> customers = customerDA.query();
-		for(int i = 0; i < customers.size(); i++) {
+		ArrayList<Customer> customers = customerDA.query(search, order);
+
+		int count = limit + offset < customers.size() ? limit + offset: customers.size();
+		for(int i = offset; i < count; i++) {
 			list.add(customers.get(i).toJSON());
 		}
 		JSONObject json = new JSONObject();
 		json.put("total", customers.size());
-		System.out.println(customers.size());
 		json.put("rows", list);
 		out.print(json);
 	}

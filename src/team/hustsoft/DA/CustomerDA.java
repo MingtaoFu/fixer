@@ -11,11 +11,24 @@ public class CustomerDA extends DABase{
    * get all
    * @return Customer[]
    */
-   public ArrayList<Customer> query() {
+   public ArrayList<Customer> query(String search, String order) {
      ArrayList<Customer> customers = new ArrayList<Customer>();
      conn = initialize();
 
-     String sql = "select * from Customer";
+     String parttern;
+     if(search == null || search.equals("")) {
+       parttern = "\'%\'";
+     } else {
+       parttern = "%";
+       for (int i = 0; i < search.length(); i++) {
+         parttern += search.charAt(i);
+         parttern += "%";
+       }
+       parttern = "\'" + parttern + "\'";
+     }
+
+     String sql = "select * from Customer where contactPersonName like " +
+      parttern;
      try{
        ResultSet rs = statement.executeQuery(sql);
        while(rs.next()) {
