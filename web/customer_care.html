@@ -5,14 +5,28 @@
     <title>客服操作页面</title>
     <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+    <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
     <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!--
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/locale/bootstrap-table-zh-CN.min.js"></script>
+  -->
   </head>
   <body>
     <div class="container">
       客服操作页面
+      <button id="remove">s</button>
+      <table id="table" data-toolbar="#toolbar" data-search="true"
+        data-show-refresh="true" data-show-toggle="true" data-show-columns="true"
+         data-show-export="true" data-detail-view="true"
+         data-detail-formatter="detailFormatter" data-minimum-count-columns="2"
+         data-show-pagination-switch="true" data-pagination="true"
+         data-id-field="id" data-page-list="[10, 25, 50, 100, ALL]"
+         data-show-footer="false" data-side-pagination="server"
+         data-url="customer_info_list" data-response-handler="responseHandler">
+    </table>
     </div>
+    <script type="text/javascript" src="./static/js/customer_care.js"></script>
   </body>
 </html>

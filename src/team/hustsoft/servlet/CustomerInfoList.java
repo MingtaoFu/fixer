@@ -19,6 +19,9 @@ public class CustomerInfoList extends HttpServlet {
 		for(int i = 0; i < customers.size(); i++) {
 			list.add(customers.get(i).toJSON());
 		}
-		out.print(list);
+		JSONObject json = new JSONObject();
+		json.put("total", 3);
+		json.put("rows", list);
+		out.print(json);
 	}
 }
