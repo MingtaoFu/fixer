@@ -50,7 +50,7 @@ public class CreateTable {
 		PreparedStatement preparedStatement;
 		String sqlArr[] = {
 			"insert into Customer(id,property,companyName,tel,mobilePhone,address,zipCode,contactPersonName,email)"+
-			" values(\'000000199901010101\',\'1\',\'google\',\'027-111111\',\'13222222222\',\'基佬 Road\', \'070000\', \'mingtaoGAY\', \'eeeee@ee.com\');",
+			"values(\'000000199901010101\',\'1\',\'google\',\'027-111111\',\'13222222222\',\'基佬 Road\', \'070000\', \'mingtaoGAY\', \'eeeee@ee.com\');",
 			"insert into Customer(id,property,companyName,tel,mobilePhone,address,zipCode,contactPersonName,email)"+
 			"values(\'370683199601132614\',\'2\',\'ms\',\'027-111111\',\'13222222222\',\'yunyuan\', \'070000\', \'xiuxiu\', \'eeeee@ee.com\');"
 		};
@@ -97,7 +97,7 @@ public class CreateTable {
 				"CREATE TABLE IF NOT EXISTS Customer(									/* 客户*/"+
 					"cid INT(5) NOT NULL AUTO_INCREMENT,"+
 					"id VARCHAR(20) NOT NULL UNIQUE,									/* 身份证号*/"+
-					"property  enum(\"0\",\"1\",\"2\",\"3\"),								/* 客户属性*/"+
+					"property  enum(\"0\",\"1\",\"2\",\"3\") NOT NULL,						/* 客户属性*/"+
 					"companyName VARCHAR(100),										/* 单位名称*/"+
 					"tel VARCHAR(15),														/* 座机*/"+
 					"mobilePhone VARCHAR(15) NOT NULL,								/* 移动电话*/"+
@@ -107,20 +107,13 @@ public class CreateTable {
 					"email VARCHAR(50),													/* 电子邮件*/"+
 					"CONSTRAINT PK_CID PRIMARY KEY(cid))DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;",
 
-				"CREATE TABLE IF NOT EXISTS CallToRepairRecord(						/* 报修记录*/"+
-					"ctrrid INT(5) AUTO_INCREMENT NOT NULL,"+
+				"CREATE TABLE IF NOT EXISTS Device(										/* 送修设备*/"+
+					"did INT(5) AUTO_INCREMENT NOT NULL,"+
 					"cid INT(5)  NOT NULL,													/* 客户id*/"+
 					"ctime TIMESTAMP default CURRENT_TIMESTAMP,						/* 报修时间*/"+
 					"expectedPrice DOUBLE(8,2),											/* 预估价格*/"+
 					"expectedCompletedTime TIMESTAMP,								/* 预估完成时间*/"+
 					"status enum(\"0\",\"1\",\"2\") NOT NULL,								/* 报修状态*/"+
-					"CONSTRAINT PK_CTRRID PRIMARY KEY(ctrrid),"+
-					"CONSTRAINT FK_CID FOREIGN KEY(cid) REFERENCES Customer(cid))"+
-					"DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;",
-
-				"CREATE TABLE IF NOT EXISTS Device(										/* 用户送修设备*/"+
-					"did INT(5) AUTO_INCREMENT NOT NULL,"+
-					"ctrrid INT(5)  NOT NULL,												/* 报修记录id*/"+
 					"deviceType enum(\"0\",\"1\",\"2\",\"3\",\"4\") NOT NULL,				/* 机器类型*/"+
 					"deviceBrand VARCHAR(50),											/* 机器品牌*/"+
 					"deviceModel VARCHAR(50),											/* 机器型号*/"+
@@ -137,14 +130,15 @@ public class CreateTable {
 					"ACAdapter VARCHAR(100),												/* AC 适配器*/"+
 					"battery VARCHAR(100),												/* 电池*/"+
 					"CD_ROM VARCHAR(100),												/* 外置光驱*/"+
+					"floppy VARCHAR(100),													/* 外置软驱*/"+
 					"other VARCHAR(100),													/* 其他*/"+
 					"CONSTRAINT PK_DID PRIMARY KEY(did),"+
-					"CONSTRAINT FK_D_CTRRID FOREIGN KEY(ctrrid) REFERENCES CallToRepairRecord(ctrrid))"+
+					"CONSTRAINT FK_CID FOREIGN KEY(cid) REFERENCES Customer(cid))"+
 					"DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;",
 
 				"CREATE TABLE  IF NOT EXISTS RepairRecord(								/* 维修记录*/"+
 					"rrid INT(5) AUTO_INCREMENT NOT NULL,"+
-					"ctrrid INT(5)  NOT NULL,												/* 报修记录id*/"+
+					"did INT(5)  NOT NULL,													/* 报修记录id*/"+
 					"distributeTime TIMESTAMP,											/* 分配时间*/"+
 					"maintenance VARCHAR(20),											/* 维修人员*/"+
 					"detectionRecord VARCHAR(100),										/* 检测记录(信息)*/"+
@@ -153,9 +147,9 @@ public class CreateTable {
 					"workload VARCHAR(20),												/* 工作量*/"+
 					"requiredPart VARCHAR(50),											/* 维修所使用的器件*/"+
 					"status enum(\"0\",\"1\",\"2\",\"3\") NOT NULL,						/* 维修状态*/"+
-					"delayDegree enum(\"0\",\"1\",\"2\"),									/* 延迟程度*/"+
+					"delayDegree enum(\"0\",\"1\",\"2\"),									/* 延迟程度*/"+	
 					"CONSTRAINT PK_RRID PRIMARY KEY(rrid),"+
-					"CONSTRAINT FK_CTRRID FOREIGN KEY(ctrrid) REFERENCES CallToRepairRecord(ctrrid))"+
+					"CONSTRAINT FK_DID FOREIGN KEY(did) REFERENCES Device(did))"+
 					"DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;",
 
 				"CREATE TABLE IF NOT EXISTS Parts(										/* 备件*/"+
@@ -252,9 +246,9 @@ public class CreateTable {
 				createTables(1);
 				break;
 			case "update":
-				//System.out.println("this command is reserved for future use");
-				initialize();
-				updateTables();
+				System.out.println("老子TM不写了");
+				//initialize();
+				//updateTables();
 				break;
 			case "insert_test_data":
 				initialize();
