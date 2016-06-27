@@ -49,10 +49,10 @@ public class CreateTable {
 	public static void insert_test_data() {
 		PreparedStatement preparedStatement;
 		String sqlArr[] = {
-			"insert into Customer values(null,\'1\',\'google\',\'027-111111\',"+
-			"\'13222222222\',\'Luoyu Road\', \'070000\', \'mingtao\', \'eeeee@ee.com\');",
-			"insert into Customer values(null,\'2\',\'ms\',\'027-111111\',"+
-			"\'13222222222\',\'Mount great gay\', \'070000\', \'xiuxiu\', \'eeeee@ee.com\');"
+			"insert into Customer(id,property,companyName,tel,mobilePhone,address,zipCode,contactPersonName,email)"+
+			" values(\'000000199901010101\',\'1\',\'google\',\'027-111111\',\'13222222222\',\'基佬 Road\', \'070000\', \'mingtaoGAY\', \'eeeee@ee.com\');",
+			"insert into Customer(id,property,companyName,tel,mobilePhone,address,zipCode,contactPersonName,email)"+
+			"values(\'370683199601132614\',\'2\',\'ms\',\'027-111111\',\'13222222222\',\'yunyuan\', \'070000\', \'xiuxiu\', \'eeeee@ee.com\');"
 		};
 		try {
 			for(int i = 0; i < sqlArr.length; i++) {
