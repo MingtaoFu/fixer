@@ -18,4 +18,9 @@ public class CustomerManageService {
      ArrayList<Customer> customers = customerDA.query(search, order);
      return customers;
    }
+
+   public int delete(int id) {
+     CustomerDA customerDA = new CustomerDA();
+     return customerDA.delete(id); 
+   }
 }

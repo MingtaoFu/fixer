@@ -229,9 +229,13 @@ window.operateEvents = {
     alert('You click like action, row: ' + JSON.stringify(row));
   },
   'click .remove': function (e, value, row, index) {
-    $table.bootstrapTable('remove', {
-      field: 'id',
-      values: [row.id]
+    $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
+      if(data.status) {
+        $table.bootstrapTable('remove', {
+          field: 'id',
+          values: [row.id]
+        });
+      }
     });
   }
 };

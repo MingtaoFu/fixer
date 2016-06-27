@@ -133,21 +133,14 @@
 		</servlet-mapping>
 
     <servlet>
-			<servlet-name>customer_info_list</servlet-name>
-			<servlet-class>team.hustsoft.servlet.CustomerInfoList</servlet-class>
+			<servlet-name>customer_manage</servlet-name>
+			<servlet-class>team.hustsoft.servlet.CustomerManage</servlet-class>
 		</servlet>
 		<servlet-mapping>
-			<servlet-name>customer_info_list</servlet-name>
-			<url-pattern>/customer_info_list</url-pattern>
+			<servlet-name>customer_manage</servlet-name>
+			<url-pattern>/customer_manage</url-pattern>
 		</servlet-mapping>
-        <servlet>
-      <servlet-name>customer_modify</servlet-name>
-      <servlet-class>team.hustsoft.servlet.CustomerModify</servlet-class>
-    </servlet>
-    <servlet-mapping>
-      <servlet-name>customer_modify</servlet-name>
-      <url-pattern>/customer_modify</url-pattern>
-    </servlet-mapping>
+
 
 
 

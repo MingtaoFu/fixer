@@ -8,7 +8,7 @@ import org.json.simple.JSONObject;
 import team.hustsoft.PD.CustomerManageService;
 import team.hustsoft.basic.Customer;
 
-public class CustomerInfoList extends HttpServlet {
+public class CustomerManage extends HttpServlet {
 	public void doGet(HttpServletRequest request,
 	HttpServletResponse response) throws ServletException, IOException{
 		response.setContentType("application/json;charset=utf-8");
@@ -31,5 +31,42 @@ public class CustomerInfoList extends HttpServlet {
 		json.put("total", customers.size());
 		json.put("rows", list);
 		out.print(json);
+	}
+
+	public void doPost(HttpServletRequest request,
+	HttpServletResponse response) throws ServletException, IOException{
+		response.setContentType("application/json;charset=utf-8");
+		PrintWriter out = response.getWriter();
+
+		String operation = request.getParameter("op");
+		JSONObject json = new JSONObject();
+		switch (operation) {
+			case "delete":
+				int id = Integer.parseInt(request.getParameter("id"));
+		 		int value = CustomerManageService.getInstance().delete(id);
+				switch (value) {
+					case 1:
+						json.put("status", true);
+						break;
+					case -1:
+						json.put("status", false);
+						json.put("error", "找不到用户");
+						break;
+					case -2:
+						json.put("status", false);
+						json.put("error", "服务器错误");
+						break;
+					default:
+						json.put("status", false);
+						json.put("error", "未知错误，请联系管理员");
+				}
+				out.print(json);
+				break;
+			case "update":
+				break;
+			case "add":
+				break;
+				default:
+		}
 	}
 }
