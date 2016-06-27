@@ -29,6 +29,95 @@ public class Customer{
 			this.companyName = companyName;
 			this.citizenId = citizenId;
  	}
+
+
+ 	public int getId(){
+ 	    return this.id;
+ 	}		
+ 	
+ 	public void setId(int id){
+ 	    this.id = id;
+ 	}		
+
+
+ 	public int getProperty(){
+ 	    return this.property;
+ 	}
+ 	
+ 	public void setProperty(int property){
+ 	    this.property = property;
+ 	}
+
+
+ 	public String getCompanyName(){
+ 	    return this.companyName;
+ 	}
+ 	
+ 	public void setCompanyName(String companyName){
+ 	    this.companyName = companyName;
+ 	}
+ 	
+
+ 	public String getCompanyPhone(){
+ 	    return this.companyPhone;
+ 	}
+ 	
+ 	public void setCompanyPhone(String companyPhone){
+ 	    this.companyPhone = companyPhone;
+ 	}
+ 	
+
+ 	public String getCitizenId(){
+ 	    return this.citizenId;
+ 	}
+ 	
+ 	public void setCitizenId(String citizenId){
+ 	    this.citizenId = citizenId;
+ 	}
+ 	
+
+
+	public String getMobilePhone(){
+	    return this.mobilePhone;
+	}
+
+	public void setMobilePhone(String mobilePhone){
+	    this.mobilePhone = mobilePhone;
+	}
+
+
+	public String getAddr(){
+	    return this.addr;
+	}
+	
+	public void setAddr(String addr){
+	    this.addr = addr;
+	}
+	
+	public String getZipCode(){
+	    return this.zipCode;
+	}
+	
+	public void setZipCode(String zipCode){
+	    this.zipCode = zipCode;
+	}
+	
+	public String getName(){
+	    return this.name;
+	}
+	
+	public void setName(String name){
+	    this.name = name;
+	}
+	
+	public String getEmail(){
+	    return this.email;
+	}
+	
+	public void setEmail(String email){
+	    this.email = email;
+	}
+	
 	public JSONObject toJSON() {
 		JSONObject json = new JSONObject();
 		Class cls = this.getClass();
