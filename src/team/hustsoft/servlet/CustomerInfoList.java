@@ -11,7 +11,7 @@ import team.hustsoft.basic.Customer;
 public class CustomerInfoList extends HttpServlet {
 	public void doGet(HttpServletRequest request,
 	HttpServletResponse response) throws ServletException, IOException{
-		response.setContentType("application/json");
+		response.setContentType("application/json;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		ArrayList<JSONObject> list = new ArrayList<JSONObject>();
 		CustomerDA customerDA = new CustomerDA();
