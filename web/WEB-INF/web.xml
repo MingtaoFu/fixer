@@ -140,6 +140,14 @@
 			<servlet-name>customer_info_list</servlet-name>
 			<url-pattern>/customer_info_list</url-pattern>
 		</servlet-mapping>
+        <servlet>
+      <servlet-name>customer_modify</servlet-name>
+      <servlet-class>team.hustsoft.servlet.CustomerModify</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>customer_modify</servlet-name>
+      <url-pattern>/customer_modify</url-pattern>
+    </servlet-mapping>
 
 
 
