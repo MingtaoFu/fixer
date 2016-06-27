@@ -16,17 +16,12 @@ function initTable() {
         }, {
           title: 'ID',
           field: 'id',
-          rowspan: 1,
           align: 'center',
-          valign: 'middle',
-          sortable: true,
-          footerFormatter: totalTextFormatter
         },
         {
           field: 'name',
           title: '客户姓名',
           editable: true,
-          footerFormatter: totalNameFormatter,
           align: 'center',
           editable: {
             validate: function (value) {
@@ -59,16 +54,23 @@ function initTable() {
               return '';
             }
           },
-          footerFormatter: totalNameFormatter,
           align: 'center'
         },
         {
           field: 'email',
           title: 'email',
           editable: {
-            type: "email"
+            validate: function (value) {
+              value = $.trim(value);
+              if (!/^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/.test(value) && value != '') {
+                return '请输入合法email';
+              }
+              var data = $table.bootstrapTable('getData'),
+              index = $(this).parents('tr').data('index');
+              console.log(data[index]);
+              return '';
+            }
           },
-          footerFormatter: totalNameFormatter,
           align: 'center'
         },
         {
@@ -83,14 +85,12 @@ function initTable() {
               {value: 4, text: '签约用户'}
             ]
           },
-          footerFormatter: totalNameFormatter,
           align: 'center'
         },
         {
           field: 'companyName',
           title: '单位名称',
           editable: true,
-          footerFormatter: totalNameFormatter,
           align: 'center'
         },
         {
@@ -108,29 +108,23 @@ function initTable() {
               return '';
             }
           },
-          footerFormatter: totalNameFormatter,
           align: 'center'
         },
         {
           field: 'addr',
           title: '地址',
-          sortable: true,
           align: 'center',
           editable: true,
-          footerFormatter: totalPriceFormatter
         },
         {
           field: 'zipCode',
           title: '邮编',
-          sortable: true,
           align: 'center',
           editable: true,
-          footerFormatter: totalPriceFormatter
         },
         {
           field: 'citizenId',
           title: '身份证',
-          sortable: false,
           align: 'center',
           editable: {
             type: 'text',
@@ -149,7 +143,6 @@ function initTable() {
               return '';
             }
           },
-          footerFormatter: totalPriceFormatter
         },
         {
           field: 'operate',
@@ -260,7 +253,7 @@ function totalPriceFormatter(data) {
 }
 
 function getHeight() {
-  return $(window).height() - $('h1').outerHeight(true);
+  return $(window).height() - $('h1').outerHeight(true) - $('.navbar').outerHeight(true);
 }
 
 $(function () {
