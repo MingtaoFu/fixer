@@ -11,6 +11,7 @@ enum STATUS{
 };
 
 public class Parts{
+    private int pid;
 	private String partName;
 	private double price;
 	private String modelNumber;
@@ -26,6 +27,61 @@ public class Parts{
 		this.waringQuantity = waringQuantity;
 		this.inTime = new Timestamp(System.currentTimeMillis());
   }
+  public int getPid() {
+    return pid;
+  }
+
+  public void setPid(int pid) {
+    this.pid = pid;
+  }
+
+  public String getPartName() {
+    return partName;
+  }
+
+  public void setPartName(String partName) {
+    this.partName = partName;
+  }
+
+  public double getPrice() {
+    return price;
+  }
+
+  public void setPrice(double price) {
+    this.price = price;
+  }
+
+  public String getModelNumber() {
+    return modelNumber;
+  }
+
+  public void setModelNumber(String modelNumber) {
+    this.modelNumber = modelNumber;
+  }
+
+  public int getQuantity() {
+    return quantity;
+  }
+
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
+
+  public Timestamp getInTime() {
+    return inTime;
+  }
+
+  public void setInTime(Timestamp inTime) {
+    this.inTime = inTime;
+  }
+
+  public int getWaringQuantity() {
+    return waringQuantity;
+  }
+
+  public void setWaringQuantity(int waringQuantity) {
+    this.waringQuantity = waringQuantity;
+  }
   public int getStatus(){
     return this.status.ordinal();
   }
@@ -40,7 +96,4 @@ public class Parts{
       else
         this.status = STATUS.LACK;
   }
-  public Timestamp getInTime(){
-    return this.inTime;
-  } 
 }
