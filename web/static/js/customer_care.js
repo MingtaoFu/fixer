@@ -262,10 +262,9 @@ function getHeight() {
 
 $(function () {
   var scripts = [
-    'http://issues.wenzhixin.net.cn/bootstrap-table/assets/bootstrap-table/src/bootstrap-table.js',
-    'http://issues.wenzhixin.net.cn/bootstrap-table/assets/bootstrap-table/src/extensions/export/bootstrap-table-export.js',
+    './static/js/bootstrap-table.js',
     'http://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js',
-    'http://issues.wenzhixin.net.cn/bootstrap-table/assets/bootstrap-table/src/extensions/editable/bootstrap-table-editable.js',
+    './static/js/bootstrap-table-editable.js',
     'http://rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/js/bootstrap-editable.js'
   ],
   eachSeries = function (arr, iterator, callback) {
@@ -321,3 +320,16 @@ function getScript(url, callback) {
     // We handle everything using the script element injection
     return undefined;
   }
+
+$('#add_submit').click(function() {
+  $('#add_form').submit();
+});
+
+$('#add_form').on('submit', function(e) {
+  e.preventDefault();
+  var data = $(e.target).serialize();
+  data += "&op=add";
+  $.post('customer_manage', data, function(data) {
+    console.log(data);
+  });
+})
