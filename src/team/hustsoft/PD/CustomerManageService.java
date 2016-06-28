@@ -26,6 +26,11 @@ public class CustomerManageService {
 
    public int insert(Customer customer) {
      CustomerDA customerDA = new CustomerDA();
-     return customerDA.insert(customer); 
+     return customerDA.insert(customer);
+   }
+
+   public int update(Customer customer) {
+     CustomerDA customerDA = new CustomerDA();
+     return customerDA.update(customer); 
    }
 }
