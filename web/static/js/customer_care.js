@@ -120,7 +120,18 @@ function initTable() {
           field: 'zipCode',
           title: '邮编',
           align: 'center',
-          editable: true,
+          editable: {
+            validate: function (value) {
+              value = $.trim(value);
+              if (!/^[0-9]{6}$/.test(value) && value != '') {
+                return '请输入合法的邮编';
+              }
+              var data = $table.bootstrapTable('getData'),
+              index = $(this).parents('tr').data('index');
+              console.log(data[index]);
+              return '';
+            }
+          }
         },
         {
           field: 'citizenId',
@@ -227,23 +238,50 @@ function operateFormatter(value, row, index) {
   ].join('');
 }
 
+var func_confirm = function() {};
+
 window.operateEvents = {
   'click .like': function (e, value, row, index) {
-    console.log(row)
     row.op = "update";
-    $.post('customer_manage', row, function(data) {
-      console.log(data);
-    });
+    $('#confirm_modal').modal('show');
+    func_confirm = function() {
+      $.post('customer_manage', row, function(data) {
+        console.log(data);
+        if(data.status) {
+          $('#confirm_modal').modal('hide');
+          $('#confirm_modal').find('.alert-field').html("");
+        } else {
+          var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
+          '<button type="button" class="close" data-dismiss="alert" '+
+          'aria-label="Close"><span aria-hidden="true">×</span></button><p>'+
+          data.error +
+          '</p></div>';
+          $('#confirm_modal').find('.alert-field').html(html);
+        }
+      });
+    }
   },
   'click .remove': function (e, value, row, index) {
-    $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
-      if(data.status) {
-        $table.bootstrapTable('remove', {
-          field: 'id',
-          values: [row.id]
-        });
-      }
-    });
+    $('#confirm_modal').modal('show');
+    func_confirm = function() {
+      $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
+        if(data.status) {
+          $table.bootstrapTable('remove', {
+            field: 'id',
+            values: [row.id]
+          });
+          $('#confirm_modal').find('.alert-field').html("");
+          $('#confirm_modal').modal('hide');
+        } else {
+          var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
+          '<button type="button" class="close" data-dismiss="alert" '+
+          'aria-label="Close"><span aria-hidden="true">×</span></button><p>'+
+          data.error +
+          '</p></div>';
+          $('#confirm_modal').find('.alert-field').html(html);
+        }
+      });
+    }
   }
 };
 
@@ -331,12 +369,96 @@ function getScript(url, callback) {
 $('#add_submit').click(function() {
   $('#add_form').submit();
 });
-
 $('#add_form').on('submit', function(e) {
   e.preventDefault();
+  var isValidForm = $('#add_form').data('formValidation').isValid();
+  if(!isValidForm) {
+    return;
+  }
   var data = $(e.target).serialize();
   data += "&op=add";
   $.post('customer_manage', data, function(data) {
-    console.log(data);
+    if(!data.status) {
+      var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
+        '<button type="button" class="close" data-dismiss="alert" '+
+        'aria-label="Close"><span aria-hidden="true">×</span></button><p>'+
+        data.error +
+        '</p></div>';
+      $('#add_form_modal').html(html);
+    } else {
+      $('#myModal').modal('hide')
+    }
   });
 })
+
+$(function() {
+  $('#add_form').formValidation({
+    framework: 'bootstrap',
+    message: '输入不合法',
+    icon: {
+      valid: 'glyphicon glyphicon-ok',
+      invalid: 'glyphicon glyphicon-remove',
+      validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {
+      customer_name: {
+        row: '.controls',
+        validators: {
+          notEmpty: {
+            message: '客户名是必填的'
+          }
+        }
+      },
+      mobile_phone: {
+        row: '.controls',
+        validators: {
+          notEmpty: {
+            message: '手机是必填的'
+          },
+          regexp: {
+            regexp: /^1[0-9]{10}$/,
+            message: '手机不合法'
+          }
+        }
+      },
+      citizen_id: {
+        row: '.controls',
+        validators: {
+          notEmpty: {
+            message: '身份证号是必填的'
+          },
+          regexp: {
+            regexp: /^[0-9]{17}([0-9,x])$/,
+            message: '身份证号不合法'
+          }
+        }
+      },
+      company_phone: {
+        row: '.controls',
+        validators: {
+          regexp: {
+            regexp: /^[0-9]*[-,0-9][0-9]*$/,
+            message: '单位电话不合法'
+          }
+        }
+      },
+      zip_code: {
+        row: '.controls',
+        validators: {
+          regexp: {
+            regexp: /^[0-9]{6}$/,
+            message: '邮编不合法'
+          }
+        }
+      },
+      email: {
+        row: '.controls',
+        validators: {
+          emailAddress: {
+            message: '请输入有效的电子邮件地址'
+          }
+        }
+      }
+    }
+  });
+});
