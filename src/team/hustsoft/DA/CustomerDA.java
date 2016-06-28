@@ -90,42 +90,42 @@ public class CustomerDA extends DABase{
        return customer;
   }
 
-  public static int insert(Customer customer){
-      if (customer == null) {
+  public int insert(Customer customer){
+    if (customer == null) {
+      return -1;
+    }
+    String sql0 = "SELECT * FROM Customer where id=\'"+customer.getCitizenId()+"\';";
+    conn = initialize();
+    ResultSet rs  =null;
+    try{
+      rs=statement.executeQuery(sql0);
+      if(rs.next()){
+        terminate();
         return -1;
       }
-      String sql0 = "SELECT * FROM Customer where id=\'"+customer.getCitizenId()+"\';";
-      conn = initialize();
-      ResultSet rs  =null;
-      try{
-        rs=statement.executeQuery(sql0);
-        if(rs.next()){
-          terminate();
-          return -1;
-        }
-      }
-      catch(SQLException e){
-               System.out.println(e);//?
-               return -2;
-      }
+    }
+    catch(SQLException e){
+      System.out.println(e);//?
+      return -2;
+    }
 
 
-      String sql = "INSERT INTO Customer(id,property,companyName,tel,mobilePhone,address,zipCode,contactPersonName,email)"+
-        "VALUES(\'"+customer.getCitizenId()+"\',\'"+customer.getProperty()+"\',\'"+
-        customer.getCompanyName()+"\',\'"+customer.getCompanyPhone()+"\',\'"+customer.getMobilePhone()+"\',\'"+
-        customer.getAddr()+"\',\'"+customer.getZipCode()+"\',\'"+customer.getName()+"\',\'"+customer.getEmail()+"\');";
+    String sql = "INSERT INTO Customer(id,property,companyName,tel,mobilePhone,address,zipCode,contactPersonName,email)"+
+    "VALUES(\'"+customer.getCitizenId()+"\',\'"+customer.getProperty()+"\',\'"+
+    customer.getCompanyName()+"\',\'"+customer.getCompanyPhone()+"\',\'"+customer.getMobilePhone()+"\',\'"+
+    customer.getAddr()+"\',\'"+customer.getZipCode()+"\',\'"+customer.getName()+"\',\'"+customer.getEmail()+"\');";
 
-      try{
-        statement.executeUpdate(sql);
-      }
-      catch(SQLException e){
-               System.out.println(e);//?
-              return -2;
-      }
-      finally{
-          terminate();
-      }
-      return 1;
+    try{
+      statement.executeUpdate(sql);
+    }
+    catch(SQLException e){
+      System.out.println(e);//?
+      return -2;
+    }
+    finally{
+      terminate();
+    }
+    return 1;
   }
 
   public static int update(Customer customer) {

@@ -50,11 +50,9 @@ public class CreateTable {
 		PreparedStatement preparedStatement;
 		String sqlArr[] = {
 			"insert into Customer(id,property,companyName,tel,mobilePhone,address,zipCode,contactPersonName,email)"+
-			" values(\'000000199901010101\',\'1\',null,\'027-111111\',\'13222222222\',\'基佬 Road\', \'070000\', \'mingtaoGAY\', \'eeeee@ee.com\');",
+			"values(\'000000199901010101\',\'1\',\'google\',\'027-111111\',\'13222222222\',\'基佬 Road\', \'070000\', \'mingtaoGAY\', \'eeeee@ee.com\');",
 			"insert into Customer(id,property,companyName,tel,mobilePhone,address,zipCode,contactPersonName,email)"+
-			"values(\'370683199601132614\',\'2\',\'ms\',\'027-111111\',\'13222222222\',\'yunyuan\', \'070000\', \'xiuxiu\', \'eeeee@ee.com\');",
-            "insert into Customer(id,property,companyName,tel,mobilePhone,address,zipCode,contactPersonName,email)"+
-			"values(\'370683199601132611\',\'2\',\'ms\',\'027-111111\',\'13222222222\',\'yunyuan\', \'070000\', \'xiuxiu2\', \'eeeee@ee.com\');"
+			"values(\'370683199601132614\',\'2\',\'ms\',\'027-111111\',\'13222222222\',\'yunyuan\', \'070000\', \'xiuxiu\', \'eeeee@ee.com\');"
 		};
 		try {
 			for(int i = 0; i < sqlArr.length; i++) {
@@ -113,7 +111,7 @@ public class CreateTable {
 					"did INT(5) AUTO_INCREMENT NOT NULL,"+
 					"cid INT(5)  NOT NULL,													/* 客户id*/"+
 					"ctime TIMESTAMP default CURRENT_TIMESTAMP,						/* 报修时间*/"+
-					"expectedPrice DOUBLE(8,2),											/* 预估价格*/"+
+					"expectedPrice DECIMAL(8,2),											/* 预估价格*/"+
 					"expectedCompletedTime TIMESTAMP,								/* 预估完成时间*/"+
 					"status enum(\"0\",\"1\",\"2\") NOT NULL,								/* 报修状态*/"+
 					"deviceType enum(\"0\",\"1\",\"2\",\"3\",\"4\") NOT NULL,				/* 机器类型*/"+
@@ -149,7 +147,7 @@ public class CreateTable {
 					"workload VARCHAR(20),												/* 工作量*/"+
 					"requiredPart VARCHAR(50),											/* 维修所使用的器件*/"+
 					"status enum(\"0\",\"1\",\"2\",\"3\") NOT NULL,						/* 维修状态*/"+
-					"delayDegree enum(\"0\",\"1\",\"2\"),									/* 延迟程度*/"+
+					"delayDegree enum(\"0\",\"1\",\"2\"),									/* 延迟程度*/"+	
 					"CONSTRAINT PK_RRID PRIMARY KEY(rrid),"+
 					"CONSTRAINT FK_DID FOREIGN KEY(did) REFERENCES Device(did))"+
 					"DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;",
@@ -157,7 +155,7 @@ public class CreateTable {
 				"CREATE TABLE IF NOT EXISTS Parts(										/* 备件*/"+
 					"pid INT(5) AUTO_INCREMENT NOT NULL,"+
 					"partName VARCHAR(50) NOT NULL,									/* 备件名称?*/"+
-					"price DOUBLE(8,2),													/* 单价//*/"+
+					"price DECIMAL(8,2),													/* 单价//*/"+
 					"modelNumber VARCHAR(50),											/* 型号?*/"+
 					"quantity INT(8) NOT NULL,											/* 数量?*/"+
 					"inTime TIMESTAMP,													/* 入库时间*/"+
@@ -175,7 +173,7 @@ public class CreateTable {
 					"rrid INT(5)  NOT NULL,												/* 维修记录*/"+
 					"pid INT(5)  NOT NULL,													/* 备件号*/"+
 					"partName VARCHAR(50) NOT NULL,									/* 备件名称?*/"+
-					"price DOUBLE(8,2),													/* 单价//*/"+
+					"price DECIMAL(8,2),													/* 单价//*/"+
 					"modelNumber VARCHAR(50),											/* 型号?*/"+
 					"quantity INT(8) NOT NULL,											/* 数量?*/"+
 					"outTime TIMESTAMP,													/* 出库时间*/"+
@@ -187,8 +185,8 @@ public class CreateTable {
 				"CREATE TABLE IF NOT EXISTS Settlement(									/* 结算*/"+
 					"sid INT(5) AUTO_INCREMENT NOT NULL,"+
 					"rrid INT(5)  NOT NULL,												/* 维修记录*/"+
-					"laborCosts DOUBLE(8,2) NOT NULL,	 								/* 人工费*/"+
-					"materialsCosts DOUBLE(8,2) NOT NULL,								/* 材料费*/"+
+					"laborCosts DECIMAL(8,2) NOT NULL,	 								/* 人工费*/"+
+					"materialsCosts DECIMAL(8,2) NOT NULL,								/* 材料费*/"+
 					"warrantyPromise VARCHAR(100),										/* 报修承诺*/"+
 					"notice VARCHAR(100),													/* 注意事项*/"+
 					"settlementTime TIMESTAMP,											/* 结算日期*/"+

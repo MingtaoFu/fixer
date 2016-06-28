@@ -215,8 +215,11 @@ function detailFormatter(index, row) {
 
 function operateFormatter(value, row, index) {
   return [
-    '<a class="like" href="javascript:void(0)" title="Like">',
-    '<i class="glyphicon glyphicon-heart"></i>',
+    '<a class="like" href="javascript:void(0)" title="save">',
+      '<i class="glyphicon glyphicon-ok"></i>',
+    '</a>  ',
+    '<a class="like" href="javascript:void(0)" title="repair">',
+      '<i class="glyphicon glyphicon-wrench"></i>',
     '</a>  ',
     '<a class="remove" href="javascript:void(0)" title="Remove">',
     '<i class="glyphicon glyphicon-remove"></i>',
@@ -226,7 +229,11 @@ function operateFormatter(value, row, index) {
 
 window.operateEvents = {
   'click .like': function (e, value, row, index) {
-    alert('You click like action, row: ' + JSON.stringify(row));
+    console.log(row)
+    row.op = "update";
+    $.post('customer_manage', row, function(data) {
+      console.log(data);
+    });
   },
   'click .remove': function (e, value, row, index) {
     $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
@@ -262,10 +269,9 @@ function getHeight() {
 
 $(function () {
   var scripts = [
-    'http://issues.wenzhixin.net.cn/bootstrap-table/assets/bootstrap-table/src/bootstrap-table.js',
-    'http://issues.wenzhixin.net.cn/bootstrap-table/assets/bootstrap-table/src/extensions/export/bootstrap-table-export.js',
+    './static/js/bootstrap-table.js',
     'http://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js',
-    'http://issues.wenzhixin.net.cn/bootstrap-table/assets/bootstrap-table/src/extensions/editable/bootstrap-table-editable.js',
+    './static/js/bootstrap-table-editable.js',
     'http://rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/js/bootstrap-editable.js'
   ],
   eachSeries = function (arr, iterator, callback) {
@@ -321,3 +327,16 @@ function getScript(url, callback) {
     // We handle everything using the script element injection
     return undefined;
   }
+
+$('#add_submit').click(function() {
+  $('#add_form').submit();
+});
+
+$('#add_form').on('submit', function(e) {
+  e.preventDefault();
+  var data = $(e.target).serialize();
+  data += "&op=add";
+  $.post('customer_manage', data, function(data) {
+    console.log(data);
+  });
+})

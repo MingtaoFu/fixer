@@ -40,10 +40,15 @@ public class CustomerManage extends HttpServlet {
 
 		String operation = request.getParameter("op");
 		JSONObject json = new JSONObject();
+		int value;
+		Customer customer;
+		String customer_name, company_name, company_phone, mobile_phone,
+			email, address, zip_code, citizen_id;
+		int id, property;
 		switch (operation) {
 			case "delete":
-				int id = Integer.parseInt(request.getParameter("id"));
-		 		int value = CustomerManageService.getInstance().delete(id);
+				id = Integer.parseInt(request.getParameter("id"));
+		 		value = CustomerManageService.getInstance().delete(id);
 				switch (value) {
 					case 1:
 						json.put("status", true);
@@ -63,8 +68,69 @@ public class CustomerManage extends HttpServlet {
 				out.print(json);
 				break;
 			case "update":
+				customer_name = request.getParameter("name");
+				mobile_phone = request.getParameter("mobilePhone");
+				email = request.getParameter("email");
+				property = Integer.parseInt(request.getParameter("property"));
+				citizen_id = request.getParameter("citizenId");
+				company_name = request.getParameter("companyName");
+				company_phone = request.getParameter("companyPhone");
+				address = request.getParameter("addr");
+				zip_code = request.getParameter("zipCode");
+				id = Integer.parseInt(request.getParameter("id"));
+				customer = new Customer(id, property, company_name,
+					company_phone, mobile_phone, address, zip_code, customer_name,
+					email, citizen_id);
+				value = CustomerManageService.getInstance().update(customer);
+				switch (value) {
+					case 1:
+						json.put("status", true);
+						break;
+					case -1:
+						json.put("status", false);
+						json.put("error", "无此id");
+						break;
+					case -2:
+						json.put("status", false);
+						json.put("error", "服务器错误");
+						break;
+					default:
+						json.put("status", false);
+						json.put("error", "未知错误，请联系管理员");
+				}
+				out.print(json);
 				break;
 			case "add":
+				customer_name = request.getParameter("customer_name");
+				mobile_phone = request.getParameter("mobile_phone");
+				email = request.getParameter("email");
+				property = Integer.parseInt(request.getParameter("property"));
+				citizen_id = request.getParameter("citizen_id");
+				company_name = request.getParameter("company_name");
+				company_phone = request.getParameter("company_phone");
+				address = request.getParameter("address");
+				zip_code = request.getParameter("zip_code");
+				customer = new Customer(0, property, company_name,
+					company_phone, mobile_phone, address, zip_code, customer_name,
+					email, citizen_id);
+		 		value = CustomerManageService.getInstance().insert(customer);
+				switch (value) {
+					case 1:
+						json.put("status", true);
+						break;
+					case -1:
+						json.put("status", false);
+						json.put("error", "身份证重复");
+						break;
+					case -2:
+						json.put("status", false);
+						json.put("error", "服务器错误");
+						break;
+					default:
+						json.put("status", false);
+						json.put("error", "未知错误，请联系管理员");
+				}
+				out.print(json);
 				break;
 				default:
 		}

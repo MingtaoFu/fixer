@@ -21,6 +21,16 @@ public class CustomerManageService {
 
    public int delete(int id) {
      CustomerDA customerDA = new CustomerDA();
-     return customerDA.delete(id); 
+     return customerDA.delete(id);
+   }
+
+   public int insert(Customer customer) {
+     CustomerDA customerDA = new CustomerDA();
+     return customerDA.insert(customer);
+   }
+
+   public int update(Customer customer) {
+     CustomerDA customerDA = new CustomerDA();
+     return customerDA.update(customer); 
    }
 }
