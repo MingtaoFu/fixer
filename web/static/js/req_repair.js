@@ -37,116 +37,89 @@ function initTable() {
           }
         },
         {
-          field: 'mobilePhone',
-          title: '手机',
+          field: 'ctime',
+          title: '报修时间',
           editable: {
-            validate: function (value) {
-              value = $.trim(value);
-              if (!value) {
-                return 'This field is required';
-              }
-              if (!/^1[0-9]{10}$/.test(value)) {
-                return '请输入合法的手机';
-              }
-              var data = $table.bootstrapTable('getData'),
-              index = $(this).parents('tr').data('index');
-              console.log(data[index]);
-              return '';
-            }
+            type: 'datetime'
           },
           align: 'center'
         },
         {
-          field: 'email',
-          title: 'email',
+          field: 'expectedPrice',
+          title: '预估价格',
           editable: {
-            validate: function (value) {
-              value = $.trim(value);
-              if (!/^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/.test(value) && value != '') {
-                return '请输入合法email';
-              }
-              var data = $table.bootstrapTable('getData'),
-              index = $(this).parents('tr').data('index');
-              console.log(data[index]);
-              return '';
-            }
+            type: 'number'
           },
           align: 'center'
         },
         {
-          field: 'property',
-          title: '客户性质',
+          field: 'expectedCompletedTime',
+          title: '预估完成时间',
+          editable: {
+            type: 'datetime',
+          },
+          align: 'center'
+        },
+        {
+          field: 'status',
+          title: '状态',
           editable: {
             type: 'select',
             source: [
-              {value: 0, text: '家庭用户'},
-              {value: 1, text: '单位用户'},
-              {value: 2, text: '代理商'},
-              {value: 3, text: '签约用户'}
+              {value: 0, text: '进行中'},
+              {value: 1, text: '结束'},
+              {value: 2, text: '撤销'},
             ]
           },
           align: 'center'
         },
         {
-          field: 'companyName',
-          title: '单位名称',
-          editable: true,
-          align: 'center'
-        },
-        {
-          field: 'companyPhone',
-          title: '单位电话',
+          field: 'deviceType',
+          title: '设备类型',
           editable: {
-            validate: function (value) {
-              value = $.trim(value);
-              if (!/^[0-9]*[-,0-9][0-9]*$/.test(value) && value != '') {
-                return '请输入合法的电话';
-              }
-              var data = $table.bootstrapTable('getData'),
-              index = $(this).parents('tr').data('index');
-              console.log(data[index]);
-              return '';
-            }
+            type: 'select',
+            source: [
+              {value: 0, text: '台式机'},
+              {value: 1, text: '笔记本'},
+              {value: 2, text: '投影仪'},
+              {value: 3, text: '打印机'},
+              {value: 4, text: '其他'},
+            ]
           },
           align: 'center'
         },
         {
-          field: 'addr',
-          title: '地址',
-          align: 'center',
+          field: 'deviceBrand',
+          title: '机器品牌',
           editable: true,
+          align: 'center'
         },
         {
-          field: 'zipCode',
-          title: '邮编',
-          align: 'center',
-          editable: {
-            validate: function (value) {
-              value = $.trim(value);
-              if (!/^[0-9]{6}$/.test(value) && value != '') {
-                return '请输入合法的邮编';
-              }
-              var data = $table.bootstrapTable('getData'),
-              index = $(this).parents('tr').data('index');
-              console.log(data[index]);
-              return '';
-            }
-          }
+          field: 'deviceModel',
+          title: '机器型号',
+          editable: true,
+          align: 'center'
         },
         {
-          field: 'citizenId',
-          title: '身份证',
-          align: 'center',
+          field: 'deviceSerialNum',
+          title: '系列号',
+          editable: true,
+          align: 'center'
+        },
+        {
+          field: 'lackPart',
+          title: '缺少零件',
+          editable: true,
+          align: 'center'
+        },
+        {
+          field: 'breakdownAppearance',
+          title: '机器故障现象',
           editable: {
-            type: 'text',
-            title: '身份证',
             validate: function (value) {
               value = $.trim(value);
               if (!value) {
-                return 'This field is required';
-              }
-              if (!/^[0-9]{17}([0-9,x])$/.test(value)) {
-                return '请输入合法身份证号';
+                return '故障现象为必填';
               }
               var data = $table.bootstrapTable('getData'),
               index = $(this).parents('tr').data('index');
@@ -154,6 +127,85 @@ function initTable() {
               return '';
             }
           },
+          align: 'center'
+        },
+        {
+          field: 'breakdownType',
+          title: '故障类型',
+          editable: {
+            type: 'select',
+            source: [
+              {value: 0, text: '固定性'},
+              {value: 1, text: '间隙性'},
+            ]
+          },
+          align: 'center'
+        },
+        {
+          field: 'appearanceCheck',
+          title: '机器外观检查',
+          editable: true,
+          align: 'center'
+        },
+        {
+          field: 'startingUpCommand',
+          title: '开机口令',
+          editable: true,
+          align: 'center'
+        },
+        {
+          field: 'significantMaterial',
+          title: '重要资料',
+          editable: true,
+          align: 'center'
+        },
+        {
+          field: 'HDD',
+          title: 'HDD',
+          editable: true,
+          align: 'center'
+        },
+        {
+          field: 'RAM',
+          title: '内存',
+          editable: true,
+          align: 'center'
+        },
+        {
+          field: 'PCCard',
+          title: '外置PC卡',
+          editable: true,
+          align: 'center'
+        },
+        {
+          field: 'ACAdapter',
+          title: 'AC适配器',
+          editable: true,
+          align: 'center'
+        },
+        {
+          field: 'battery',
+          title: '电池',
+          editable: true,
+          align: 'center'
+        },
+        {
+          field: 'CD_ROM',
+          title: '光驱',
+          editable: true,
+          align: 'center'
+        },
+        {
+          field: 'floppy',
+          title: '软驱',
+          editable: true,
+          align: 'center'
+        },
+        {
+          field: 'other',
+          title: '其他',
+          editable: true,
+          align: 'center'
         },
         {
           field: 'operate',
@@ -226,8 +278,10 @@ function detailFormatter(index, row) {
 
 function operateFormatter(value, row, index) {
   return [
-    '<a class="like" href="javascript:void(0)" title="save">',
-      '<i class="glyphicon glyphicon-ok"></i>',
+    '<a class="print" href="javascript:void(0)" title="print">',
+      '<i class="glyphicon glyphicon-print"></i>',
+    '</a>  ',
+    '<a class="like" href="javascript:void(0)" title="save">', '<i class="glyphicon glyphicon-ok"></i>',
     '</a>  ',
     '<a class="like" href="javascript:void(0)" title="repair">',
       '<i class="glyphicon glyphicon-wrench"></i>',
@@ -260,6 +314,9 @@ window.operateEvents = {
         }
       });
     }
+  },
+  'click .print': function (e, value, row, index) {
+    window.open("table.html");
   },
   'click .remove': function (e, value, row, index) {
     $('#confirm_modal').modal('show');
