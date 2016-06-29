@@ -1,5 +1,5 @@
 package team.hustsoft.basic;
-import team.hustsoft.PD.SHA;
+import team.hustsoft.SHA;
 public class Staff{
 	private int id;
 	private String name;
