@@ -48,12 +48,10 @@ public class CreateTable {
 
 	public static void insert_test_data() {
 		PreparedStatement preparedStatement;
-		String sqlArr[] = {
-			"insert into Customer(id,property,companyName,tel,mobilePhone,address,zipCode,contactPersonName,email)"+
-			"values(\'000000199901010101\',\'1\',\'google\',\'027-111111\',\'13222222222\',\'基佬 Road\', \'070000\', \'mingtaoGAY\', \'eeeee@ee.com\');",
-			"insert into Customer(id,property,companyName,tel,mobilePhone,address,zipCode,contactPersonName,email)"+
-			"values(\'370683199601132614\',\'2\',\'ms\',\'027-111111\',\'13222222222\',\'yunyuan\', \'070000\', \'xiuxiu\', \'eeeee@ee.com\');"
-		};
+		String sqlArr[] = new String [20];
+		for(int i = 0; i < sqlArr.length;i++)
+			sqlArr[i] = new String("insert into Customer(id,property,companyName,tel,mobilePhone,address,zipCode,contactPersonName,email)"+
+				"values(\'"+(i+100)+"001999010101010\',\'1\',\'google\',\'027-111111\',\'13222222222\',\'基佬 Road\', \'070000\', \'mingtaoGAY\', \'eeeee@ee.com\');");
 		try {
 			for(int i = 0; i < sqlArr.length; i++) {
 				preparedStatement = conn.prepareStatement(sqlArr[i]);

@@ -13,10 +13,10 @@ public class DevicePrinter {
 	private String name;
 
 	private String lackPart;
-	private String breakDownAppearance;
+	private String breakdownAppearance;
 
 	public DevicePrinter(int did,Timestamp ctime,int deviceType,String deviceBrand,String deviceModel,String deviceSerialNum,		
-		String companyName,String name,String lackPart,String breakDownAppearance){
+		String companyName,String name,String lackPart,String breakdownAppearance){
 		this.did =did;
 		this.ctime = ctime;
 		this.deviceType = deviceType;
@@ -26,7 +26,7 @@ public class DevicePrinter {
 		this.companyName=companyName;
 		this.name= name;
 		this.lackPart=lackPart;
-		this.breakDownAppearance=breakDownAppearance;
+		this.breakdownAppearance=breakdownAppearance;
 	}
 
 
@@ -101,12 +101,12 @@ public class DevicePrinter {
 	    this.lackPart = lackPart;
 	}
 	
-	public String getBreakDownAppearance(){
-	    return this.breakDownAppearance;
+	public String getBreakdownAppearance(){
+	    return this.breakdownAppearance;
 	}
 	
-	public void setBreakDownAppearance(String breakDownAppearance){
-	    this.breakDownAppearance = breakDownAppearance;
+	public void setBreakdownAppearance(String breakdownAppearance){
+	    this.breakdownAppearance = breakdownAppearance;
 	}
 	
 

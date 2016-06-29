@@ -8,7 +8,7 @@ function initTable() {
     columns: [
         {
           field: 'state',
-          //checkbox: false,
+          checkbox: true,
           rowspan: 1,
           align: 'center',
           valign: 'middle'
