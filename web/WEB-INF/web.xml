@@ -141,6 +141,16 @@
 			<url-pattern>/customer_manage</url-pattern>
 		</servlet-mapping>
 
+        <servlet>
+      <servlet-name>device_manage</servlet-name>
+      <servlet-class>team.hustsoft.servlet.DeviceManage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>device_manage</servlet-name>
+      <url-pattern>/device_manage</url-pattern>
+    </servlet-mapping>
+
+
 
 
 
