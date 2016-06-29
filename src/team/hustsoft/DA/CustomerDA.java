@@ -56,20 +56,13 @@ public class CustomerDA extends DABase{
      }
     return customers;
   }
-  /**
-   * get by name
-   * @param  name
-   * @return  Customer[]
-   */
-  //public ArrayList<Customer> query(String name) {
 
-  //}
   /**
    * get by id
    * @param  id
    * @return    a customer or null
    */
-  public static Customer query(int id) {
+  public Customer query(int id) {
       String sql ="SELECT *FROM Customer WHERE cid = \'"+id+"\';";
        conn = initialize();
        ResultSet rs;
@@ -94,7 +87,8 @@ public class CustomerDA extends DABase{
     if (customer == null) {
       return -1;
     }
-    String sql0 = "SELECT * FROM Customer where id=\'"+customer.getCitizenId()+"\';";
+    //System.out.println(customer.getCitizenId());
+    String sql0 = "SELECT id FROM Customer where id=\'"+customer.getCitizenId()+"\';";
     conn = initialize();
     ResultSet rs  =null;
     try{
@@ -108,8 +102,7 @@ public class CustomerDA extends DABase{
       System.out.println(e);//?
       return -2;
     }
-
-
+    
     String sql = "INSERT INTO Customer(id,property,companyName,tel,mobilePhone,address,zipCode,contactPersonName,email)"+
     "VALUES(\'"+customer.getCitizenId()+"\',\'"+customer.getProperty()+"\',\'"+
     customer.getCompanyName()+"\',\'"+customer.getCompanyPhone()+"\',\'"+customer.getMobilePhone()+"\',\'"+
@@ -128,7 +121,7 @@ public class CustomerDA extends DABase{
     return 1;
   }
 
-  public static int update(Customer customer) {
+  public int update(Customer customer) {
       if (customer == null) {
         return -1;
       }
@@ -149,9 +142,9 @@ public class CustomerDA extends DABase{
 
 
     String sql = "UPDATE Customer SET id=\'"+customer.getCitizenId()+"\',property=\'"+customer.getProperty()+
-        "\',companyName=\'"+customer.getCompanyName()+"\',tel=\'"+customer.getCompanyPhone()+"\',mobilePhone=\'"+customer.getMobilePhone()+
-        "\',address=\'"+customer.getAddr()+"\',zipCode=\'"+customer.getZipCode()+"\',contactPersonName=\'"+customer.getName()+
-        "\',email=\'"+customer.getEmail()+"\' WHERE cid = \'"+customer.getId()+"\';";
+        "\',companyName=\'"+customer.getCompanyName()+"\',tel=\'"+customer.getCompanyPhone()+"\',mobilePhone=\'"+
+        customer.getMobilePhone()+"\',address=\'"+customer.getAddr()+"\',zipCode=\'"+customer.getZipCode()+"\',contactPersonName=\'"+
+        customer.getName()+"\',email=\'"+customer.getEmail()+"\' WHERE cid = \'"+customer.getId()+"\';";
       //conn = initialize();
       try{
         statement.executeUpdate(sql);
@@ -166,7 +159,7 @@ public class CustomerDA extends DABase{
             return 1;
   }
 
-  public static int delete(int id) {
+  public int delete(int id) {
       String sql0 = "SELECT cid FROM Customer where cid =\'"+id+"\';";
       conn = initialize();
       ResultSet rs  =null;

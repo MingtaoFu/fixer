@@ -2,22 +2,22 @@ package team.hustsoft.basic;
 import java.sql.Timestamp;
 import java.math.BigDecimal;
 
-enum REPAIRSTATUS{
-	Underway,
-	Finish,
-	Undo
-}
-enum DEVICETYPE{
-	Desktop,
-	Notebook,
-	Projector,
-	Printer,
-	Other
-}
-enum BREAKDOWNTYPE{
-	Regular,
-	Intermittent
-}
+// enum REPAIRSTATUS{
+// 	Underway,
+// 	Finish,
+// 	Undo
+// }
+// enum DEVICETYPE{
+// 	Desktop,
+// 	Notebook,
+// 	Projector,
+// 	Printer,
+// 	Other
+// }
+// enum BREAKDOWNTYPE{
+// 	Regular,
+// 	Intermittent
+// }
 
 public class Device{
 	private int did;
@@ -25,14 +25,14 @@ public class Device{
 	private Timestamp ctime;//保修时间
 	private BigDecimal expectedPrice;
 	private Timestamp expectedCompleteTime;
-	private REPAIRSTATUS status;
-	private DEVICETYPE deviceType;
+	private int status;
+	private int deviceType;
 	private String deviceBrand;
 	private String deviceModel;
 	private String deviceSerialNum;
 	private String lackPart;
-	private String breakDownAppearance;
-	private BREAKDOWNTYPE breakdownType;
+	private String breakdownAppearance;
+	private int breakdownType;
 	private String startingUpCommand;
 	private String significantMaterial;
 	private String HHD;
@@ -42,8 +42,8 @@ public class Device{
 	private String battery;
 	private String CD_ROM;
 	private String floppy;
-	private String Other;
-  public Device(int did,int cid,BigDecimal expectedPrice,DEVICETYPE deviceType,String deviceBrand,String deviceModel,String deviceSerialNum,String lackPart,String breakDownAppearance,BREAKDOWNTYPE breakdownType,String startingUpCommand,String significantMaterial,String HHD,String RAM,String PCCard,String ACAdapter,String battery,String CD_ROM,String floppy,String Other){
+	private String other;
+  public Device(int cid,BigDecimal expectedPrice,int deviceType,String deviceBrand,String deviceModel,String deviceSerialNum,String lackPart,String breakdownAppearance,int breakdownType,String startingUpCommand,String significantMaterial,String HHD,String RAM,String PCCard,String ACAdapter,String battery,String CD_ROM,String floppy,String other){
 	this.cid = cid;
 	this.ctime = new Timestamp(System.currentTimeMillis());
 	this.expectedPrice = expectedPrice;
@@ -52,7 +52,7 @@ public class Device{
 	this.deviceModel = deviceModel;
 	this.deviceSerialNum = deviceSerialNum;
 	this.lackPart = lackPart;
-	this.breakDownAppearance = breakDownAppearance;
+	this.breakdownAppearance = breakdownAppearance;
 	this.breakdownType = breakdownType;
 	this.startingUpCommand = startingUpCommand;
 	this.significantMaterial = significantMaterial;
@@ -63,7 +63,7 @@ public class Device{
 	this.battery = battery;
 	this.CD_ROM = CD_ROM;
 	this.floppy = floppy;
-	this.Other = Other;
+	this.other = other;
   }
 
 	public int getDid() {
@@ -106,19 +106,19 @@ public class Device{
 		this.expectedCompleteTime = expectedCompleteTime;
 	}
 
-	public team.hustsoft.basic.REPAIRSTATUS getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(team.hustsoft.basic.REPAIRSTATUS status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
-	public team.hustsoft.basic.DEVICETYPE getDeviceType() {
+	public int getDeviceType() {
 		return deviceType;
 	}
 
-	public void setDeviceType(team.hustsoft.basic.DEVICETYPE deviceType) {
+	public void setDeviceType(int deviceType) {
 		this.deviceType = deviceType;
 	}
 
@@ -154,19 +154,19 @@ public class Device{
 		this.lackPart = lackPart;
 	}
 
-	public String getBreakDownAppearance() {
-		return breakDownAppearance;
+	public String getBreakdownAppearance() {
+		return breakdownAppearance;
 	}
 
-	public void setBreakDownAppearance(String breakDownAppearance) {
-		this.breakDownAppearance = breakDownAppearance;
+	public void setBreakdownAppearance(String breakdownAppearance) {
+		this.breakdownAppearance = breakdownAppearance;
 	}
 
-	public team.hustsoft.basic.BREAKDOWNTYPE getBreakdownType() {
+	public int getBreakdownType() {
 		return breakdownType;
 	}
 
-	public void setBreakdownType(team.hustsoft.basic.BREAKDOWNTYPE breakdownType) {
+	public void setBreakdownType(int breakdownType) {
 		this.breakdownType = breakdownType;
 	}
 
@@ -243,11 +243,11 @@ public class Device{
 	}
 
 	public String getOther() {
-		return Other;
+		return other;
 	}
 
 	public void setOther(String other) {
-		Other = other;
+		this.other = other;
 	}
 }
 
