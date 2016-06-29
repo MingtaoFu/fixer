@@ -278,8 +278,10 @@ function detailFormatter(index, row) {
 
 function operateFormatter(value, row, index) {
   return [
-    '<a class="like" href="javascript:void(0)" title="save">',
-      '<i class="glyphicon glyphicon-ok"></i>',
+    '<a class="print" href="javascript:void(0)" title="print">',
+      '<i class="glyphicon glyphicon-print"></i>',
+    '</a>  ',
+    '<a class="like" href="javascript:void(0)" title="save">', '<i class="glyphicon glyphicon-ok"></i>',
     '</a>  ',
     '<a class="like" href="javascript:void(0)" title="repair">',
       '<i class="glyphicon glyphicon-wrench"></i>',
@@ -312,6 +314,9 @@ window.operateEvents = {
         }
       });
     }
+  },
+  'click .print': function (e, value, row, index) {
+    window.open("table.html");
   },
   'click .remove': function (e, value, row, index) {
     $('#confirm_modal').modal('show');
