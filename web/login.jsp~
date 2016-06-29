@@ -1,6 +1,6 @@
 <%@ page language="java"
   pageEncoding="UTF-8"
-  import="team.hustsoft.basic.Staff,
+  import="team.hustsoft.basic.Staff,team.hustsoft.SHA
     java.util.*"
 %>
 <%
