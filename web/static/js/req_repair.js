@@ -466,15 +466,11 @@ $(function() {
           }
         }
       },
-      mobile_phone: {
+      ctime: {
         row: '.controls',
         validators: {
           notEmpty: {
-            message: '手机是必填的'
-          },
-          regexp: {
-            regexp: /^1[0-9]{10}$/,
-            message: '手机不合法'
+            message: '报修时间'
           }
         }
       },

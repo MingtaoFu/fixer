@@ -37,6 +37,7 @@
         <ul class="nav navbar-nav">
           <li><a href="customer_care.html">客户管理</a></li>
           <li class="active"><a href="#">报修管理<span class="sr-only">(current)</span></a></li>
+          <li><a href="customer_care.html">费用结算</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -64,7 +65,7 @@
 </div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -75,7 +76,7 @@
         <form class="form-horizontal container-fluid"
           id="add_form" method="post">
           <fieldset class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
               <div class="control-group">
                 <label class="control-label" for="customer_name">客户姓名</label>
                 <div class="controls">
@@ -84,68 +85,173 @@
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label" for="mobile_phone">手机</label>
+                <label class="control-label" for="ctime">报修时间</label>
                 <div class="controls">
-                  <input type="tel" placeholder="手机" class="form-control"
-                  id="mobile_phone" name="mobile_phone">
+                  <input type="text" placeholder="报修时间" class="form-control"
+                  id="ctime" name="ctime">
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label" for="email">email</label>
+                <label class="control-label" for="expectedPrice">预估价格</label>
                 <div class="controls">
-                  <input type="email" placeholder="电子邮箱" class="form-control"
-                   id="email" name="email">
+                  <input type="number" placeholder="预估价格" class="form-control"
+                  id="expectedPrice" name="expectedPrice">
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label" for="property">性质</label>
+                <label class="control-label" for="expectedCompletedTime">预估完成时间</label>
                 <div class="controls">
-                  <select class="selectpicker form-control" id="property" name="property">
-                    <option value="1">家庭用户</option>
-                    <option value="2">单位用户</option>
-                    <option value="3">代理商</option>
-                    <option value="4">签约用户</option>
+                  <input type="date" placeholder="预估预估完成时间" class="form-control"
+                  id="expectedCompletedTime" name="expectedCompletedTime">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="status">状态</label>
+                <div class="controls">
+                  <select class="selectpicker form-control" id="status" name="status">
+                    <option value="0">进行中</option>
+                    <option value="1">结束</option>
+                    <option value="2">撤销</option>
+                  </select>
+                </div>
+              </div>
+
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+              <div class="control-group">
+                <label class="control-label" for="deviceType">设备类型</label>
+                <div class="controls">
+                  <select class="selectpicker form-control" id="deviceType"
+                    name="deviceType">
+                    <option value="0">台式机</option>
+                    <option value="1">笔记本</option>
+                    <option value="2">投影仪</option>
+                    <option value="3">打印机</option>
+                    <option value="4">其他</option>
                   </select>
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label" for="citizen_id">身份证</label>
+                <label class="control-label" for="deviceBrand">设备型号</label>
                 <div class="controls">
-                  <input type="text" placeholder="身份证" class="form-control"
-                   id="citizen_id" name="citizen_id">
+                  <input type="text" placeholder="设备型号" class="form-control"
+                  id="deviceBrand" name="deviceBrand">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="deviceSerialNum">设备序列号</label>
+                <div class="controls">
+                  <input type="text" placeholder="设备序列号" class="form-control"
+                  id="deviceSerialNum" name="deviceSerialNum">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="lackPart">缺少部件</label>
+                <div class="controls">
+                  <input type="text" placeholder="缺少部件" class="form-control"
+                  id="lackPart" name="lackPart">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="breakdownAppearance">故障现象</label>
+                <div class="controls">
+                  <input type="text" placeholder="故障现象" class="form-control"
+                  id="breakdownAppearance" name="breakdownAppearance">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="breakdownType">损坏类型</label>
+                <div class="controls">
+                  <select class="selectpicker form-control" id="breakdownType"
+                    name="breakdownType">
+                    <option value="0">固定性</option>
+                    <option value="1">间隙性</option>
+                  </select>
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
               <div class="control-group">
-                <label class="control-label" for="company_name">单位名称</label>
+                <label class="control-label" for="appearanceCheck">外观检查</label>
                 <div class="controls">
-                  <input type="text" placeholder="单位名称" class="form-control"
-                   id="company_name" name="company_name">
+                  <input type="text" placeholder="外观检查" class="form-control"
+                  id="appearanceCheck" name="appearanceCheck">
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label" for="company_phone">单位电话</label>
+                <label class="control-label" for="startingUpCommand">开机口令</label>
                 <div class="controls">
-                  <input type="tel" placeholder="单位电话" class="form-control"
-                   id="company_phone" name="company_phone">
+                  <input type="text" placeholder="开机口令" class="form-control"
+                  id="startingUpCommand" name="startingUpCommand">
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label" for="address">地址</label>
+                <label class="control-label" for="significantMaterial">重要资料</label>
                 <div class="controls">
-                  <input type="text" placeholder="地址" class="form-control"
-                   id="address" name="address">
+                  <input type="text" placeholder="重要资料" class="form-control"
+                  id="significantMaterial" name="significantMaterial">
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label" for="zip_code">邮编</label>
+                <label class="control-label" for="HHD">HHD</label>
                 <div class="controls">
-                  <input type="text" placeholder="邮编" class="form-control"
-                   id="zip_code" name="zip_code">
+                  <input type="text" placeholder="HHD" class="form-control"
+                  id="HHD" name="HHD">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="RAM">内存</label>
+                <div class="controls">
+                  <input type="text" placeholder="内存" class="form-control"
+                  id="RAM" name="RAM">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="PCCard">外置PC卡</label>
+                <div class="controls">
+                  <input type="text" placeholder="外置PC卡" class="form-control"
+                  id="PCCard" name="PCCard">
                 </div>
               </div>
 
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+              <div class="control-group">
+                <label class="control-label" for="ACAdapter">AC适配器</label>
+                <div class="controls">
+                  <input type="text" placeholder="AC适配器" class="form-control"
+                  id="ACAdapter" name="ACAdapter">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="battery">电池</label>
+                <div class="controls">
+                  <input type="text" placeholder="电池" class="form-control"
+                  id="battery" name="battery">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="floppy">软驱</label>
+                <div class="controls">
+                  <input type="text" placeholder="软驱" class="form-control"
+                  id="floppy" name="floppy">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="CD_ROM">CD_ROM</label>
+                <div class="controls">
+                  <input type="text" placeholder="CD_ROM" class="form-control"
+                  id="CD_ROM" name="CD_ROM">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="other">其他</label>
+                <div class="controls">
+                  <input type="text" placeholder="其他" class="form-control"
+                  id="other" name="other">
+                </div>
+              </div>
             </div>
             </fieldset>
         </form>
