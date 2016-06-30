@@ -102,7 +102,7 @@ public class CustomerDA extends DABase{
       System.out.println(e);//?
       return -2;
     }
-    
+
     String sql = "INSERT INTO Customer(id,property,companyName,tel,mobilePhone,address,zipCode,contactPersonName,email)"+
     "VALUES(\'"+customer.getCitizenId()+"\',\'"+customer.getProperty()+"\',\'"+
     customer.getCompanyName()+"\',\'"+customer.getCompanyPhone()+"\',\'"+customer.getMobilePhone()+"\',\'"+

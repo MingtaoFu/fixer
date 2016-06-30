@@ -31,6 +31,6 @@ public class CustomerManageService {
 
    public int update(Customer customer) {
      CustomerDA customerDA = new CustomerDA();
-     return customerDA.update(customer); 
+     return customerDA.update(customer);
    }
 }
