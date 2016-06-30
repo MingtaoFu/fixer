@@ -24,15 +24,17 @@ public class Device{
 	private int cid;
 	private Timestamp ctime;//保修时间
 	private BigDecimal expectedPrice;
-	private Timestamp expectedCompleteTime;
+	private Timestamp expectedCompletedTime;
 	private int status;
 	private int deviceType;
 	private String deviceBrand;
 	private String deviceModel;
 	private String deviceSerialNum;
 	private String lackPart;
+
 	private String breakdownAppearance;
 	private int breakdownType;
+	private String appearanceCheck;
 	private String startingUpCommand;
 	private String significantMaterial;
 	private String HHD;
@@ -43,9 +45,12 @@ public class Device{
 	private String CD_ROM;
 	private String floppy;
 	private String other;
-  public Device(int cid,BigDecimal expectedPrice,int deviceType,String deviceBrand,String deviceModel,String deviceSerialNum,String lackPart,String breakdownAppearance,int breakdownType,String startingUpCommand,String significantMaterial,String HHD,String RAM,String PCCard,String ACAdapter,String battery,String CD_ROM,String floppy,String other){
+  public Device(int cid,BigDecimal expectedPrice,int deviceType,String deviceBrand,String deviceModel,String deviceSerialNum,String lackPart,
+  	String breakdownAppearance,int breakdownType, String appearanceCheck, String startingUpCommand,String significantMaterial,
+  	String HHD,String RAM,String PCCard,String ACAdapter,String battery,String CD_ROM,String floppy,String other){
 	this.cid = cid;
 	this.ctime = new Timestamp(System.currentTimeMillis());
+	this.expectedCompletedTime = new Timestamp(this.ctime.getTime()+259200000l);
 	this.expectedPrice = expectedPrice;
 	this.deviceType = deviceType;
 	this.deviceBrand = deviceBrand;
@@ -54,6 +59,7 @@ public class Device{
 	this.lackPart = lackPart;
 	this.breakdownAppearance = breakdownAppearance;
 	this.breakdownType = breakdownType;
+	this.appearanceCheck = appearanceCheck;
 	this.startingUpCommand = startingUpCommand;
 	this.significantMaterial = significantMaterial;
 	this.HHD = HHD;
@@ -98,12 +104,12 @@ public class Device{
 		this.expectedPrice = expectedPrice;
 	}
 
-	public Timestamp getExpectedCompleteTime() {
-		return expectedCompleteTime;
+	public Timestamp getExpectedCompletedTime() {
+		return expectedCompletedTime;
 	}
 
-	public void setExpectedCompleteTime(Timestamp expectedCompleteTime) {
-		this.expectedCompleteTime = expectedCompleteTime;
+	public void setExpectedCompletedTime(Timestamp expectedCompletedTime) {
+		this.expectedCompletedTime = expectedCompletedTime;
 	}
 
 	public int getStatus() {
@@ -249,5 +255,15 @@ public class Device{
 	public void setOther(String other) {
 		this.other = other;
 	}
+
+
+	public String getAppearanceCheck(){
+	    return this.appearanceCheck;
+	}
+	
+	public void setAppearanceCheck(String appearanceCheck){
+	    this.appearanceCheck = appearanceCheck;
+	}
+	
 }
 
