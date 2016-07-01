@@ -449,6 +449,7 @@ $('#add_form').on('submit', function(e) {
 })
 
 $(function() {
+  $('.form-datetime').datetimepicker();
   $('#add_form').formValidation({
     framework: 'bootstrap',
     message: '输入不合法',
@@ -466,49 +467,11 @@ $(function() {
           }
         }
       },
-      ctime: {
+      breakdownAppearance: {
         row: '.controls',
         validators: {
           notEmpty: {
-            message: '报修时间'
-          }
-        }
-      },
-      citizen_id: {
-        row: '.controls',
-        validators: {
-          notEmpty: {
-            message: '身份证号是必填的'
-          },
-          regexp: {
-            regexp: /^[0-9]{17}([0-9,x])$/,
-            message: '身份证号不合法'
-          }
-        }
-      },
-      company_phone: {
-        row: '.controls',
-        validators: {
-          regexp: {
-            regexp: /^[0-9]*[-,0-9][0-9]*$/,
-            message: '单位电话不合法'
-          }
-        }
-      },
-      zip_code: {
-        row: '.controls',
-        validators: {
-          regexp: {
-            regexp: /^[0-9]{6}$/,
-            message: '邮编不合法'
-          }
-        }
-      },
-      email: {
-        row: '.controls',
-        validators: {
-          emailAddress: {
-            message: '请输入有效的电子邮件地址'
+            message: '故障现象是必填的'
           }
         }
       }

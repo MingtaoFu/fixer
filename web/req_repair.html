@@ -80,14 +80,18 @@
               <div class="control-group">
                 <label class="control-label" for="customer_name">客户姓名</label>
                 <div class="controls">
-                  <input type="text" placeholder="客户姓名" class="form-control"
-                  id="customer_name" name="customer_name">
+                  <select class="selectpicker form-control" data-live-search="true"
+                    id="customer_name" name="customer_name">
+                    <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
+                    <option data-tokens="mustard">Burger, Shake and a Smile</option>
+                    <option data-tokens="frosting">Sugar, Spice and all things nice</option>
+                  </select>
                 </div>
               </div>
               <div class="control-group">
                 <label class="control-label" for="ctime">报修时间</label>
                 <div class="controls">
-                  <input type="text" placeholder="报修时间" class="form-control"
+                  <input type="text" class="form-control form-datetime"
                   id="ctime" name="ctime">
                 </div>
               </div>

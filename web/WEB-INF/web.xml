@@ -133,15 +133,24 @@
 		</servlet-mapping>
 
     <servlet>
-			<servlet-name>customer_manage</servlet-name>
-			<servlet-class>team.hustsoft.servlet.CustomerManage</servlet-class>
-		</servlet>
-		<servlet-mapping>
-			<servlet-name>customer_manage</servlet-name>
-			<url-pattern>/customer_manage</url-pattern>
-		</servlet-mapping>
+      <servlet-name>customer_manage</servlet-name>
+      <servlet-class>team.hustsoft.servlet.CustomerManage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>customer_manage</servlet-name>
+      <url-pattern>/customer_manage</url-pattern>
+    </servlet-mapping>
 
-        <servlet>
+    <servlet>
+      <servlet-name>req_manage</servlet-name>
+      <servlet-class>team.hustsoft.servlet.ReqManage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>req_manage</servlet-name>
+      <url-pattern>/req_manage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
       <servlet-name>device_manage</servlet-name>
       <servlet-class>team.hustsoft.servlet.DeviceManage</servlet-class>
     </servlet>
