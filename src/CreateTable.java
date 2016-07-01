@@ -157,7 +157,7 @@ public class CreateTable {
 					"modelNumber VARCHAR(50),											/* 型号?*/"+
 					"quantity INT(8) NOT NULL,											/* 数量?*/"+
 					"inTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,/* 入库时间*/"+
-					"waringQuantity INT(8) NOT NULL,										/* 警戒数量*/"+
+					"warningQuantity INT(8) NOT NULL,										/* 警戒数量*/"+
 					"status enum(\"0\",\"1\",\"2\",\"3\"),									/* 库存状态:"+
 																							"/*正常:库存量>警戒数量"+
 																							     "临界:库存量=警戒数量"+
