@@ -49,7 +49,7 @@ public  class PartsDA extends DABase{
         BigDecimal price = parts.getPrice();
         String modelNumber = parts.getModelNumber();
         int quantity = parts.getQuantity();
-        Timestamp inTime = parts.getinTime();//
+        Timestamp inTime = parts.getInTime();//
         int warningQuantity = parts.getWarningQuantity();
         int status = parts.getStatus();
 
@@ -91,7 +91,7 @@ public  class PartsDA extends DABase{
         BigDecimal price = parts.getPrice();
         String modelNumber = parts.getModelNumber();
         int quantity = parts.getQuantity();
-        Timestamp inTime = parts.getinTime();//
+        Timestamp inTime = parts.getInTime();//
         int warningQuantity = parts.getWarningQuantity();
         int status = parts.getStatus();
 
