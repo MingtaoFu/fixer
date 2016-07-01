@@ -26,6 +26,7 @@ public class Parts{
 		this.quantity = quantity;
 		this.waringQuantity = waringQuantity;
 		this.inTime = new Timestamp(System.currentTimeMillis());
+        this.setStatus();
   }
   public int getPid() {
     return pid;
