@@ -2,6 +2,8 @@ package team.hustsoft.basic;
 //import org.json.simple.JSONObject;
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
+import java.math.BigDecimal;
+
 
 enum STATUS{
 	NORMAL,
@@ -13,19 +15,20 @@ enum STATUS{
 public class Parts{
     private int pid;
 	private String partName;
-	private double price;
+	private BigDecimal price;
 	private String modelNumber;
 	private int quantity;
 	private Timestamp inTime;
-	private int waringQuantity;
+	private int warningQuantity;
 	private STATUS status;
-  public Parts(String partName,double price,String modelNumber,int quantity,int waringQuantity){
+  public Parts(String partName,BigDecimal price,String modelNumber,int quantity,int warningQuantity){
 		this.partName = partName;
 		this.price = price;
 		this.modelNumber = modelNumber;
 		this.quantity = quantity;
-		this.waringQuantity = waringQuantity;
+		this.warningQuantity = warningQuantity;
 		this.inTime = new Timestamp(System.currentTimeMillis());
+        this.setStatus();
   }
   public int getPid() {
     return pid;
@@ -43,11 +46,11 @@ public class Parts{
     this.partName = partName;
   }
 
-  public double getPrice() {
+  public BigDecimal getPrice() {
     return price;
   }
 
-  public void setPrice(double price) {
+  public void setPrice(BigDecimal price) {
     this.price = price;
   }
 
@@ -75,22 +78,22 @@ public class Parts{
     this.inTime = inTime;
   }
 
-  public int getWaringQuantity() {
-    return waringQuantity;
+  public int getWarningQuantity() {
+    return warningQuantity;
   }
 
-  public void setWaringQuantity(int waringQuantity) {
-    this.waringQuantity = waringQuantity;
+  public void setWarningQuantity(int warningQuantity) {
+    this.warningQuantity = warningQuantity;
   }
   public int getStatus(){
     return this.status.ordinal();
   }
   public void setStatus(){
-    if(this.quantity>this.waringQuantity)
+    if(this.quantity>this.warningQuantity)
       this.status = STATUS.NORMAL;
-    else if(this.quantity==this.waringQuantity)
+    else if(this.quantity==this.warningQuantity)
       this.status = STATUS.CRITICAL;
-    else if(this.quantity<this.waringQuantity)
+    else if(this.quantity<this.warningQuantity)
       if(this.quantity>0)
         this.status = STATUS.WARNING;
       else

@@ -110,7 +110,7 @@ public class CreateTable {
 					"cid INT(5)  NOT NULL,													/* 客户id*/"+
 					"ctime TIMESTAMP default CURRENT_TIMESTAMP,						/* 报修时间*/"+
 					"expectedPrice DECIMAL(8,2),											/* 预估价格*/"+
-					"expectedCompletedTime TIMESTAMP,								/* 预估完成时间*/"+
+					"expectedCompletedTime TIMESTAMP DEFAULT 0, 					/* 预估完成时间*/"+
 					"status enum(\"0\",\"1\",\"2\") NOT NULL,								/* 报修状态*/"+
 					"deviceType enum(\"0\",\"1\",\"2\",\"3\",\"4\") NOT NULL,				/* 机器类型*/"+
 					"deviceBrand VARCHAR(50),											/* 机器品牌*/"+
@@ -137,11 +137,11 @@ public class CreateTable {
 				"CREATE TABLE  IF NOT EXISTS RepairRecord(								/* 维修记录*/"+
 					"rrid INT(5) AUTO_INCREMENT NOT NULL,"+
 					"did INT(5)  NOT NULL,													/* 报修记录id*/"+
-					"distributeTime TIMESTAMP,											/* 分配时间*/"+
+					"distributeTime TIMESTAMP DEFAULT 0,								/* 分配时间*/"+
 					"maintenance VARCHAR(20),											/* 维修人员*/"+
 					"detectionRecord VARCHAR(100),										/* 检测记录(信息)*/"+
 					"repairRecord VARCHAR(100),											/* 维修记录(信息)*/"+
-					"repairTime TIMESTAMP,												/* 维修检测时间*/"+
+					"repairTime TIMESTAMP DEFAULT 0,									/* 维修检测时间*/"+
 					"workload VARCHAR(20),												/* 工作量*/"+
 					"requiredPart VARCHAR(50),											/* 维修所使用的器件*/"+
 					"status enum(\"0\",\"1\",\"2\",\"3\") NOT NULL,						/* 维修状态*/"+
@@ -156,8 +156,8 @@ public class CreateTable {
 					"price DECIMAL(8,2),													/* 单价//*/"+
 					"modelNumber VARCHAR(50),											/* 型号?*/"+
 					"quantity INT(8) NOT NULL,											/* 数量?*/"+
-					"inTime TIMESTAMP,													/* 入库时间*/"+
-					"waringQuantity INT(8) NOT NULL,										/* 警戒数量*/"+
+					"inTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,/* 入库时间*/"+
+					"warningQuantity INT(8) NOT NULL,										/* 警戒数量*/"+
 					"status enum(\"0\",\"1\",\"2\",\"3\"),									/* 库存状态:"+
 																							"/*正常:库存量>警戒数量"+
 																							     "临界:库存量=警戒数量"+
@@ -174,7 +174,7 @@ public class CreateTable {
 					"price DECIMAL(8,2),													/* 单价//*/"+
 					"modelNumber VARCHAR(50),											/* 型号?*/"+
 					"quantity INT(8) NOT NULL,											/* 数量?*/"+
-					"outTime TIMESTAMP,													/* 出库时间*/"+
+					"outTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,/* 出库时间*/"+
 					"CONSTRAINT PK_PLID PRIMARY KEY(plid),"+
 					"CONSTRAINT FK_PID FOREIGN KEY(pid) REFERENCES Parts(pid),"+
 					"CONSTRAINT FK_P_RRID FOREIGN KEY(rrid) REFERENCES RepairRecord(rrid))"+
@@ -187,7 +187,7 @@ public class CreateTable {
 					"materialsCosts DECIMAL(8,2) NOT NULL,								/* 材料费*/"+
 					"warrantyPromise VARCHAR(100),										/* 报修承诺*/"+
 					"notice VARCHAR(100),													/* 注意事项*/"+
-					"settlementTime TIMESTAMP,											/* 结算日期*/"+
+					"settlementTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,		/* 结算日期*/"+
 					"CONSTRAINT PK_SID PRIMARY KEY(sid),"+
 					"CONSTRAINT FK_S_RRID FOREIGN KEY(rrid) REFERENCES RepairRecord(rrid))"+
 					"DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;",

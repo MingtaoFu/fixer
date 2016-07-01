@@ -24,7 +24,7 @@ public class DeviceDA extends DABase{
          //int cid = cid;
          Timestamp ctime = rs.getTimestamp("ctime");//
          BigDecimal expectedPrice = rs.getBigDecimal("expectedPrice");
-	  Timestamp expectedCompleteTime =rs.getTimestamp("expectedCompleteTime");
+	  Timestamp expectedCompletedTime =rs.getTimestamp("expectedCompletedTime");
          int status = rs.getInt("status");
          int deviceType = rs.getInt("deviceType");
          String deviceBrand = rs.getString("deviceBrand");
@@ -33,6 +33,7 @@ public class DeviceDA extends DABase{
          String lackPart =rs.getString("lackPart");
          String breakdownAppearance = rs.getString("breakdownAppearance");
          int breakdownType = rs.getInt("breakdownType");
+         String appearanceCheck = rs.getString("appearanceCheck");
          String startingUpCommand = rs.getString("startingUpCommand");
          String significantMaterial =rs.getString("significantMaterial");
          String HHD = rs.getString("HHD");
@@ -45,7 +46,7 @@ public class DeviceDA extends DABase{
          String other= rs.getString("other");
 
          device = new Device(cid,expectedPrice,deviceType,deviceBrand,deviceModel,deviceSerialNum,
-         	lackPart,breakdownAppearance,breakdownType,startingUpCommand,significantMaterial,
+         	lackPart,breakdownAppearance,breakdownType,appearanceCheck,startingUpCommand,significantMaterial,
          	HHD,RAM,PCCard,ACAdapter,battery,CD_ROM,floppy,other);
          device.setDid(did);
          devices.add(device);
@@ -67,7 +68,7 @@ public class DeviceDA extends DABase{
 	int cid =device.getCid();
 	Timestamp ctime = device.getCtime();//
 	BigDecimal expectedPrice = device.getExpectedPrice();
-	Timestamp expectedCompleteTime = device.getExpectedCompleteTime();
+	Timestamp expectedCompletedTime = device.getExpectedCompletedTime();
 	int status = device.getStatus();
 	int deviceType = device.getDeviceType();
 	String deviceBrand = device.getDeviceBrand();
@@ -76,6 +77,7 @@ public class DeviceDA extends DABase{
 	String lackPart = device.getLackPart();
 	String breakdownAppearance = device.getBreakdownAppearance();
 	int breakdownType = device.getBreakdownType();
+      String appearanceCheck = device.getAppearanceCheck();
 	String startingUpCommand = device.getStartingUpCommand();
 	String significantMaterial = device.getSignificantMaterial();
 	String HHD = device.getHHD();
@@ -86,13 +88,14 @@ public class DeviceDA extends DABase{
 	String CD_ROM = device.getCD_ROM();
 	String floppy = device.getFloppy();
 	String other =device.getOther();
-  	String sql = "INSERT INTO Device(cid,expectedPrice,deviceType,deviceBrand,deviceModel,deviceSerialNum,"+
-         	"lackPart,breakdownType,breakdownType,startingUpCommand,significantMaterial,"+
-         	"HHD,RAM,PCCard,ACAdapter,battery,CD_ROM,floppy,other)"+
-  		"VALUES("+cid+",\'"+ctime.toString()+"\',\'"+expectedPrice.toString()+"\',\'"+expectedCompleteTime.toString()+"\',"+
-  		status+","+deviceType+",\'"+deviceBrand+"\',\'"+deviceModel+"\',\'"+deviceSerialNum+"\',\'"+lackPart+"\',\'"+
-  		breakdownType+"\',"+breakdownType+",\'"+startingUpCommand+"\',\'"+significantMaterial+"\',\'"+
-  		HHD+"\',\'"+RAM+"\',\'"+PCCard+"\',\'"+ACAdapter+"\',\'"+battery+"\',\'"+CD_ROM+"\',\'"+floppy+"\',\'"+other+"\')";
+  	String sql = "INSERT INTO Device(cid,ctime,expectedPrice,expectedCompletedTime,status,deviceType,deviceBrand,"+
+             "deviceModel,deviceSerialNum,lackPart,breakdownType,appearanceCheck,startingUpCommand,significantMaterial,"+
+         	"HHD,RAM,PCCard,ACAdapter,battery,CD_ROM,floppy,other,breakdownAppearance)"+
+  		"VALUES("+cid+",\'"+ctime.toString()+"\',\'"+expectedPrice.toString()+"\',\'"+expectedCompletedTime.toString()+"\',\'"+
+  		status+"\',\'"+deviceType+"\',\'"+deviceBrand+"\',\'"+deviceModel+"\',\'"+deviceSerialNum+"\',\'"+lackPart+"\',"+
+  		breakdownType+",\'"+appearanceCheck+"\',\'"+startingUpCommand+"\',\'"+significantMaterial+"\',\'"+
+  		HHD+"\',\'"+RAM+"\',\'"+PCCard+"\',\'"+ACAdapter+"\',\'"+battery+"\',\'"+CD_ROM+"\',\'"+floppy+"\',\'"+other+"\',\'"
+             +breakdownAppearance+"\')";
 	try{
 		statement.executeUpdate(sql);
 	}
@@ -127,7 +130,7 @@ public class DeviceDA extends DABase{
       	int cid =device.getCid();
 	Timestamp ctime = device.getCtime();//
 	BigDecimal expectedPrice = device.getExpectedPrice();
-	Timestamp expectedCompleteTime = device.getExpectedCompleteTime();
+	Timestamp expectedCompletedTime = device.getExpectedCompletedTime();
 	int status = device.getStatus();
 	int deviceType = device.getDeviceType();
 	String deviceBrand = device.getDeviceBrand();
@@ -136,6 +139,7 @@ public class DeviceDA extends DABase{
 	String lackPart = device.getLackPart();
 	String breakdownAppearance = device.getBreakdownAppearance();
 	int breakdownType = device.getBreakdownType();
+       String appearanceCheck = device.getAppearanceCheck();
 	String startingUpCommand = device.getStartingUpCommand();
 	String significantMaterial = device.getSignificantMaterial();
 	String HHD = device.getHHD();
@@ -147,9 +151,10 @@ public class DeviceDA extends DABase{
 	String floppy = device.getFloppy();
 	String other =device.getOther();
 	String sql = "UPDATE Device SET cid=" + cid +",ctime=\'"+ctime.toString()+"\',expectedPrice=\'"+expectedPrice.toString()+
-		"\',expectedCompleteTime=\'"+expectedCompleteTime.toString()+"\',status="+status+",deviceType="+deviceType+
+		"\',expectedCompletedTime=\'"+expectedCompletedTime.toString()+"\',status="+status+",deviceType="+deviceType+
 		",deviceBrand=\'"+deviceBrand+"\',deviceModel=\'"+deviceModel+"\',deviceSerialNum=\'"+deviceSerialNum+
-		"\',lackPart=\'"+lackPart+"\',breakdownType=\'"+breakdownType+"\',breakdownType="+breakdownType+
+		"\',lackPart=\'"+lackPart+"\',breakdownType="+breakdownType+",appearanceCheck="+appearanceCheck+
+             "\',breakdownType="+breakdownType+
 		",startingUpCommand=\'"+startingUpCommand+"\',significantMaterial=\'"+significantMaterial+"\',HHD=\'"+HHD+
 		"\',RAM=\'"+RAM+"\',PCCard=\'"+PCCard+"\',ACAdapter=\'"+ACAdapter+"\',battery=\'"+battery+"\',CD_ROM=\'"+CD_ROM+
 		"\',floppy=\'"+floppy+"\',other\'"+other+"\';";
