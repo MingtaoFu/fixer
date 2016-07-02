@@ -12,8 +12,11 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/locale/bootstrap-table-zh-CN.min.js"></script>
     -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+        <script type="text/javascript" src="./static/js/formValidation.min.js"></script>
+    <script type="text/javascript" src="./static/js/formValidation-bootstrap.js"></script>
 
 </head>
 <body>
@@ -70,17 +73,11 @@
         <form class="form-horizontal container-fluid" id="add_form" method="post">
           <fieldset class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+             
               <div class="control-group">
-                <label class="control-label" for="customer_name">sid</label>
+                <label class="control-label" for="mobile_phone">sid</label>
                 <div class="controls">
-                  <input type="text" placeholder="sid" class="form-control"
-                  id="customer_name" name="customer_name">
-                </div>
-              </div>
-              <div class="control-group">
-                <label class="control-label" for="mobile_phone">rrid</label>
-                <div class="controls">
-                  <input type="tel" placeholder="rrid" class="form-control"
+                  <input type="tel" placeholder="sid" class="form-control"
                   id="mobile_phone" name="mobile_phone">
                 </div>
               </div>
@@ -90,7 +87,7 @@
                   <input type="email" placeholder="维修记录" class="form-control"
                    id="email" name="email">
                 </div>
-              <!-- </div>
+              </div><!-- 
               <div class="control-group">
                 <label class="control-label" for="property">性质</label>
                 <div class="controls">
@@ -100,25 +97,32 @@
                     <option title="3">Relish</option>
                     <option title="4">Relish</option>
                   </select>
-                </div> -->
-              </div>
+                </div> 
+              </div>-->
               <div class="control-group">
                 <label class="control-label" for="citizen_id">人工费</label>
                 <div class="controls">
-                  <input type="text" placeholder="人工费" class="form-control"
+                  <input type="number" placeholder="人工费" class="form-control"
                    id="citizen_id" name="citizen_id">
                 </div>
               </div>
+               <div class="control-group">
+                <label class="control-label" for="customer_name">材料费</label>
+                <div class="controls">
+                  <input type="number" placeholder="材料费" class="form-control"
+                  id="customer_name" name="customer_name">
+                </div>
+              </div>
 
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+           </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><!--  
               <div class="control-group">
                 <label class="control-label" for="company_name">材料费</label>
                 <div class="controls">
                   <input type="text" placeholder="材料费" class="form-control"
                    id="company_name" name="company_name">
-                </div>
-              </div>
+                </div> 
+              </div>-->
               <div class="control-group">
                 <label class="control-label" for="company_phone">报修承诺</label>
                 <div class="controls">
