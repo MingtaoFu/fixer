@@ -14,24 +14,24 @@ function initTable() {
           valign: 'middle'
         }, {
           title: 'sid',
-          field: 'id',
+          field: 'sid',
           align: 'center',
         },
+        // {
+        //   title: 'rrid',
+        //   field: 'id',
+        //   align: 'center',
+        // },
         {
-          title: 'rrid',
-          field: 'id',
-          align: 'center',
-        },
-        {
-          field: 'name',
+          field: 'rrid',
           title: ' 维修记录',
           align: 'center',
           editable: {
             validate: function (value) {
               value = $.trim(value);
-              if (!value) {
-                return 'This field is required';
-              }
+              // if (!value) {
+              //   return 'This field is required';
+              // }
               var data = $table.bootstrapTable('getData'),
               index = $(this).parents('tr').data('index');
               console.log(data[index]);
@@ -40,7 +40,7 @@ function initTable() {
           }
         },
         {
-          field: 'mobilePhone',
+          field: 'laborCosts',
           title: '人工费',
           editable: {
             validate: function (value) {
@@ -48,8 +48,8 @@ function initTable() {
               if (!value) {
                 return 'This field is required';
               }
-              if (!/^1[0-9]{10}$/.test(value)) {
-                return '请输入合法的手机';
+              if (!/^(0|[1-9][0-9]*)$/.test(value)) {
+                return '请输入正确的费用';
               }
               var data = $table.bootstrapTable('getData'),
               index = $(this).parents('tr').data('index');
@@ -61,14 +61,14 @@ function initTable() {
           align: 'center'
         },
         {
-          field: 'email',
+          field: 'materialsCosts',
           title: '材料费',
           editable:
           {
             validate: function (value) {
               value = $.trim(value);
-              if (!/^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/.test(value) && value != '') {
-                return '请输入合法email';
+              if (!/^(0|[1-9][0-9]*)$/.test(value) && value != '') {
+                return '请输入正确的费用';
               }
               var data = $table.bootstrapTable('getData'),
               index = $(this).parents('tr').data('index');
@@ -80,7 +80,7 @@ function initTable() {
           align: 'center'
         },
         {
-          field: 'property',
+          field: 'warrantyPromise',
           title: '报修承诺',
           editable:
           {
@@ -95,20 +95,20 @@ function initTable() {
           align: 'center'
         },
         {
-          field: 'companyName',
+          field: 'notice',
           title: '注意事项',
           editable:true,
           align: 'center'
         },
         {
-          field: 'companyPhone',
+          field: 'settlementTime',
           title: '结算日期',
            editable: 
            {
             validate: function (value) {
               value = $.trim(value);
-              if (!/^[0-9]*[-,0-9][0-9]*$/.test(value) && value != '') {
-                return '请输入合法的电话';
+              if (!/^([1-2]\d{3})[\/|\-](0?[1-9]|10|11|12)[\/|\-]([1-2]?[0-9]|0[1-9]|30|31)$/.test(value) && value != '') {
+                return '请输入正确的日期';
               }
               var data = $table.bootstrapTable('getData'),
               index = $(this).parents('tr').data('index');
@@ -413,60 +413,68 @@ $(function() {
         row: '.controls',
         validators: {
           notEmpty: {
-            message: '客户名是必填的'
-          }
-        }
-      },
-      mobile_phone: {
-        row: '.controls',
-        validators: {
-          notEmpty: {
-            message: '手机是必填的'
+            message: '材料费是必填的'
           },
-          regexp: {
-            regexp: /^1[0-9]{10}$/,
-            message: '手机不合法'
+           regexp: {
+            regexp: /^(0|[1-9][0-9]*)$/,
+            message: '材料费不合法'
           }
         }
       },
+      // mobile_phone: {
+      //   row: '.controls',
+      //   validators: {
+      //     notEmpty: {
+      //       message: '手机是必填的'
+      //     },
+      //     regexp: {
+      //       regexp: /^1[0-9]{10}$/,
+      //       message: '手机不合法'
+      //     }
+      //   }
+      // },
       citizen_id: {
         row: '.controls',
         validators: {
           notEmpty: {
-            message: '身份证号是必填的'
+            message: '人工费是必填的'
           },
           regexp: {
-            regexp: /^[0-9]{17}([0-9,x])$/,
-            message: '身份证号不合法'
+            regexp: /^(0|[1-9][0-9]*)$/,
+            message: '人工费不合法'
           }
         }
       },
-      company_phone: {
-        row: '.controls',
-        validators: {
-          regexp: {
-            regexp: /^[0-9]*[-,0-9][0-9]*$/,
-            message: '单位电话不合法'
-          }
-        }
-      },
+      // company_phone: {
+      //   row: '.controls',
+      //   validators: {
+      //     regexp: {
+      //       regexp: /^[0-9]*[-,0-9][0-9]*$/,
+      //       message: '单位电话不合法'
+      //     }
+      //   }
+      // },
       zip_code: {
         row: '.controls',
         validators: {
+           notEmpty: {
+            message: '日期是必填的'
+          },
           regexp: {
-            regexp: /^[0-9]{6}$/,
-            message: '邮编不合法'
-          }
-        }
-      },
-      email: {
-        row: '.controls',
-        validators: {
-          emailAddress: {
-            message: '请输入有效的电子邮件地址'
+            regexp: /^([1-2]\d{3})[\/|\-](0?[1-9]|10|11|12)[\/|\-]([1-2]?[0-9]|0[1-9]|30|31)$/,
+            message: '日期不合法'
           }
         }
       }
+      // ,
+      // email: {
+      //   row: '.controls',
+      //   validators: {
+      //     emailAddress: {
+      //       message: '请输入有效的电子邮件地址'
+      //     }
+      //   }
+      // }
     }
   });
 });

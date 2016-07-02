@@ -16,14 +16,14 @@ function initTable() {
           title: 'sid',
           field: 'id',
           align: 'center',
-        },
+        // },
+        // {
+        //   title: 'rrid',
+        //   field: 'id',
+        //   align: 'center',
+        // },
         {
-          title: 'rrid',
-          field: 'id',
-          align: 'center',
-        },
-        {
-          field: 'name',
+          field: 'rrid',
           title: ' 维修记录',
           editable: false,
           align: 'center',
@@ -41,7 +41,7 @@ function initTable() {
           // }
         },
         {
-          field: 'mobilePhone',
+          field: 'laborCosts',
           title: '人工费',
           editable:false 
           // {
@@ -63,7 +63,7 @@ function initTable() {
           align: 'center'
         },
         {
-          field: 'email',
+          field: 'materialsCosts',
           title: '材料费',
           editable: false
           // {
@@ -82,7 +82,7 @@ function initTable() {
           align: 'center'
         },
         {
-          field: 'property',
+          field: 'warrantyPromise',
           title: '报修承诺',
           editable: false,
           // {
@@ -97,13 +97,13 @@ function initTable() {
           align: 'center'
         },
         {
-          field: 'companyName',
+          field: 'notice',
           title: '注意事项',
           editable: false,
           align: 'center'
         },
         {
-          field: 'companyPhone',
+          field: 'settlementTime',
           title: '结算日期',
            editable: false,
            // {
