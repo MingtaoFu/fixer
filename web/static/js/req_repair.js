@@ -434,7 +434,7 @@ $('#add_form').on('submit', function(e) {
   }
   var data = $(e.target).serialize();
   data += "&op=add";
-  $.post('customer_manage', data, function(data) {
+  $.post('req_manage', data, function(data) {
     if(!data.status) {
       var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
         '<button type="button" class="close" data-dismiss="alert" '+
@@ -449,7 +449,22 @@ $('#add_form').on('submit', function(e) {
 })
 
 $(function() {
-  $('.form-datetime').datetimepicker();
+  $('.form-datetime').datetimepicker("render");
+  $('.selectpicker-ajax').selectpicker({
+    liveSearch: true
+  })
+  .ajaxSelectPicker({
+    ajax: {
+      url: "req_manage",
+      data: function () {
+        var params = {
+          op: "getcname",
+          search: '{{{q}}}'
+        };
+        return params;
+      }
+    }
+  })
   $('#add_form').formValidation({
     framework: 'bootstrap',
     message: '输入不合法',
@@ -459,7 +474,7 @@ $(function() {
       validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-      customer_name: {
+      cid: {
         row: '.controls',
         validators: {
           notEmpty: {

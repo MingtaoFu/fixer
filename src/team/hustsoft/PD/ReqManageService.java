@@ -16,9 +16,9 @@ public class ReqManageService {
     CustomerDA customerDA = new CustomerDA();
     ArrayList<Customer> customers = customerDA.query(search, "");
     ArrayList<JSONObject> list = new ArrayList<JSONObject>();
-    for(int i = 0; i < list.size(); i++) {
+    for(int i = 0; i < customers.size(); i++) {
       JSONObject json = new JSONObject();
-      json.put("value", "String");
+      json.put("value", customers.get(i).getId());
       JSONObject data = new JSONObject();
       data.put("content", customers.get(i).getName());
       json.put("data", data);

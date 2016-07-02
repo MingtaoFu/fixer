@@ -1,7 +1,8 @@
 package team.hustsoft.basic;
 import java.sql.Timestamp;
 import java.math.BigDecimal;
-
+import javax.servlet.http.*;
+import java.lang.reflect.Field;
 // enum REPAIRSTATUS{
 // 	Underway,
 // 	Finish,
@@ -45,6 +46,27 @@ public class Device{
 	private String CD_ROM;
 	private String floppy;
 	private String other;
+
+	//construct form request
+	public Device(HttpServletRequest request) {
+		Class cls = this.getClass();
+		Field[] fields = cls.getDeclaredFields();
+		for(int i = 0; i < fields.length; i++){
+			Field f = fields[i];
+			System.out.println(f.getType());	
+			if(f.getName().equals("did")) {
+				continue;
+			}
+			f.setAccessible(true);
+			try {
+				f.set(this, request.getParameter(f.getName()));
+			} catch (Exception e) {
+				System.out.println(f.getName());
+				System.out.println(e);
+			}
+		}
+	}
+
   public Device(int cid,BigDecimal expectedPrice,int deviceType,String deviceBrand,String deviceModel,String deviceSerialNum,String lackPart,
   	String breakdownAppearance,int breakdownType, String appearanceCheck, String startingUpCommand,String significantMaterial,
   	String HHD,String RAM,String PCCard,String ACAdapter,String battery,String CD_ROM,String floppy,String other){
@@ -260,10 +282,9 @@ public class Device{
 	public String getAppearanceCheck(){
 	    return this.appearanceCheck;
 	}
-	
+
 	public void setAppearanceCheck(String appearanceCheck){
 	    this.appearanceCheck = appearanceCheck;
 	}
-	
-}
 
+}
