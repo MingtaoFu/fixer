@@ -15,11 +15,11 @@ function initTable() {
           valign: 'middle'
         }, {
           title: 'ID',
-          field: 'id',
+          field: 'did',
           align: 'center',
         },
         {
-          field: 'name',
+          field: 'cid',
           title: '客户姓名',
           editable: true,
           align: 'center',

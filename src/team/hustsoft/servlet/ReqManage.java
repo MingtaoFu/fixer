@@ -77,6 +77,24 @@ public class ReqManage extends HttpServlet {
   public void doGet(HttpServletRequest request,
   HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json;charset=utf-8");
+		PrintWriter out = response.getWriter();
 
+		String search = request.getParameter("search");
+		String order = request.getParameter("order");
+		//to get the total num, do not add offset and limit in SQL
+		int offset = Integer.parseInt(request.getParameter("offset"));
+		int limit = Integer.parseInt(request.getParameter("limit"));
+
+		ArrayList<Device> devices = ReqManageService.getInstance().query(search);
+    ArrayList<JSONObject> list = new ArrayList<JSONObject>();
+
+		int count = limit + offset < devices.size() ? limit + offset: devices.size();
+		for(int i = 0; i < count; i++) {
+      list.add(devices.get(i).toJSON());
+    }
+		JSONObject json = new JSONObject();
+		json.put("total", devices.size());
+		json.put("rows", list);
+		out.print(json);
   }
 }

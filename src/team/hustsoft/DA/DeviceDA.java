@@ -10,17 +10,34 @@ import java.math.BigDecimal;
 
 public class DeviceDA extends DABase{
 
-   public ArrayList<Device> query(int cid) {
+   public ArrayList<Device> query(String search) {
      ArrayList<Device> devices = new ArrayList<Device>();
      conn = initialize();
-     String sql = "select * from Device where cid=\'" + cid + "\';";
+
+     String parttern;
+     if(search == null || search.equals("")) {
+       parttern = "\'%\'";
+     } else {
+       parttern = "%";
+       for (int i = 0; i < search.length(); i++) {
+         parttern += search.charAt(i);
+         parttern += "%";
+       }
+       parttern = "\'" + parttern + "\'";
+     }
+
+     String sql = "select Device.* from Customer,Device where "+
+        "Customer.contactPersonName like "+parttern+" and "+
+        "Customer.cid = Device.cid";
+
+    System.out.println(sql);
      ResultSet rs = null;
      Device device  = null;
      try{
        rs = statement.executeQuery(sql);
        while(rs.next()) {
          int did = rs.getInt("did");
-         //int cid = cid;
+         int cid = rs.getInt("cid");
          Timestamp ctime = rs.getTimestamp("ctime");//
          BigDecimal expectedPrice = rs.getBigDecimal("expectedPrice");
 	  Timestamp expectedCompletedTime =rs.getTimestamp("expectedCompletedTime");

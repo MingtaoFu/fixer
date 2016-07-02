@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 import team.hustsoft.basic.Customer;
 import java.util.*;
 import team.hustsoft.DA.CustomerDA;
-import team.hustsoft.DA.DeivceDA;
+import team.hustsoft.DA.DeviceDA;
 import team.hustsoft.basic.Device;
 
 public class ReqManageService {
@@ -30,13 +30,10 @@ public class ReqManageService {
     return list;
   }
 
-  public JSONObject query(String search) {
-    CustomerDA customerDA = new CustomerDA();
-    ArrayList<Customer> customers = customerDA.query(search, "");
-    ArrayList<int> list = new ArrayList<int>();
-    for(int i = 0; i < customers.size(); i++) {
-      list.add(customers.get(i).getId());
-    }
+  public ArrayList<Device> query(String search) {
     DeviceDA deviceDA = new DeviceDA();
+    ArrayList<Device> devList = deviceDA.query(search);
+    System.out.println(devList);
+    return devList;
   }
 }
