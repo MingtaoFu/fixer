@@ -10,8 +10,8 @@ if (request.getMethod().equals("POST")) {
   Staff user = new Staff(name, password);
   //is not int
   Map<Integer, String> urlMap = new HashMap<Integer, String>();
-  urlMap.put(1, "customer_care.html");
-  urlMap.put(2, "customer_care.html");
+  urlMap.put(1, "page");
+  urlMap.put(2, "page");
 
   if (user != null) {
     response.sendRedirect(urlMap.get(user.getType()));
