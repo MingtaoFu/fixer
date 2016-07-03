@@ -105,8 +105,10 @@ public class Device{
 		JSONObject json = new JSONObject();
 		Class cls = this.getClass();
 		Field[] fileds = cls.getDeclaredFields();
+
 		String patternStr = "(20[0-9]{2}(-[0-9]{2}){2} [0-9]{2}:[0-9]{2})";
     Pattern ptn = Pattern.compile(patternStr);
+
 		for(int i = 0; i < fileds.length; i++) {
 			Field f = fileds[i];
 			f.setAccessible(true);

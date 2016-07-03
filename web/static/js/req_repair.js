@@ -160,8 +160,8 @@ function initTable() {
           align: 'center'
         },
         {
-          field: 'HDD',
-          title: 'HDD',
+          field: 'HHD',
+          title: 'HHD',
           editable: true,
           align: 'center'
         },
@@ -297,10 +297,11 @@ var func_confirm = function() {};
 
 window.operateEvents = {
   'click .like': function (e, value, row, index) {
+    console.log(row);
     row.op = "update";
     $('#confirm_modal').modal('show');
     func_confirm = function() {
-      $.post('customer_manage', row, function(data) {
+      $.post('device_manage', row, function(data) {
         console.log(data);
         if(data.status) {
           $('#confirm_modal').modal('hide');
@@ -317,16 +318,23 @@ window.operateEvents = {
     }
   },
   'click .print': function (e, value, row, index) {
-    window.open("table.html");
+    var str = "?";
+    for(var i in row) {
+      str += i;
+      str += "=";
+      str += row[i];
+      str += "&";
+    }
+    window.open("table"+str);
   },
   'click .remove': function (e, value, row, index) {
     $('#confirm_modal').modal('show');
     func_confirm = function() {
-      $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
+      $.post('device_manage', {op: "delete", id: row.did}, function(data) {
         if(data.status) {
           $table.bootstrapTable('remove', {
-            field: 'id',
-            values: [row.id]
+            field: 'did',
+            values: [row.did]
           });
           $('#confirm_modal').find('.alert-field').html("");
           $('#confirm_modal').modal('hide');

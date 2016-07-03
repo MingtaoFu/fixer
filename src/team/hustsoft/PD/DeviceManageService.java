@@ -1,5 +1,6 @@
 package team.hustsoft.PD;
 import team.hustsoft.basic.Device;
+import team.hustsoft.basic.Customer;
 import team.hustsoft.basic.DevicePrinter;
 import team.hustsoft.DA.DeviceDA;
 import java.util.*;
@@ -12,10 +13,10 @@ public class DeviceManageService {
      return instance;
    }
 
-   public ArrayList<Device> query(int cid) {
+   public Customer query_c(int did) {
      DeviceDA deviceDA = new DeviceDA();
-     ArrayList<Device> devices = deviceDA.query(cid);
-     return devices;
+     Customer customer = deviceDA.query_c(did);
+     return customer;
    }
 
    public int delete(int id) {
@@ -30,11 +31,11 @@ public class DeviceManageService {
 
    public int update(Device device) {
      DeviceDA deviceDA = new DeviceDA();
-     return deviceDA.update(device); 
+     return deviceDA.update(device);
    }
    public  DevicePrinter print(int did){
      DeviceDA deviceDA = new DeviceDA();
-     return deviceDA.print(did); 	
+     return deviceDA.print(did);
    }
 
 }

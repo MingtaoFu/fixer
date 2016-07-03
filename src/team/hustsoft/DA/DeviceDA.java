@@ -1,6 +1,7 @@
 package team.hustsoft.DA;
 
 import team.hustsoft.basic.Device;
+import team.hustsoft.basic.Customer;
 import team.hustsoft.basic.DevicePrinter;
 import com.mysql.jdbc.Driver;
 import team.hustsoft.DA.DABase;
@@ -9,6 +10,38 @@ import java.sql.*;
 import java.math.BigDecimal;
 
 public class DeviceDA extends DABase{
+
+   public Customer query_c(int did) {
+     conn = initialize();
+     String sql = "select Customer.* from Customer,Device where "+
+        "Device.did = "+did+" and "+
+        "Customer.cid = Device.cid";
+     ResultSet rs = null;
+     Customer customer = null;
+     try{
+       rs = statement.executeQuery(sql);
+       if(rs.next()) {
+         int id = rs.getInt("cid");
+         String citizenId = rs.getString("id");
+         int property = rs.getInt("property");
+         String companyName = rs.getString("companyName");
+         String companyPhone = rs.getString("tel");
+         String mobilePhone = rs.getString("mobilePhone");
+         String addr = rs.getString("address");
+         String zipCode = rs.getString("zipCode");
+         String name = rs.getString("contactPersonName");
+         String email = rs.getString("email");
+
+         customer = new Customer(id, property, companyName, companyPhone,
+         mobilePhone, addr, zipCode, name, email, citizenId);
+       }
+     } catch (SQLException e) {
+       System.out.println(e);
+     } finally{
+       terminate();
+     }
+     return customer;
+   }
 
    public ArrayList<Device> query(String search) {
      ArrayList<Device> devices = new ArrayList<Device>();
@@ -30,7 +63,6 @@ public class DeviceDA extends DABase{
         "Customer.contactPersonName like "+parttern+" and "+
         "Customer.cid = Device.cid";
 
-    System.out.println(sql);
      ResultSet rs = null;
      Device device  = null;
      try{
@@ -65,6 +97,9 @@ public class DeviceDA extends DABase{
          	lackPart,breakdownAppearance,breakdownType,appearanceCheck,startingUpCommand,significantMaterial,
          	HHD,RAM,PCCard,ACAdapter,battery,CD_ROM,floppy,other);
          device.setDid(did);
+         device.setStatus(status);
+         device.setCtime(ctime);
+			device.setExpectedCompletedTime(expectedCompletedTime);
          devices.add(device);
        }
      } catch (SQLException e) {
@@ -170,13 +205,14 @@ public class DeviceDA extends DABase{
 	String floppy = device.getFloppy();
 	String other =device.getOther();
 	String sql = "UPDATE Device SET cid=" + cid +",ctime=\'"+ctime.toString()+"\',expectedPrice=\'"+expectedPrice.toString()+
-		"\',expectedCompletedTime=\'"+expectedCompletedTime.toString()+"\',status="+status+",deviceType="+deviceType+
-		",deviceBrand=\'"+deviceBrand+"\',deviceModel=\'"+deviceModel+"\',deviceSerialNum=\'"+deviceSerialNum+
-		"\',lackPart=\'"+lackPart+"\',breakdownType="+breakdownType+",appearanceCheck="+appearanceCheck+
-             "\',breakdownType="+breakdownType+
-		",startingUpCommand=\'"+startingUpCommand+"\',significantMaterial=\'"+significantMaterial+"\',HHD=\'"+HHD+
+		"\',expectedCompletedTime=\'"+expectedCompletedTime.toString()+"\',status=\'"+status+"\',deviceType=\'"+deviceType+
+		"\',deviceBrand=\'"+deviceBrand+"\',deviceModel=\'"+deviceModel+"\',deviceSerialNum=\'"+deviceSerialNum+
+		"\',lackPart=\'"+lackPart+"\',appearanceCheck=\'"+appearanceCheck+
+             "\',breakdownType=\'"+breakdownType+
+		"\',startingUpCommand=\'"+startingUpCommand+"\',significantMaterial=\'"+significantMaterial+"\',HHD=\'"+HHD+
 		"\',RAM=\'"+RAM+"\',PCCard=\'"+PCCard+"\',ACAdapter=\'"+ACAdapter+"\',battery=\'"+battery+"\',CD_ROM=\'"+CD_ROM+
-		"\',floppy=\'"+floppy+"\',other\'"+other+"\';";
+		"\',floppy=\'"+floppy+"\',other=\'"+other+"\' WHERE did = "+device.getDid()+";";
+  System.out.println(sql);
 	try{
 		statement.executeUpdate(sql);
 	}
@@ -205,7 +241,7 @@ public class DeviceDA extends DABase{
                System.out.println(e);//?
                return -2;
       }
-      String sql = "DELETE FROM Device where did =\'"+did+"\';";
+      String sql = "DELETE FROM Device where did ="+did+";";
    	//conn = initialize();
       try{
         statement.executeUpdate(sql);
