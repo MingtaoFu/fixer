@@ -297,10 +297,11 @@ var func_confirm = function() {};
 
 window.operateEvents = {
   'click .like': function (e, value, row, index) {
+    console.log(row);
     row.op = "update";
     $('#confirm_modal').modal('show');
     func_confirm = function() {
-      $.post('customer_manage', row, function(data) {
+      $.post('device_manage', row, function(data) {
         console.log(data);
         if(data.status) {
           $('#confirm_modal').modal('hide');

@@ -97,6 +97,7 @@ public class DeviceDA extends DABase{
          	lackPart,breakdownAppearance,breakdownType,appearanceCheck,startingUpCommand,significantMaterial,
          	HHD,RAM,PCCard,ACAdapter,battery,CD_ROM,floppy,other);
          device.setDid(did);
+         device.setStatus(status);
          devices.add(device);
        }
      } catch (SQLException e) {
@@ -202,13 +203,14 @@ public class DeviceDA extends DABase{
 	String floppy = device.getFloppy();
 	String other =device.getOther();
 	String sql = "UPDATE Device SET cid=" + cid +",ctime=\'"+ctime.toString()+"\',expectedPrice=\'"+expectedPrice.toString()+
-		"\',expectedCompletedTime=\'"+expectedCompletedTime.toString()+"\',status="+status+",deviceType="+deviceType+
-		",deviceBrand=\'"+deviceBrand+"\',deviceModel=\'"+deviceModel+"\',deviceSerialNum=\'"+deviceSerialNum+
-		"\',lackPart=\'"+lackPart+"\',breakdownType="+breakdownType+",appearanceCheck="+appearanceCheck+
-             "\',breakdownType="+breakdownType+
-		",startingUpCommand=\'"+startingUpCommand+"\',significantMaterial=\'"+significantMaterial+"\',HHD=\'"+HHD+
+		"\',expectedCompletedTime=\'"+expectedCompletedTime.toString()+"\',status=\'"+status+"\',deviceType=\'"+deviceType+
+		"\',deviceBrand=\'"+deviceBrand+"\',deviceModel=\'"+deviceModel+"\',deviceSerialNum=\'"+deviceSerialNum+
+		"\',lackPart=\'"+lackPart+"\',appearanceCheck=\'"+appearanceCheck+
+             "\',breakdownType=\'"+breakdownType+
+		"\',startingUpCommand=\'"+startingUpCommand+"\',significantMaterial=\'"+significantMaterial+"\',HHD=\'"+HHD+
 		"\',RAM=\'"+RAM+"\',PCCard=\'"+PCCard+"\',ACAdapter=\'"+ACAdapter+"\',battery=\'"+battery+"\',CD_ROM=\'"+CD_ROM+
 		"\',floppy=\'"+floppy+"\',other=\'"+other+"\' WHERE did = "+device.getDid()+";";
+  System.out.println(sql);
 	try{
 		statement.executeUpdate(sql);
 	}
