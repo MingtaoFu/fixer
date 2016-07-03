@@ -168,6 +168,16 @@
       <url-pattern>/page</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>parts_manage</servlet-name>
+        <servlet-class>team.hustsoft.servlet.PartsManage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>parts_manage</servlet-name>
+        <url-pattern>/parts_manage</url-pattern>
+    </servlet-mapping>
+
+
 
 
 
