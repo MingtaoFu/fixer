@@ -157,7 +157,7 @@ public class DeviceDA extends DABase{
              "\',breakdownType="+breakdownType+
 		",startingUpCommand=\'"+startingUpCommand+"\',significantMaterial=\'"+significantMaterial+"\',HHD=\'"+HHD+
 		"\',RAM=\'"+RAM+"\',PCCard=\'"+PCCard+"\',ACAdapter=\'"+ACAdapter+"\',battery=\'"+battery+"\',CD_ROM=\'"+CD_ROM+
-		"\',floppy=\'"+floppy+"\',other\'"+other+"\';";
+		"\',floppy=\'"+floppy+"\',other\'"+other+"\' WHERE did = "+device.getDid()+";";
 	try{
 		statement.executeUpdate(sql);
 	}
@@ -186,7 +186,7 @@ public class DeviceDA extends DABase{
                System.out.println(e);//?
                return -2;
       }
-      String sql = "DELETE FROM Device where did =\'"+did+"\';";
+      String sql = "DELETE FROM Device where did ="+did+";";
    	//conn = initialize();
       try{
         statement.executeUpdate(sql);
