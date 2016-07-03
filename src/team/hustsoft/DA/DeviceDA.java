@@ -10,18 +10,34 @@ import java.math.BigDecimal;
 
 public class DeviceDA extends DABase{
 
-
-   public ArrayList<Device> query(int cid) {
+   public ArrayList<Device> query(String search) {
      ArrayList<Device> devices = new ArrayList<Device>();
      conn = initialize();
-     String sql = "select * from Device where cid=\'" + cid + "\';";
+
+     String parttern;
+     if(search == null || search.equals("")) {
+       parttern = "\'%\'";
+     } else {
+       parttern = "%";
+       for (int i = 0; i < search.length(); i++) {
+         parttern += search.charAt(i);
+         parttern += "%";
+       }
+       parttern = "\'" + parttern + "\'";
+     }
+
+     String sql = "select Device.* from Customer,Device where "+
+        "Customer.contactPersonName like "+parttern+" and "+
+        "Customer.cid = Device.cid";
+
+    System.out.println(sql);
      ResultSet rs = null;
      Device device  = null;
      try{
        rs = statement.executeQuery(sql);
        while(rs.next()) {
          int did = rs.getInt("did");
-         //int cid = cid;
+         int cid = rs.getInt("cid");
          Timestamp ctime = rs.getTimestamp("ctime");//
          BigDecimal expectedPrice = rs.getBigDecimal("expectedPrice");
 	  Timestamp expectedCompletedTime =rs.getTimestamp("expectedCompletedTime");
@@ -77,7 +93,7 @@ public class DeviceDA extends DABase{
 	String lackPart = device.getLackPart();
 	String breakdownAppearance = device.getBreakdownAppearance();
 	int breakdownType = device.getBreakdownType();
-      String appearanceCheck = device.getAppearanceCheck();
+  String appearanceCheck = device.getAppearanceCheck();
 	String startingUpCommand = device.getStartingUpCommand();
 	String significantMaterial = device.getSignificantMaterial();
 	String HHD = device.getHHD();
@@ -88,12 +104,15 @@ public class DeviceDA extends DABase{
 	String CD_ROM = device.getCD_ROM();
 	String floppy = device.getFloppy();
 	String other =device.getOther();
-  	String sql = "INSERT INTO Device(cid,ctime,expectedPrice,expectedCompletedTime,status,deviceType,deviceBrand,"+
+  if(expectedPrice == null) {
+    expectedPrice = new BigDecimal("0");
+  }
+  String sql = "INSERT INTO Device(cid,ctime,expectedPrice,expectedCompletedTime,status,deviceType,deviceBrand,"+
              "deviceModel,deviceSerialNum,lackPart,breakdownType,appearanceCheck,startingUpCommand,significantMaterial,"+
          	"HHD,RAM,PCCard,ACAdapter,battery,CD_ROM,floppy,other,breakdownAppearance)"+
   		"VALUES("+cid+",\'"+ctime.toString()+"\',\'"+expectedPrice.toString()+"\',\'"+expectedCompletedTime.toString()+"\',\'"+
-  		status+"\',\'"+deviceType+"\',\'"+deviceBrand+"\',\'"+deviceModel+"\',\'"+deviceSerialNum+"\',\'"+lackPart+"\',"+
-  		breakdownType+",\'"+appearanceCheck+"\',\'"+startingUpCommand+"\',\'"+significantMaterial+"\',\'"+
+  		status+"\',\'"+deviceType+"\',\'"+deviceBrand+"\',\'"+deviceModel+"\',\'"+deviceSerialNum+"\',\'"+lackPart+"\',\'"+
+  		breakdownType+"\',\'"+appearanceCheck+"\',\'"+startingUpCommand+"\',\'"+significantMaterial+"\',\'"+
   		HHD+"\',\'"+RAM+"\',\'"+PCCard+"\',\'"+ACAdapter+"\',\'"+battery+"\',\'"+CD_ROM+"\',\'"+floppy+"\',\'"+other+"\',\'"
              +breakdownAppearance+"\')";
 	try{

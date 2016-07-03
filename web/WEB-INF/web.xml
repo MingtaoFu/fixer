@@ -159,6 +159,15 @@
       <url-pattern>/device_manage</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+      <servlet-name>page_manage</servlet-name>
+      <servlet-class>team.hustsoft.servlet.PageManage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>page_manage</servlet-name>
+      <url-pattern>/page</url-pattern>
+    </servlet-mapping>
+
 
 
 

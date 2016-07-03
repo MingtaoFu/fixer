@@ -145,7 +145,7 @@ public class CreateTable {
 					"workload VARCHAR(20),												/* 工作量*/"+
 					"requiredPart VARCHAR(50),											/* 维修所使用的器件*/"+
 					"status enum(\"0\",\"1\",\"2\",\"3\") NOT NULL,						/* 维修状态*/"+
-					"delayDegree enum(\"0\",\"1\",\"2\"),									/* 延迟程度*/"+	
+					"delayDegree enum(\"0\",\"1\",\"2\"),									/* 延迟程度*/"+
 					"CONSTRAINT PK_RRID PRIMARY KEY(rrid),"+
 					"CONSTRAINT FK_DID FOREIGN KEY(did) REFERENCES Device(did))"+
 					"DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;",
@@ -195,7 +195,7 @@ public class CreateTable {
 				"CREATE TABLE IF NOT EXISTS User("+
 					"uid INT(5) AUTO_INCREMENT NOT NULL,"+
 					"userName VARCHAR(50) NOT NULL UNIQUE,"+
-					"passWord VARCHAR(50) NOT NULL,"+
+					"passWord VARCHAR(100) NOT NULL,"+
 					"characters enum(\"0\",\"1\",\"2\",\"3\",\"4\",\"5\",\"6\")  NOT NULL,"+
 					"CONSTRAINT PK_UID PRIMARY KEY(uid))"+
 					"DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;"

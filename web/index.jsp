@@ -11,6 +11,7 @@
     <%
     String str = request.getParameter("param");
     out.println(SHA.encode(str));
+    out.println(11);
     //out.println(Account.authorized());
     %>
     <script>
@@ -22,7 +23,7 @@
 					console.log(JSON.parse(xhr.responseText));
 				}
 			}
-		}	
+		}
 		xhr.send(null);
 		</script>
   </body>

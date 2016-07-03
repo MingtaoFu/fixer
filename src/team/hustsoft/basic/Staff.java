@@ -5,12 +5,16 @@ public class Staff{
 	private String name;
 	private String password;
 	private int type;
-  public Staff(String name, String password) {
+  public Staff(int id, String name, String password, int type) {
+		this.id = id;
 		this.name = name;
-    this.password = SHA.encode(password);
-    this.type = 2;
+    this.password = password;
+    this.type = type;
   }
   public int getType() {
     return this.type;
   }
+	public String getPassword() {
+		return this.password;
+	}
 }

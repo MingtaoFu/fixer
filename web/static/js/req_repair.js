@@ -15,11 +15,11 @@ function initTable() {
           valign: 'middle'
         }, {
           title: 'ID',
-          field: 'id',
+          field: 'did',
           align: 'center',
         },
         {
-          field: 'name',
+          field: 'cid',
           title: '客户姓名',
           editable: true,
           align: 'center',
@@ -281,10 +281,11 @@ function operateFormatter(value, row, index) {
     '<a class="print" href="javascript:void(0)" title="print">',
       '<i class="glyphicon glyphicon-print"></i>',
     '</a>  ',
-    '<a class="like" href="javascript:void(0)" title="save">', '<i class="glyphicon glyphicon-ok"></i>',
+    '<a class="like" href="javascript:void(0)" title="save">',
+    '<i class="glyphicon glyphicon-ok"></i>',
     '</a>  ',
-    '<a class="like" href="javascript:void(0)" title="repair">',
-      '<i class="glyphicon glyphicon-wrench"></i>',
+    '<a class="confirm" href="javascript:void(0)" title="confirm">',
+      '<i class="glyphicon glyphicon-check"></i>',
     '</a>  ',
     '<a class="remove" href="javascript:void(0)" title="Remove">',
     '<i class="glyphicon glyphicon-remove"></i>',
@@ -434,7 +435,7 @@ $('#add_form').on('submit', function(e) {
   }
   var data = $(e.target).serialize();
   data += "&op=add";
-  $.post('customer_manage', data, function(data) {
+  $.post('req_manage', data, function(data) {
     if(!data.status) {
       var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
         '<button type="button" class="close" data-dismiss="alert" '+
@@ -449,7 +450,22 @@ $('#add_form').on('submit', function(e) {
 })
 
 $(function() {
-  $('.form-datetime').datetimepicker();
+  $('.form-datetime').datetimepicker("render");
+  $('.selectpicker-ajax').selectpicker({
+    liveSearch: true
+  })
+  .ajaxSelectPicker({
+    ajax: {
+      url: "req_manage",
+      data: function () {
+        var params = {
+          op: "getcname",
+          search: '{{{q}}}'
+        };
+        return params;
+      }
+    }
+  })
   $('#add_form').formValidation({
     framework: 'bootstrap',
     message: '输入不合法',
@@ -459,7 +475,7 @@ $(function() {
       validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-      customer_name: {
+      cid: {
         row: '.controls',
         validators: {
           notEmpty: {
