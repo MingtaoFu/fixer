@@ -160,8 +160,8 @@ function initTable() {
           align: 'center'
         },
         {
-          field: 'HDD',
-          title: 'HDD',
+          field: 'HHD',
+          title: 'HHD',
           editable: true,
           align: 'center'
         },
@@ -322,11 +322,11 @@ window.operateEvents = {
   'click .remove': function (e, value, row, index) {
     $('#confirm_modal').modal('show');
     func_confirm = function() {
-      $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
+      $.post('device_manage', {op: "delete", id: row.did}, function(data) {
         if(data.status) {
           $table.bootstrapTable('remove', {
-            field: 'id',
-            values: [row.id]
+            field: 'did',
+            values: [row.did]
           });
           $('#confirm_modal').find('.alert-field').html("");
           $('#confirm_modal').modal('hide');
