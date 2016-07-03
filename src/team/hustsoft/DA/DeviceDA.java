@@ -176,7 +176,7 @@ public class DeviceDA extends DABase{
              "\',breakdownType="+breakdownType+
 		",startingUpCommand=\'"+startingUpCommand+"\',significantMaterial=\'"+significantMaterial+"\',HHD=\'"+HHD+
 		"\',RAM=\'"+RAM+"\',PCCard=\'"+PCCard+"\',ACAdapter=\'"+ACAdapter+"\',battery=\'"+battery+"\',CD_ROM=\'"+CD_ROM+
-		"\',floppy=\'"+floppy+"\',other\'"+other+"\' WHERE did = "+device.getDid()+";";
+		"\',floppy=\'"+floppy+"\',other=\'"+other+"\' WHERE did = "+device.getDid()+";";
 	try{
 		statement.executeUpdate(sql);
 	}
