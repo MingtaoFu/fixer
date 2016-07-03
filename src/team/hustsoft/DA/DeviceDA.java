@@ -1,6 +1,7 @@
 package team.hustsoft.DA;
 
 import team.hustsoft.basic.Device;
+import team.hustsoft.basic.Customer;
 import team.hustsoft.basic.DevicePrinter;
 import com.mysql.jdbc.Driver;
 import team.hustsoft.DA.DABase;
@@ -9,6 +10,38 @@ import java.sql.*;
 import java.math.BigDecimal;
 
 public class DeviceDA extends DABase{
+
+   public Customer query_c(int did) {
+     conn = initialize();
+     String sql = "select Customer.* from Customer,Device where "+
+        "Device.did = "+did+" and "+
+        "Customer.cid = Device.cid";
+     ResultSet rs = null;
+     Customer customer = null;
+     try{
+       rs = statement.executeQuery(sql);
+       if(rs.next()) {
+         int id = rs.getInt("cid");
+         String citizenId = rs.getString("id");
+         int property = rs.getInt("property");
+         String companyName = rs.getString("companyName");
+         String companyPhone = rs.getString("tel");
+         String mobilePhone = rs.getString("mobilePhone");
+         String addr = rs.getString("address");
+         String zipCode = rs.getString("zipCode");
+         String name = rs.getString("contactPersonName");
+         String email = rs.getString("email");
+
+         customer = new Customer(id, property, companyName, companyPhone,
+         mobilePhone, addr, zipCode, name, email, citizenId);
+       }
+     } catch (SQLException e) {
+       System.out.println(e);
+     } finally{
+       terminate();
+     }
+     return customer;
+   }
 
    public ArrayList<Device> query(String search) {
      ArrayList<Device> devices = new ArrayList<Device>();
@@ -30,7 +63,6 @@ public class DeviceDA extends DABase{
         "Customer.contactPersonName like "+parttern+" and "+
         "Customer.cid = Device.cid";
 
-    System.out.println(sql);
      ResultSet rs = null;
      Device device  = null;
      try{

@@ -168,6 +168,15 @@
       <url-pattern>/page</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+      <servlet-name>table</servlet-name>
+      <servlet-class>team.hustsoft.servlet.Table</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>table</servlet-name>
+      <url-pattern>/table</url-pattern>
+    </servlet-mapping>
+
 
 
 

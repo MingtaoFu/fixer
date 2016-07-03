@@ -317,7 +317,14 @@ window.operateEvents = {
     }
   },
   'click .print': function (e, value, row, index) {
-    window.open("table.html");
+    var str = "?";
+    for(var i in row) {
+      str += i;
+      str += "=";
+      str += row[i];
+      str += "&";
+    }
+    window.open("table"+str);
   },
   'click .remove': function (e, value, row, index) {
     $('#confirm_modal').modal('show');

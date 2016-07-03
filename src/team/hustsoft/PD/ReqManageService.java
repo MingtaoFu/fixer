@@ -33,7 +33,7 @@ public class ReqManageService {
   public ArrayList<Device> query(String search) {
     DeviceDA deviceDA = new DeviceDA();
     ArrayList<Device> devList = deviceDA.query(search);
-    System.out.println(devList);
+    System.out.println(devList.get(0).getDeviceModel());
     return devList;
   }
 }
