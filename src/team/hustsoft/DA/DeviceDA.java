@@ -98,6 +98,8 @@ public class DeviceDA extends DABase{
          	HHD,RAM,PCCard,ACAdapter,battery,CD_ROM,floppy,other);
          device.setDid(did);
          device.setStatus(status);
+         device.setCtime(ctime);
+			device.setExpectedCompletedTime(expectedCompletedTime);
          devices.add(device);
        }
      } catch (SQLException e) {

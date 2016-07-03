@@ -87,6 +87,8 @@ public class DeviceManage extends HttpServlet {
 			CD_ROM = request.getParameter("CD_ROM");
 			floppy = request.getParameter("floppy");
 			other = request.getParameter("other");
+			Timestamp expectedCompletedTime = Timestamp.valueOf(request.getParameter("expectedCompletedTime")+":00");
+			ctime = Timestamp.valueOf(request.getParameter("ctime")+":00");
 
 			Device device = new Device(cid, expectedPrice, deviceType, deviceBrand,
 			deviceModel, deviceSerialNum, lackPart, breakdownAppearance, breakdownType,
@@ -95,6 +97,8 @@ public class DeviceManage extends HttpServlet {
 
 			device.setDid(id);
 			device.setStatus(status);
+			device.setCtime(ctime);
+			device.setExpectedCompletedTime(expectedCompletedTime);
 
 			value = DeviceManageService.getInstance().update(device);
 			switch (value) {
