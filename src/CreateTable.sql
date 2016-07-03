@@ -110,3 +110,6 @@ CREATE TABLE IF NOT EXISTS User(
 	characters enum(0,1,2,3,4,5,6)  NOT NULL,
 	CONSTRAINT PK_UID PRIMARY KEY(uid))
 	DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
+
+
+insert into Device(cid,status,deviceType,breakdownAppearance,breakdownType) Values(1,0,1,'gaygaygay',1);
