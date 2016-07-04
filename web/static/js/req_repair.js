@@ -63,11 +63,12 @@ function initTable() {
           field: 'status',
           title: '状态',
           editable: {
+            disabled: true,
             type: 'select',
             source: [
-              {value: 0, text: '进行中'},
-              {value: 1, text: '结束'},
-              {value: 2, text: '撤销'},
+              {value: 0, text: '未打印'},
+              {value: 1, text: '已打印'},
+              {value: 2, text: '已提交'},
             ]
           },
           align: 'center'
@@ -276,16 +277,21 @@ function detailFormatter(index, row) {
 }
 
 function operateFormatter(value, row, index) {
+  var con_str = '<a class="confirm" href="javascript:void(0)" title="confirm">'+
+      '<i class="glyphicon glyphicon-check"></i>'+
+    '</a>  '+
+    '<a class="print" href="javascript:void(0)" title="print">'+
+      '<i class="glyphicon glyphicon-print"></i>'+
+    '</a>  ';
+  if(row.status === '2') {
+    con_str = "";
+  }
   return [
-    '<a class="print" href="javascript:void(0)" title="print">',
-      '<i class="glyphicon glyphicon-print"></i>',
-    '</a>  ',
+
     '<a class="like" href="javascript:void(0)" title="save">',
     '<i class="glyphicon glyphicon-ok"></i>',
     '</a>  ',
-    '<a class="confirm" href="javascript:void(0)" title="confirm">',
-      '<i class="glyphicon glyphicon-check"></i>',
-    '</a>  ',
+    con_str,
     '<a class="remove" href="javascript:void(0)" title="Remove">',
     '<i class="glyphicon glyphicon-remove"></i>',
     '</a>'
@@ -317,14 +323,18 @@ window.operateEvents = {
     }
   },
   'click .print': function (e, value, row, index) {
-    var str = "?";
-    for(var i in row) {
-      str += i;
-      str += "=";
-      str += row[i];
-      str += "&";
-    }
-    window.open("table"+str);
+    $.post("req_manage", {op: "print", did: row.did}, function(data) {
+      if(data.status) {
+        var str = "?";
+        for(var i in row) {
+          str += i;
+          str += "=";
+          str += row[i];
+          str += "&";
+        }
+        window.open("table"+str);
+      }
+    });
   },
   'click .remove': function (e, value, row, index) {
     $('#confirm_modal').modal('show');

@@ -45,8 +45,18 @@
                 </div>
               </div>
 
+              <%
+              String error = request.getParameter("error");
+              if(error != null) {
+                String str = "<div class=\"alert alert-danger alert-dismissible fade in\" role=\"alert\">"+
+                "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" "+
+                "aria-label=\"Close\"><span aria-hidden=\"true\">×</span></button><p>" +
+                error +
+                "</p></div>";
+                out.print(str);
+              }
+              %>
               <div class="control-group">
-                <!-- Button -->
                 <div class="controls">
                   <button class="btn btn-default">登录</button>
                 </div>

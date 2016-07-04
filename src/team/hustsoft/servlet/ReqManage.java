@@ -20,6 +20,28 @@ public class ReqManage extends HttpServlet {
 		int value;
 		JSONObject json = new JSONObject();
     switch(op) {
+			case "print":
+				int id = Integer.parseInt(request.getParameter("did"));
+		 		value = DeviceManageService.getInstance().print(id);
+				switch (value) {
+					case 1:
+						json.put("status", true);
+						break;
+					case -1:
+						json.put("status", false);
+						json.put("error", "找不到条目");
+						break;
+					case -2:
+						json.put("status", false);
+						json.put("error", "服务器错误");
+						break;
+					default:
+						json.put("status", false);
+						json.put("error", "未知错误，请联系管理员");
+				}
+				out.print(json);
+				break;
+
       //get customers name
       case "getcname":
         String search = request.getParameter("search");
