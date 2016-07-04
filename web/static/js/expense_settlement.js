@@ -409,6 +409,18 @@ $(function() {
       validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
+        mobile_phone: {
+        row: '.controls',
+        validators: {
+          notEmpty: {
+            message: 'id是必填的'
+          },
+          regexp: {
+            regexp: /^1[0-9]{10}$/,
+            message: 'id不合法'
+          }
+        }
+      },
       customer_name: {
         row: '.controls',
         validators: {
@@ -421,18 +433,6 @@ $(function() {
           }
         }
       },
-      // mobile_phone: {
-      //   row: '.controls',
-      //   validators: {
-      //     notEmpty: {
-      //       message: '手机是必填的'
-      //     },
-      //     regexp: {
-      //       regexp: /^1[0-9]{10}$/,
-      //       message: '手机不合法'
-      //     }
-      //   }
-      // },
       citizen_id: {
         row: '.controls',
         validators: {
@@ -457,9 +457,9 @@ $(function() {
       zip_code: {
         row: '.controls',
         validators: {
-           notEmpty: {
-            message: '日期是必填的'
-          },
+          //  notEmpty: {
+          //   message: '日期是必填的'
+          // },
           regexp: {
             regexp: /^([1-2]\d{3})[\/|\-](0?[1-9]|10|11|12)[\/|\-]([1-2]?[0-9]|0[1-9]|30|31)$/,
             message: '日期不合法'
