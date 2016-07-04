@@ -20,8 +20,7 @@ function initTable() {
         },
         {
           field: 'cid',
-          title: '客户姓名',
-          editable: true,
+          title: '客户',
           align: 'center',
           editable: {
             validate: function (value) {
@@ -64,11 +63,12 @@ function initTable() {
           field: 'status',
           title: '状态',
           editable: {
+            disabled: true,
             type: 'select',
             source: [
-              {value: 0, text: '进行中'},
-              {value: 1, text: '结束'},
-              {value: 2, text: '撤销'},
+              {value: 0, text: '未打印'},
+              {value: 1, text: '已打印'},
+              {value: 2, text: '已提交'},
             ]
           },
           align: 'center'
@@ -277,16 +277,21 @@ function detailFormatter(index, row) {
 }
 
 function operateFormatter(value, row, index) {
+  var con_str = '<a class="confirm" href="javascript:void(0)" title="confirm">'+
+      '<i class="glyphicon glyphicon-check"></i>'+
+    '</a>  '+
+    '<a class="print" href="javascript:void(0)" title="print">'+
+      '<i class="glyphicon glyphicon-print"></i>'+
+    '</a>  ';
+  if(row.status === '2') {
+    con_str = "";
+  }
   return [
-    '<a class="print" href="javascript:void(0)" title="print">',
-      '<i class="glyphicon glyphicon-print"></i>',
-    '</a>  ',
+
     '<a class="like" href="javascript:void(0)" title="save">',
     '<i class="glyphicon glyphicon-ok"></i>',
     '</a>  ',
-    '<a class="confirm" href="javascript:void(0)" title="confirm">',
-      '<i class="glyphicon glyphicon-check"></i>',
-    '</a>  ',
+    con_str,
     '<a class="remove" href="javascript:void(0)" title="Remove">',
     '<i class="glyphicon glyphicon-remove"></i>',
     '</a>'
@@ -318,14 +323,18 @@ window.operateEvents = {
     }
   },
   'click .print': function (e, value, row, index) {
-    var str = "?";
-    for(var i in row) {
-      str += i;
-      str += "=";
-      str += row[i];
-      str += "&";
-    }
-    window.open("table"+str);
+    $.post("req_manage", {op: "print", did: row.did}, function(data) {
+      if(data.status) {
+        var str = "?";
+        for(var i in row) {
+          str += i;
+          str += "=";
+          str += row[i];
+          str += "&";
+        }
+        window.open("table"+str);
+      }
+    });
   },
   'click .remove': function (e, value, row, index) {
     $('#confirm_modal').modal('show');
@@ -336,6 +345,24 @@ window.operateEvents = {
             field: 'did',
             values: [row.did]
           });
+          $('#confirm_modal').find('.alert-field').html("");
+          $('#confirm_modal').modal('hide');
+        } else {
+          var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
+          '<button type="button" class="close" data-dismiss="alert" '+
+          'aria-label="Close"><span aria-hidden="true">×</span></button><p>'+
+          data.error +
+          '</p></div>';
+          $('#confirm_modal').find('.alert-field').html(html);
+        }
+      });
+    }
+  },
+  'click .confirm': function (e, value, row, index) {
+    $('#confirm_modal').modal('show');
+    func_confirm = function() {
+      $.post('req_manage', {op: "confirm", did: row.did}, function(data) {
+        if(data.status) {
           $('#confirm_modal').find('.alert-field').html("");
           $('#confirm_modal').modal('hide');
         } else {
