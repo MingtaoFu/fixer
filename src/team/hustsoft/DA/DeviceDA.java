@@ -285,6 +285,35 @@ public class DeviceDA extends DABase{
       return 1;
   }
 
+  public  int confirm(int did) {
+  	String sql0 = "SELECT did FROM Device WHERE did ="+did+";";
+  	conn = initialize();
+      ResultSet rs  =null;
+      try{
+        rs=statement.executeQuery(sql0);
+        if(!rs.next()){
+          terminate();
+          return -1;
+        }
+      }
+      catch(SQLException e){
+               System.out.println(e);//?
+               return -2;
+      }
+  	  String sql = "update Device set status = \'2\' WHERE did ="+did+";";
+      try{
+        statement.executeUpdate(sql);
+      }
+      catch(SQLException e){
+               System.out.println(e);//?
+               return -2;
+      }
+      finally{
+          terminate();
+      }
+      return 1;
+  }
+
   public DevicePrinter print(int did){
   	String sql0 = "SELECT cid,ctime,deviceType,deviceBrand,deviceModel,deviceSerialNum,lackPart,breakdownAppearance "+
   		"FROM Device WHERE did ="+did+";";

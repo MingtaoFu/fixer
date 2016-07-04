@@ -357,6 +357,24 @@ window.operateEvents = {
         }
       });
     }
+  },
+  'click .confirm': function (e, value, row, index) {
+    $('#confirm_modal').modal('show');
+    func_confirm = function() {
+      $.post('req_manage', {op: "confirm", did: row.did}, function(data) {
+        if(data.status) {
+          $('#confirm_modal').find('.alert-field').html("");
+          $('#confirm_modal').modal('hide');
+        } else {
+          var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
+          '<button type="button" class="close" data-dismiss="alert" '+
+          'aria-label="Close"><span aria-hidden="true">×</span></button><p>'+
+          data.error +
+          '</p></div>';
+          $('#confirm_modal').find('.alert-field').html(html);
+        }
+      });
+    }
   }
 };
 

@@ -37,4 +37,8 @@ public class DeviceManageService {
      DeviceDA deviceDA = new DeviceDA();
      return deviceDA.print2(did);
    }
+   public  int confirm(int did){
+     DeviceDA deviceDA = new DeviceDA();
+     return deviceDA.confirm(did);
+   }
 }
