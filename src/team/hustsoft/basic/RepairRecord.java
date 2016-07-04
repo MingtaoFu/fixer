@@ -154,5 +154,3 @@ public class RepairRecord{
 	}
 
 }
-
-}
