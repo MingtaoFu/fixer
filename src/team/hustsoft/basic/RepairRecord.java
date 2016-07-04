@@ -1,6 +1,7 @@
 package team.hustsoft.basic;
 import java.sql.Timestamp;
-
+import org.json.simple.JSONObject;
+import java.lang.reflect.Field;
 
 public class RepairRecord{
 	private int rrid;
@@ -19,7 +20,7 @@ public class RepairRecord{
 		String repairRecord,Timestamp repairTime,String workload,String requiredPart,int status,int delayDegree){
 		this.did = did;
 		if(distributeTime == null){
-			this.distributeTime = new Timestamp(0l);
+			this.distributeTime = new Timestamp(1000l);
 		}
 		else{
 			this.distributeTime = distributeTime;
@@ -28,7 +29,7 @@ public class RepairRecord{
 		this .detectionRecord = detectionRecord;
 		this.repairRecord = repairRecord;
 		if(repairTime==null){
-			this.repairTime = new Timestamp(0l);
+			this.repairTime = new Timestamp(1000l);
 		}
 		else{
 			this.repairTime = repairTime;
@@ -133,7 +134,26 @@ public class RepairRecord{
 	}
 
 	
-		
+	public JSONObject toJSON() {
+		JSONObject json = new JSONObject();
+		Class cls = this.getClass();
+		Field[] fileds = cls.getDeclaredFields();
+		for(int i = 0; i < fileds.length; i++) {
+			Field f = fileds[i];
+			f.setAccessible(true);
+			try {
+				if(f.get(this) instanceof Timestamp){
+					json.put(f.getName(), f.get(this).toString());	
+				}
+				else{
+					json.put(f.getName(), f.get(this));
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+		return json;
+	}
 
 }
 

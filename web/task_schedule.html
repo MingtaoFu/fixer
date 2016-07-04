@@ -54,7 +54,7 @@
     data-pagination="true"
     data-id-field="id" data-page-list="[10, 25, 50, 100, ALL]"
     data-show-footer="false" data-side-pagination="server"
-    data-url="customer_manage" data-response-handler="responseHandler">
+    data-url="task_schedule" data-response-handler="responseHandler">
   </table>
 </div>
 <!-- Modal -->
@@ -68,12 +68,13 @@
       <div class="modal-body">
         <form class="form-horizontal container-fluid" id="add_form" method="post">
           <fieldset class="row">
+            <div class="alert-field"></div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
               <div class="control-group">
-                <label class="control-label" for="customer_name">维修人员</label>
+                <label class="control-label" for="maintenance_name">维修人员</label>
                 <div class="controls">
                   <input type="text" placeholder="维修人员姓名" class="form-control"
-                  id="customer_name" name="customer_name">
+                  id="maintenance_name" name="maintenance_name">
                 </div>
               </div>
              <!--  <div class="control-group">

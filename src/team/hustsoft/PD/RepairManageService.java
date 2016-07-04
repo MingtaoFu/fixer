@@ -16,6 +16,11 @@ public class RepairManageService {
 		RepairRecordDA rrda=new RepairRecordDA();
 		return rrda.query(did);
 	}
+	/////
+	public ArrayList<RepairRecord> query() {
+		RepairRecordDA rrda=new RepairRecordDA();
+		return rrda.query();
+	}
 
 	public int insert(RepairRecord rr){
 		RepairRecordDA rrda = new RepairRecordDA();

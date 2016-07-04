@@ -41,6 +41,41 @@ public class RepairRecordDA extends DABase{
 		}
 		return records;
 	}
+	public ArrayList<RepairRecord> query() {
+     		ArrayList<RepairRecord> records = new ArrayList<RepairRecord>();
+		conn = initialize();
+		String sql = "select * from RepairRecord ORDER BY status;";
+		ResultSet rs = null;
+		RepairRecord repairRecord0  = null;
+		try{
+			rs = statement.executeQuery(sql);
+			while(rs.next()) {
+				int did = rs.getInt("did");
+				int rrid = rs.getInt("rrid");
+				Timestamp distributeTime = rs.getTimestamp("distributeTime");
+				String maintenance = rs.getString("maintenance");
+				String detectionRecord  = rs.getString("detectionRecord");
+				String repairRecord = rs.getString("repairRecord");
+				Timestamp repairTime = rs.getTimestamp("repairTime");
+				String workload = rs.getString("workload");
+				String requiredPart = rs.getString("requiredPart");
+				int status = rs.getInt("status");
+				int delayDegree = rs.getInt("delayDegree");
+				repairRecord0 = new RepairRecord(did,distributeTime,maintenance,detectionRecord,
+						repairRecord,repairTime,workload,requiredPart,status,delayDegree);
+				repairRecord0.setRrid(rrid);
+				records.add(repairRecord0);
+			}
+		}
+		catch (SQLException e) {
+			System.out.println(e);
+			return null;
+		}
+		finally{
+			terminate();
+		}
+		return records;
+	}
 
 	public int insert(RepairRecord rr){
 		if(rr==null){
