@@ -46,6 +46,7 @@ public class StaffManage extends HttpServlet {
     String password;
     String userName;
     int characters;
+    int id;
     switch (operation) {
       case "add":
         password = request.getParameter("password");
@@ -73,6 +74,27 @@ public class StaffManage extends HttpServlet {
 				}
 				out.print(json);
         break;
+      case "delete":
+				id = Integer.parseInt(request.getParameter("uid"));
+		 		value = StaffManageService.getInstance().delete(id);
+				switch (value) {
+					case 1:
+						json.put("status", true);
+						break;
+					case -1:
+						json.put("status", false);
+						json.put("error", "找不到员工");
+						break;
+					case -2:
+						json.put("status", false);
+						json.put("error", "服务器错误");
+						break;
+					default:
+						json.put("status", false);
+						json.put("error", "未知错误，请联系管理员");
+				}
+				out.print(json);
+				break;
       default:
     }
   }

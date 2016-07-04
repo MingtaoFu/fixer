@@ -21,4 +21,9 @@ public class StaffManageService {
     StaffDA staffDA = new StaffDA();
     return staffDA.insert(staff);
   }
+
+  public int delete(int id) {
+    StaffDA staffDA = new StaffDA();
+    return staffDA.delete(id);
+  }
 }

@@ -79,4 +79,34 @@ public class StaffDA extends DABase {
     }
     return 1;
   }
+
+  public int delete(int id) {
+      String sql0 = "SELECT * FROM User where uid =\'"+id+"\';";
+      conn = initialize();
+      ResultSet rs  =null;
+      try{
+        rs=statement.executeQuery(sql0);
+        if(!rs.next()){
+          terminate();
+          return -1;
+        }
+      }
+      catch(SQLException e){
+               System.out.println(e);//?
+                              return -2;
+      }
+    String sql = "DELETE FROM User where uid =\'"+id+"\';";
+   //   conn = initialize();
+      try{
+        statement.executeUpdate(sql);
+      }
+      catch(SQLException e){
+               System.out.println(e);//?
+                              return -2;
+      }
+      finally{
+          terminate();
+      }
+            return 1;
+  }
 }

@@ -172,11 +172,11 @@ window.operateEvents = {
   'click .remove': function (e, value, row, index) {
     $('#confirm_modal').modal('show');
     func_confirm = function() {
-      $.post('staff_manage', {op: "delete", id: row.id}, function(data) {
+      $.post('staff_manage', {op: "delete", uid: row.uid}, function(data) {
         if(data.status) {
           $table.bootstrapTable('remove', {
-            field: 'id',
-            values: [row.id]
+            field: 'uid',
+            values: [row.uid]
           });
           $('#confirm_modal').find('.alert-field').html("");
           $('#confirm_modal').modal('hide');
