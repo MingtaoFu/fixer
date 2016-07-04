@@ -16,7 +16,14 @@ public class AccountManageService{
   }
   public Boolean authorize (String name, String pwd_sha, int property) {
     AccountDA accountDA = new AccountDA();
-    Boolean bool = accountDA.authorize(name, pwd_sha, property);
-    return bool;
+    Staff staff = accountDA.query(name, pwd_sha);
+    if(staff == null) {
+      return false;
+    } else if(staff.getCharacters() == 0){
+      return true;
+    } else {
+      Boolean bool = accountDA.authorize(name, pwd_sha, property);
+      return bool;
+    }
   }
 }
