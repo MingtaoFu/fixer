@@ -23,6 +23,9 @@ public class Staff{
 	public String getUserName() {
 		return this.userName;
 	}
+	public int getUid() {
+		return this.uid;
+	}
 	public JSONObject toJSON() {
 		JSONObject json = new JSONObject();
 		Class cls = this.getClass();

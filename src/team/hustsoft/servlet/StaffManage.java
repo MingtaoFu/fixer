@@ -43,14 +43,44 @@ public class StaffManage extends HttpServlet {
 		JSONObject json = new JSONObject();
 		int value;
     Staff staff;
-    String password;
+    String password, password2;
     String userName;
     int characters;
     int id;
     switch (operation) {
+      case "update":
+        password = request.getParameter("password");
+        password2 = SHA.encode(password);
+        id = Integer.parseInt(request.getParameter("uid"));
+        if(password.equals("")) {
+          password2 = null;
+        }
+        userName = request.getParameter("userName");
+        characters = Integer.parseInt(request.getParameter("characters"));
+        staff = new Staff(id, userName, password2, characters);
+
+        value = StaffManageService.getInstance().update(staff);
+        switch (value) {
+					case 1:
+						json.put("status", true);
+						break;
+					case -1:
+						json.put("status", false);
+						json.put("error", "用户不存在");
+						break;
+					case -2:
+						json.put("status", false);
+						json.put("error", "服务器错误");
+						break;
+					default:
+						json.put("status", false);
+						json.put("error", "未知错误，请联系管理员");
+				}
+				out.print(json);
+        break;
       case "add":
         password = request.getParameter("password");
-        String password2 = SHA.encode(password);
+        password2 = SHA.encode(password);
         userName = request.getParameter("userName");
         characters = Integer.parseInt(request.getParameter("characters"));
         staff = new Staff(0, userName, password2, characters);

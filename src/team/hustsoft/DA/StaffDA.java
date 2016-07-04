@@ -109,4 +109,47 @@ public class StaffDA extends DABase {
       }
             return 1;
   }
+
+  public int update(Staff staff) {
+      if (staff == null) {
+        return -1;
+      }
+      String sql0 = "SELECT * FROM User where uid ="+staff.getUid();
+      System.out.println(sql0);
+      conn = initialize();
+      ResultSet rs  =null;
+      try{
+        rs=statement.executeQuery(sql0);
+        if(!rs.next()){
+          terminate();
+          return -1;
+        }
+      }
+      catch(SQLException e){
+               System.out.println(e);//?
+               return -2;
+      }
+
+      String sql;
+      if(staff.getPassword() == null) {
+        sql = "update User set userName="+
+        "\'"+staff.getUserName()+"\', characters=\'"+staff.getCharacters()+"\'";
+      } else {
+        sql = "update User set userName="+
+        "\'"+staff.getUserName()+"\', characters=\'"+staff.getCharacters()+"\',password=\'"+
+        staff.getPassword()+"\'";
+      }
+
+      try{
+        statement.executeUpdate(sql);
+      }
+      catch(SQLException e){
+               System.out.println(e);//?
+               return -2;
+      }
+      finally{
+          terminate();
+      }
+            return 1;
+  }
 }

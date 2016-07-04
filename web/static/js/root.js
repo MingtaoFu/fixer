@@ -31,7 +31,7 @@ function initTable() {
           }
         },
         {
-          field: 'passWord',
+          field: 'password',
           title: '密码',
           editable: {
             type: "password",
@@ -151,6 +151,7 @@ var func_confirm = function() {};
 window.operateEvents = {
   'click .like': function (e, value, row, index) {
     row.op = "update";
+    console.log(row);
     $('#confirm_modal').modal('show');
     func_confirm = function() {
       $.post('staff_manage', row, function(data) {
