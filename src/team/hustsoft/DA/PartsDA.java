@@ -9,16 +9,32 @@ import java.sql.*;
 import java.math.BigDecimal;
 
 public  class PartsDA extends DABase{
-    public ArrayList<Parts> query(String partName){
+    public ArrayList<Parts> query(String search, String order){
         ArrayList<Parts> partsList = new ArrayList<Parts>();
         conn = initialize();
-        String sql = "select * from Parts where partName like \'%" + partName + "%\';";
+
+        String parttern;
+        if(search == null || search.equals("")) {
+            parttern = "\'%\'";
+        } else {
+            parttern = "%";
+            for (int i = 0; i < search.length(); i++) {
+                parttern += search.charAt(i);
+                parttern += "%";
+            }
+            parttern = "\'" + parttern + "\'";
+        }
+
+       // String sql = "select * from Customer where contactPersonName like " +
+                //parttern;
+        String sql = "select * from Parts where partName like " + parttern + ";";
         ResultSet rs = null;
-        Parts parts = null;
+        Parts part = null;
         try {
             rs = statement.executeQuery(sql);
             while (rs.next()){
                 int pid = rs.getInt("pid");
+                String partName = rs.getString("partName");
                 BigDecimal price = rs.getBigDecimal("price");
                 String modelNumber = rs.getString("modelNumber");
                 int quantity = rs.getInt("quantity");
@@ -26,9 +42,10 @@ public  class PartsDA extends DABase{
                 int warningQuantity = rs.getInt("warningQuantity");
                 int status = rs.getInt("status");
 
-                parts = new Parts(partName,price,modelNumber,quantity,warningQuantity);
-                parts.setPid(pid);
-                partsList.add(parts);
+                part = new Parts(partName,price,modelNumber,quantity,warningQuantity);
+                part.setPid(pid);
+                partsList.add(part);
+                System.out.println(part.getPartName());
             }
         }catch (SQLException e) {
             System.out.println(e);
@@ -36,8 +53,29 @@ public  class PartsDA extends DABase{
         }
         finally{
             terminate();
+            System.out.println(sql);
         }
         return partsList;
+    }
+
+    public Parts query(int pid) {
+        String sql ="SELECT *FROM Parts WHERE pid = \'"+pid+"\';";
+        conn = initialize();
+        ResultSet rs;
+        Parts parts = null;
+        try{
+            rs = statement.executeQuery(sql);
+            if(rs.next())
+                parts = new Parts(rs.getString("partName"),rs.getBigDecimal("price"),
+                        rs.getString("modelNumber"),rs.getInt("quantity"),rs.getInt("warningQuantity"));
+        }
+        catch(SQLException e){
+            System.out.println(e);//?
+        }
+        finally{
+            terminate();
+        }
+        return parts;
     }
 
 
