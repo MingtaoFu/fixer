@@ -196,6 +196,15 @@
       <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+      <servlet-name>staff_manage</servlet-name>
+      <servlet-class>team.hustsoft.servlet.StaffManage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>staff_manage</servlet-name>
+      <url-pattern>/staff_manage</url-pattern>
+    </servlet-mapping>
+
     <!-- Define mappings that are used by the servlet container to
          translate a particular request URI (context-relative) to a
          particular servlet.  The examples below correspond to the

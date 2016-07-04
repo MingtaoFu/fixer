@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>超级管理员页面</title>
+    <link href="./static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/bootstrap-table.css">
+    <link rel="stylesheet" href="./static/css/formValidation.css">
+    <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
+    <script src="./static/js/jquery/jquery.min.js"></script>
+    <script src="./static/js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./static/js/formValidation.min.js"></script>
+    <script type="text/javascript" src="./static/js/formValidation-bootstrap.js"></script>
+    <!--
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/locale/bootstrap-table-zh-CN.min.js"></script>
+  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+        </button>
+        <a class="navbar-brand" href="#">Fixer 超级管理员版</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">员工管理<span class="sr-only">(current)</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <h1>员工信息维护</h1>
+    <div id="toolbar">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        新增
+      </button>
+    </div>
+    <table id="table" data-toolbar="#toolbar" data-search="true"
+    data-show-refresh="true" data-show-toggle="false" data-show-columns="true"
+    data-show-export="false" data-detail-view="false"
+    data-detail-formatter="detailFormatter" data-minimum-count-columns="2"
+    data-pagination="true"
+    data-id-field="id" data-page-list="[10, 25, 50, 100, ALL]"
+    data-show-footer="false" data-side-pagination="server"
+    data-url="staff_manage" data-response-handler="responseHandler">
+    </table>
+  </div>
+  <script src="./static/js/root.js"></script>
+</body>
+</html>
