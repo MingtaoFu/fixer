@@ -10,6 +10,8 @@ import team.hustsoft.PD.DeviceManageService;
 import team.hustsoft.basic.Device;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import team.hustsoft.basic.RepairRecord;
+import team.hustsoft.PD.RepairManageService;
 
 public class ReqManage extends HttpServlet {
 	public void doPost(HttpServletRequest request,
@@ -46,7 +48,16 @@ public class ReqManage extends HttpServlet {
 		 		value = DeviceManageService.getInstance().confirm(id);
 				switch (value) {
 					case 1:
-						json.put("status", true);
+						RepairRecord repairRecord = new RepairRecord(id,null,null,null,null,null,null,null,0,0);
+						value = RepairManageService.getInstance().insert(repairRecord);
+						switch (value) {
+							case 1:
+								json.put("status", true);
+								break;
+							default:
+								json.put("status", false);
+								json.put("error", "分配维修记录错误");
+						}
 						break;
 					case -1:
 						json.put("status", false);
