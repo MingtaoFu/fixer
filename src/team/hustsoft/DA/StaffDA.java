@@ -42,4 +42,41 @@ public class StaffDA extends DABase {
      }
      return staff;
   }
+
+  public int insert(Staff staff){
+    if (staff == null) {
+      return -1;
+    }
+    //System.out.println(customer.getCitizenId());
+    String sql0 = "SELECT * FROM User where userName=\'"+staff.getUserName()+"\';";
+    conn = initialize();
+    ResultSet rs  =null;
+    try{
+      rs=statement.executeQuery(sql0);
+      if(rs.next()){
+        terminate();
+        return -1;
+      }
+    }
+    catch(SQLException e){
+      System.out.println(e);//?
+      return -2;
+    }
+
+    String sql = "INSERT INTO User "+
+    "VALUES(null, \'"+staff.getUserName()+"\',\'"+staff.getPassword()+"\',\'"+
+    staff.getCharacters()+"\');";
+
+    try{
+      statement.executeUpdate(sql);
+    }
+    catch(SQLException e){
+      System.out.println(e);//?
+      return -2;
+    }
+    finally{
+      terminate();
+    }
+    return 1;
+  }
 }

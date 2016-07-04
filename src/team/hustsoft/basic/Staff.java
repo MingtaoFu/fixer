@@ -20,6 +20,9 @@ public class Staff{
 	public String getPassword() {
 		return this.password;
 	}
+	public String getUserName() {
+		return this.userName;
+	}
 	public JSONObject toJSON() {
 		JSONObject json = new JSONObject();
 		Class cls = this.getClass();

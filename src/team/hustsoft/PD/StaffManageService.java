@@ -16,4 +16,9 @@ public class StaffManageService {
     StaffDA staffDA = new StaffDA();
     return staffDA.query(search);
   }
+
+  public int insert(Staff staff) {
+    StaffDA staffDA = new StaffDA();
+    return staffDA.insert(staff);
+  }
 }

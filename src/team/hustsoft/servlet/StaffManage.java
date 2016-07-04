@@ -7,6 +7,7 @@ import javax.servlet.http.*;
 import org.json.simple.JSONObject;
 import team.hustsoft.PD.StaffManageService;
 import team.hustsoft.basic.Staff;
+import team.hustsoft.SHA;
 
 public class StaffManage extends HttpServlet {
   public void doGet(HttpServletRequest request,
@@ -32,5 +33,47 @@ public class StaffManage extends HttpServlet {
 		json.put("total", staff.size());
 		json.put("rows", list);
 		out.print(json);
+  }
+  public void doPost(HttpServletRequest request,
+	HttpServletResponse response) throws ServletException, IOException{
+		response.setContentType("application/json;charset=utf-8");
+		PrintWriter out = response.getWriter();
+
+		String operation = request.getParameter("op");
+		JSONObject json = new JSONObject();
+		int value;
+    Staff staff;
+    String password;
+    String userName;
+    int characters;
+    switch (operation) {
+      case "add":
+        password = request.getParameter("password");
+        String password2 = SHA.encode(password);
+        userName = request.getParameter("userName");
+        characters = Integer.parseInt(request.getParameter("characters"));
+        staff = new Staff(0, userName, password2, characters);
+
+        value = StaffManageService.getInstance().insert(staff);
+        switch (value) {
+					case 1:
+						json.put("status", true);
+						break;
+					case -1:
+						json.put("status", false);
+						json.put("error", "用户名重复");
+						break;
+					case -2:
+						json.put("status", false);
+						json.put("error", "服务器错误");
+						break;
+					default:
+						json.put("status", false);
+						json.put("error", "未知错误，请联系管理员");
+				}
+				out.print(json);
+        break;
+      default:
+    }
   }
 }

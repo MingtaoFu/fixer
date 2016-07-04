@@ -21,7 +21,7 @@ public class PageManage extends HttpServlet {
       HttpSession session = request.getSession();
       session.setAttribute("uname", userId);
       session.setAttribute("pwd", staff.getPassword());
-      response.sendRedirect("page?page=1&property="+staff.getType());
+      response.sendRedirect("page?page=1&property="+staff.getCharacters());
     }
   }
 
