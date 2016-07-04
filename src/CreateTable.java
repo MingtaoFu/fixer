@@ -144,8 +144,8 @@ public class CreateTable {
 					"repairTime TIMESTAMP DEFAULT 0,									/* 维修检测时间*/"+
 					"workload VARCHAR(20),												/* 工作量*/"+
 					"requiredPart VARCHAR(50),											/* 维修所使用的器件*/"+
-					"status enum(\"0\",\"1\",\"2\",\"3\") NOT NULL,						/* 维修状态*/"+
-					"delayDegree enum(\"0\",\"1\",\"2\"),									/* 延迟程度*/"+
+					"status enum(\"0\",\"1\",\"2\",\"3\") NOT NULL DEFAULT \"0\",			/* 维修状态*/"+
+					"delayDegree enum(\"0\",\"1\",\"2\")DEFAULT \"0\",					/* 延迟程度*/"+
 					"CONSTRAINT PK_RRID PRIMARY KEY(rrid),"+
 					"CONSTRAINT FK_DID FOREIGN KEY(did) REFERENCES Device(did))"+
 					"DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;",

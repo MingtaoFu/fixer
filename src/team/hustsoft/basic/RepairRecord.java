@@ -1,6 +1,7 @@
 package team.hustsoft.basic;
 import java.sql.Timestamp;
-
+import org.json.simple.JSONObject;
+import java.lang.reflect.Field;
 
 public class RepairRecord{
 	private int rrid;
@@ -131,8 +132,25 @@ public class RepairRecord{
 	public void setDelayDegree(int delayDegree){
 	    this.delayDegree = delayDegree;
 	}
-
-
-
+	public JSONObject toJSON() {
+		JSONObject json = new JSONObject();
+		Class cls = this.getClass();
+		Field[] fileds = cls.getDeclaredFields();
+		for(int i = 0; i < fileds.length; i++) {
+			Field f = fileds[i];
+			f.setAccessible(true);
+			try {
+				if(f.get(this) instanceof Timestamp){
+					json.put(f.getName(), f.get(this).toString());	
+				}
+				else{
+					json.put(f.getName(), f.get(this));
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+		return json;
+	}
 
 }

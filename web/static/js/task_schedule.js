@@ -14,30 +14,31 @@ function initTable() {
           valign: 'middle'
         },
         {
-          title: 'rrid',
-          field: 'id',
+          title: '维修记录id',
+          field: 'rrid',
           align: 'center',
           editable:false
         },
         {
           field: 'did',
-          title: 'did',
+          title: '设备id',
           editable: false,
           align: 'center',
         },
         {
           field: 'status',
           title: '维修状态',
-          editable: false,
-          // {
-          //   type: 'select',
-          //   source: [
-          //     {value: 1, text: '未分配'},
-          //     {value: 2, text: '分配未检测'},
-          //     {value: 3, text: '检测完成维修未完成'},
-          //     {value: 4, text: '维修完成'}
-          //   ]
-          // },
+          editable: 
+          {
+            disabled:true,
+            type: 'select',
+            source: [
+              {value: 0, text: '未分配'},
+              {value: 1, text: '分配未检测'},
+              {value: 2, text: '检测完成维修未完成'},
+              {value: 3, text: '维修完成'}
+            ]
+          },
           align: 'center'
         },
         {
@@ -85,15 +86,16 @@ function initTable() {
         {
           field: 'delayDegree',
           title: '延迟程度',
-          editable: false,
-          // {
-          //   type: 'select',
-          //   source: [
-          //     {value: 1, text: '一般'},
-          //     {value: 2, text: '比较严重'},
-          //     {value: 3, text: '严重'}
-          //   ]
-          // },
+          editable: 
+          {
+            disabled:true,
+            type: 'select',
+            source: [
+              {value: 0, text: '一般'},
+              {value: 1, text: '比较严重'},
+              {value: 2, text: '严重'}
+            ]
+          },
           align: 'center'
         },
 
@@ -169,35 +171,53 @@ function operateFormatter(value, row, index) {
   return [
     '<a class="distribute" href="javascript:void(0)" title="distribute">',
       '<i class="glyphicon glyphicon-cog"></i>',
-    '</a>  ',
-    '<a class="like" href="javascript:void(0)" title="repair">',
-      '<i class="glyphicon glyphicon-wrench"></i>',
-    '</a>  ',
-    '<a class="remove" href="javascript:void(0)" title="Remove">',
-    '<i class="glyphicon glyphicon-remove"></i>',
-    '</a>'
+    '</a>  '
+    // ,
+    // '<a class="like" href="javascript:void(0)" title="repair">',
+    //   '<i class="glyphicon glyphicon-wrench"></i>',
+    // '</a>  ',
+    // '<a class="remove" href="javascript:void(0)" title="Remove">',
+    // '<i class="glyphicon glyphicon-remove"></i>',
+    // '</a>'
   ].join('');
 }
+
+var g_row;
 
 window.operateEvents = {
   'click .distribute': function (e, value, row, index) {
     console.log(row)
-    row.op = "update";
+    row.op = "distribute";
+    g_row = row;
     $("#myModal").modal("show");
-    $.post('customer_manage', row, function(data) {
-      console.log(data);
-    });
+    // func_confirm = function() {
+    // $.post('task_schedule', row, function(data) {
+    //   console.log(data);
+    //   if(data.status){
+    //       $('#myModal').modal('hide');
+    //       $('#myModal').find('.alert-field').html("");
+    //   }
+    //   else{
+    //       var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
+    //       '<button type="button" class="close" data-dismiss="alert" '+
+    //       'aria-label="Close"><span aria-hidden="true">×</span></button><p>'+
+    //       data.error +
+    //       '</p></div>';
+    //       $('#myModal').find('.alert-field').html(html);
+    //   }
+    // });
+    // }
   },
-  'click .remove': function (e, value, row, index) {
-    $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
-      if(data.status) {
-        $table.bootstrapTable('remove', {
-          field: 'id',
-          values: [row.id]
-        });
-      }
-    });
-  }
+  // 'click .remove': function (e, value, row, index) {
+  //   $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
+  //     if(data.status) {
+  //       $table.bootstrapTable('remove', {
+  //         field: 'id',
+  //         values: [row.id]
+  //       });
+  //     }
+  //   });
+  // }
 };
 
 function totalTextFormatter(data) {
@@ -287,9 +307,24 @@ $('#add_submit').click(function() {
 
 $('#add_form').on('submit', function(e) {
   e.preventDefault();
+  var did = g_row.did;
+  var rrid = g_row.rrid;
   var data = $(e.target).serialize();
-  data += "&op=add";
-  $.post('customer_manage', data, function(data) {
+  data += "&op=distribute";
+  data = data+"&did="+did+"&rrid="+rrid;
+  $.post('task_schedule', data, function(data) {
     console.log(data);
+    if(data.status){
+      $('#myModal').modal('hide');
+      $('#myModal').find('.alert-field').html("");
+    }
+    else{
+      var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
+      '<button type="button" class="close" data-dismiss="alert" '+
+      'aria-label="Close"><span aria-hidden="true">×</span></button><p>'+
+      data.error +
+      '</p></div>';
+      $('#myModal').find('.alert-field').html(html);
+    }
   });
 })

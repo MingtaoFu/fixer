@@ -168,6 +168,23 @@
       <url-pattern>/page</url-pattern>
     </servlet-mapping>
 
+        <servlet>
+      <servlet-name>task_schedule</servlet-name>
+      <servlet-class>team.hustsoft.servlet.TaskSchedule</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>task_schedule</servlet-name>
+      <url-pattern>/task_schedule</url-pattern>
+    </servlet-mapping>
+            <servlet>
+      <servlet-name>engineer</servlet-name>
+      <servlet-class>team.hustsoft.servlet.Engineer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>engineer</servlet-name>
+      <url-pattern>/engineer</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>parts_manage</servlet-name>
         <servlet-class>team.hustsoft.servlet.PartsManage</servlet-class>
