@@ -20,8 +20,7 @@ function initTable() {
         },
         {
           field: 'cid',
-          title: '客户姓名',
-          editable: true,
+          title: '客户',
           align: 'center',
           editable: {
             validate: function (value) {

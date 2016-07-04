@@ -169,7 +169,6 @@
     </servlet-mapping>
 
     <servlet>
-<<<<<<< HEAD
         <servlet-name>parts_manage</servlet-name>
         <servlet-class>team.hustsoft.servlet.PartsManage</servlet-class>
     </servlet>
@@ -179,7 +178,7 @@
     </servlet-mapping>
 
 
-=======
+    <servlet>
       <servlet-name>table</servlet-name>
       <servlet-class>team.hustsoft.servlet.Table</servlet-class>
     </servlet>
@@ -187,8 +186,6 @@
       <servlet-name>table</servlet-name>
       <url-pattern>/table</url-pattern>
     </servlet-mapping>
-
->>>>>>> d7027537a70fd911f78d580675019b642e983867
 
 
 
