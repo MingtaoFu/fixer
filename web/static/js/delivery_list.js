@@ -1,4 +1,7 @@
 /**
+ * Created by zouyingtian on 16/7/4.
+ */
+/**
  * Created by zouyingtian on 16/6/29.
  */
 var $table = $('#table'),
@@ -24,99 +27,39 @@ function initTable() {
                 {
                     field: 'partName',
                     title: '种类名称',
-                    editable: true,
                     align: 'center',
-                    editable: {
-                        validate: function (value) {
-                            value = $.trim(value);
-                            if (!value) {
-                                return 'This field is required';
-                            }
-                            var data = $table.bootstrapTable('getData'),
-                                index = $(this).parents('tr').data('index');
-                            console.log(data[index]);
-                            return '';
-                        }
-                    }
+                    editable: false
                 },
-                //{
-                //    field: 'modelNumber',
-                //    title: '数量',
-                //    editable: {
-                //        validate: function (value) {
-                //            value = $.trim(value);
-                //            if (!value) {
-                //                return 'This field is required';
-                //            }
-                //            if (!/^1[0-9]{10}$/.test(value)) {
-                //                return '请输入合法的手机';
-                //            }
-                //            var data = $table.bootstrapTable('getData'),
-                //                index = $(this).parents('tr').data('index');
-                //            console.log(data[index]);
-                //            return '';
-                //        }
-                //    },
-                //    align: 'center'
-                //},
+
                 {
                     field: 'price',
                     title: '单价',
-                    editable: {
-                        validate: function (value) {
-                            value = $.trim(value);
-                            if ( value<=0 && value != '') {
-                                return '请输入合法单价';
-                            }
-                            var data = $table.bootstrapTable('getData'),
-                                index = $(this).parents('tr').data('index');
-                            console.log(data[index]);
-                            return '';
-                        }
-                    },
+                    editable:false,
                     align: 'center'
                 },
                 {
                     field: 'modelNumber',
                     title: '型号',
-                    //editable: {
-                    //    type: 'select',
-                    //    source: [
-                    //        {value: 0, text: '家庭用户'},
-                    //        {value: 1, text: '单位用户'},
-                    //        {value: 2, text: '代理商'},
-                    //        {value: 3, text: '签约用户'}
-                    //    ]
-                    //},
                     editable: false,
                     align: 'center'
                 },
                 {
                     field: 'quantity',
                     title: '数量',
-                    editable: true,
+                    editable: false,
                     align: 'center'
                 },
                 {
                     field: 'status',
                     title: '状态',
-                    editable: {
-                        type: 'select',
-                        source: [
-                            {value: 0, text: '正常'},
-                            {value: 1, text: '临界'},
-                            {value: 2, text: '警示'},
-                            {value: 3, text: '缺货'}
-                        ]
-
-                    },
+                    editable: false,
                     align: 'center'
                 },
                 {
                     field: 'warningQuantity',
                     title: '警戒量',
                     align: 'center',
-                    editable: true,
+                    editable: false
                 },
                 {
                     field: 'inTime',
@@ -124,48 +67,9 @@ function initTable() {
                     align: 'center',
                     editable: {
                         type: "datetime"
-                    }/*{
-                        //validate: function (value) {
-                        //    value = $.trim(value);
-                        //    if (!/^[0-9]{6}$/.test(value) && value != '') {
-                        //        return '请输入合法的邮编';
-                        //    }
-                        //    var data = $table.bootstrapTable('getData'),
-                        //        index = $(this).parents('tr').data('index');
-                        //    console.log(data[index]);
-                        //    return '';
-                        //}
-                    }*/
-                },
-                //{
-                //    field: 'citizenId',
-                //    title: '身份证',
-                //    align: 'center',
-                //    editable: {
-                //        type: 'text',
-                //        title: '身份证',
-                //        validate: function (value) {
-                //            value = $.trim(value);
-                //            if (!value) {
-                //                return 'This field is required';
-                //            }
-                //            if (!/^[0-9]{17}([0-9,x])$/.test(value)) {
-                //                return '请输入合法身份证号';
-                //            }
-                //            var data = $table.bootstrapTable('getData'),
-                //                index = $(this).parents('tr').data('index');
-                //            console.log(data[index]);
-                //            return '';
-                //        }
-                //    },
-                //},
-                //{
-                //    field: 'operate',
-                //    title: '操作',
-                //    align: 'center',
-                //    events: operateEvents,
-                //    formatter: operateFormatter
-                //}
+                    }
+                }
+
             ]
         ]
     });
@@ -395,71 +299,60 @@ $('#add_form').on('submit', function(e) {
     });
 })
 
-$(function() {
-    $('#add_form').formValidation({
-        framework: 'bootstrap',
-        message: '输入不合法',
-        icon: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            part_name: {
-                row: '.controls',
-                validators: {
-                    notEmpty: {
-                        message: '名称是必填的'
-                    }
-                }
-            },
-            price: {
-                row: '.controls',
-                validators: {
-                    notEmpty: {
-                        message: '单价是必填的'
-                    },
-                }
-            },
-            //citizen_id: {
-            //    row: '.controls',
-            //    validators: {
-            //        notEmpty: {
-            //            message: '身份证号是必填的'
-            //        },
-            //        regexp: {
-            //            regexp: /^[0-9]{17}([0-9,x])$/,
-            //            message: '身份证号不合法'
-            //        }
-            //    }
-            //},
-            quantity: {
-                row: '.controls',
-                validators: {
-                    regexp: {
-                        regexp: /^[0-9]*[-,0-9][0-9]*$/,
-                        message: '数量不合法'
-                    }
-                }
-            },
-            modelNumber: {
-                //row: '.controls',
-                //validators: {
-                //    regexp: {
-                //        regexp: /^[0-9]{6}$/,
-                //        message: '邮编不合法'
-                //    }
-                //}
-            },
-            warningQuantity: {
-                row: '.controls',
-                validators: {
-                    regexp: {
-                        regexp: /^[0-9]*[-,0-9][0-9]*$/,
-                        message: '数量不合法'
-                    }
-                }
-            }
-        }
-    });
-});
+//$(function() {
+//    $('#add_form').formValidation({
+//        framework: 'bootstrap',
+//        message: '输入不合法',
+//        icon: {
+//            valid: 'glyphicon glyphicon-ok',
+//            invalid: 'glyphicon glyphicon-remove',
+//            validating: 'glyphicon glyphicon-refresh'
+//        },
+//        fields: {
+//            part_name: {
+//                row: '.controls',
+//                validators: {
+//                    notEmpty: {
+//                        message: '名称是必填的'
+//                    }
+//                }
+//            },
+//            price: {
+//                row: '.controls',
+//                validators: {
+//                    notEmpty: {
+//                        message: '单价是必填的'
+//                    },
+//                }
+//            },
+//
+//            quantity: {
+//                row: '.controls',
+//                validators: {
+//                    regexp: {
+//                        regexp: /^[0-9]*[-,0-9][0-9]*$/,
+//                        message: '数量不合法'
+//                    }
+//                }
+//            },
+//            modelNumber: {
+//                //row: '.controls',
+//                //validators: {
+//                //    regexp: {
+//                //        regexp: /^[0-9]{6}$/,
+//                //        message: '邮编不合法'
+//                //    }
+//                //}
+//            },
+//            warningQuantity: {
+//                row: '.controls',
+//                validators: {
+//                    regexp: {
+//                        regexp: /^[0-9]*[-,0-9][0-9]*$/,
+//                        message: '数量不合法'
+//                    }
+//                }
+//            }
+//        }
+//    });
+//});

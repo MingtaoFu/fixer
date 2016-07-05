@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>备件管理页面</title>
+    <title>出库清单页面</title>
     <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./static/css/bootstrap-table.css">
     <link rel="stylesheet" href="./static/css/formValidation.css">
@@ -28,7 +28,7 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">-->
-                <!--<span class="sr-only">Toggle navigation</span>-->
+            <!--<span class="sr-only">Toggle navigation</span>-->
             <!--</button>-->
             <a class="navbar-brand" href="#">Fixer 库管版</a>
         </div>
@@ -36,22 +36,22 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">库存管理<span class="sr-only">(current)</span></a></li>
-                <li><a href="delivery_list.html">出库清单</a></li>
+                <li class="active"><a href="#">出库清单<span class="sr-only">(current)</span></a></li>
+                <li><a href="parts_manager.html">库存管理</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
 <div class="container">
-    <h1>备件信息管理</h1>
+    <h1>出库清单日志</h1>
     <div id="toolbar">
-        <button id="remove" class="btn btn-danger" disabled>
-            <i class="glyphicon glyphicon-remove"></i> 出库
-        </button>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-            入库
-        </button>
+        <!--<button id="remove" class="btn btn-danger" disabled>-->
+            <!--<i class="glyphicon glyphicon-remove"></i> 出库-->
+        <!--</button>-->
+        <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
+        <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">-->
+            <!--入库-->
+        <!--</button>-->
     </div>
     <table id="table" data-toolbar="#toolbar" data-search="true"
            data-show-refresh="true" data-show-toggle="false" data-show-columns="true"
@@ -120,10 +120,10 @@
                                 <label class="control-label" for="status">状态</label>
                                 <div class="controls">
                                     <select class="selectpicker form-control" id="status" name="status">
-                                    <option value="0">正常</option>
-                                    <option value="1">临界</option>
-                                    <option value="2">警示</option>
-                                    <option value="3">缺货</option>
+                                        <option value="0">正常</option>
+                                        <option value="1">临界</option>
+                                        <option value="2">警示</option>
+                                        <option value="3">缺货</option>
                                     </select>
                                 </div>
                             </div>
@@ -156,6 +156,6 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="./static/js/parts_manager.js"></script>
+<script type="text/javascript" src="./static/js/delivery_list.js"></script>
 </body>
 </html>
