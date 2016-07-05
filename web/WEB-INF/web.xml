@@ -123,14 +123,6 @@
       </description>
     </servlet>
 
-		<servlet>
-			<servlet-name>servlet_test</servlet-name>
-			<servlet-class>Servlet_test</servlet-class>
-		</servlet>
-		<servlet-mapping>
-			<servlet-name>servlet_test</servlet-name>
-			<url-pattern>/servlet_test</url-pattern>
-		</servlet-mapping>
 
     <servlet>
       <servlet-name>customer_manage</servlet-name>
