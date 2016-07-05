@@ -1,6 +1,7 @@
 // package DA;
 
 import java.sql.*;
+import java.util.*;
 import com.mysql.jdbc.Driver;
 
 public class CreateTable {
@@ -48,13 +49,18 @@ public class CreateTable {
 
 	public static void insert_test_data() {
 		PreparedStatement preparedStatement;
-		String sqlArr[] = new String [20];
-		for(int i = 0; i < sqlArr.length;i++)
-			sqlArr[i] = new String("insert into Customer(id,property,companyName,tel,mobilePhone,address,zipCode,contactPersonName,email)"+
-				"values(\'"+(i+100)+"001999010101010\',\'1\',\'google\',\'027-111111\',\'13222222222\',\'基佬 Road\', \'070000\', \'mingtaoGAY\', \'eeeee@ee.com\');");
+		ArrayList<String> sqlArr = new ArrayList<String>();
+		String sql;
+		for(int i = 0; i < 20;i++) {
+			sql = new String("insert into Customer(id,property,companyName,tel,mobilePhone,address,zipCode,contactPersonName,email)"+
+				"values(\'"+(i+100)+"001999010101010\',\'1\',\'google\',\'027-111111\',\'13222222222\',\'基佬 Road\', \'070000\', \'mingtao"+i+"\', \'eeeee@ee.com\');");
+			sqlArr.add(sql);
+		}
+		sql = new String("insert into User values(null, \'root\', \'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8\',\'0\')");
+		sqlArr.add(sql);
 		try {
-			for(int i = 0; i < sqlArr.length; i++) {
-				preparedStatement = conn.prepareStatement(sqlArr[i]);
+			for(int i = 0; i < sqlArr.size(); i++) {
+				preparedStatement = conn.prepareStatement(sqlArr.get(i));
 				preparedStatement.execute();
 			}
 		} catch (Exception e) {
