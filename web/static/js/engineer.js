@@ -14,12 +14,13 @@ function initTable() {
           valign: 'middle'
         },
         {
-          title: 'rrid',
-          field: 'id',
+          title: '维修记录id',
+          field: 'rrid',
+          editable: false,
           align: 'center',
         },
         {
-          field: 'did',
+          field: '设备id',
           title: 'did',
           editable: false,
           align: 'center',
@@ -28,12 +29,13 @@ function initTable() {
           field: 'status',
           title: '维修状态',
           editable: {
+            // disabled:true
             type: 'select',
             source: [
-              {value: 1, text: '未分配'},
-              {value: 2, text: '分配未检测'},
-              {value: 3, text: '检测完成维修未完成'},
-              {value: 4, text: '维修完成'}
+        //      {value: 0, text: '未分配'},
+              {value: 1, text: '分配未检测'},
+              {value: 2, text: '检测完成维修未完成'},
+              {value: 3, text: '维修完成'}
             ]
           },
           align: 'center'
@@ -181,20 +183,21 @@ window.operateEvents = {
     console.log(row)
     row.op = "update";
     //$("#myModal").modal("show");
-    $.post('customer_manage', row, function(data) {
+    $.post('engineer', row, function(data) {
       console.log(data);
     });
-  },
-  'click .remove': function (e, value, row, index) {
-    $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
-      if(data.status) {
-        $table.bootstrapTable('remove', {
-          field: 'id',
-          values: [row.id]
-        });
-      }
-    });
   }
+  // ,
+  // 'click .remove': function (e, value, row, index) {
+  //   $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
+  //     if(data.status) {
+  //       $table.bootstrapTable('remove', {
+  //         field: 'id',
+  //         values: [row.id]
+  //       });
+  //     }
+  //   });
+  // }
 };
 
 function totalTextFormatter(data) {

@@ -33,23 +33,30 @@ public class TaskSchedule extends HttpServlet{
 			System.out.println(result);
 
 			switch(result){
-				case -1:
-					json.put("status",false);
-					json.put("error","记录不存在!");
-					break;
-				case -2:
-					json.put("status",false);
-					json.put("error","服务器错误");
-					break;
-				case 1:
-					json.put("status",true);
-					break;
-				default:
-					json.put("status", false);
-					json.put("error", "未知错误，请联系管理员");
-				}
-				out.print(json);
+			case -1:
+				json.put("status",false);
+				json.put("error","记录不存在!");
+				break;
+			case -2:
+				json.put("status",false);
+				json.put("error","服务器错误");
+				break;
+			case 1:
+				json.put("status",true);
+				break;
+			default:
+				json.put("status", false);
+				json.put("error", "未知错误，请联系管理员");
+			}
+			out.print(json);
 		}
+		else if(operation.equals("getuname")){
+			String search = request.getParameter("search");
+			ArrayList<JSONObject> list = RepairManageService.getInstance().query_u(search);
+			out.println(list);
+		}
+
+
 
 	}
 	public void doGet(HttpServletRequest request,
