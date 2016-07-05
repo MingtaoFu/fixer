@@ -21,7 +21,7 @@ public class PageManage extends HttpServlet {
       HttpSession session = request.getSession();
       session.setAttribute("uname", userId);
       session.setAttribute("pwd", staff.getPassword());
-      response.sendRedirect("page?page=1&property="+staff.getType());
+      response.sendRedirect("page?page=1&property="+staff.getCharacters());
     }
   }
 
@@ -37,6 +37,13 @@ public class PageManage extends HttpServlet {
     if(authorized) {
       RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
       switch(property) {
+				case 0:
+					switch(page) {
+						case 1:
+              rd = request.getRequestDispatcher("root.html");
+						default:
+					}
+          break;
         case 1:
           switch(page) {
             case 1:
@@ -52,8 +59,32 @@ public class PageManage extends HttpServlet {
           }
           break;
         case 2:
+					switch(page) {
+						case 1:
+              rd = request.getRequestDispatcher("task_schedule.html");
+						default:
+					}
           break;
         case 3:
+					switch(page) {
+						case 1:
+              rd = request.getRequestDispatcher("engineer.html");
+						default:
+					}
+          break;
+				case 4:
+					switch(page) {
+						case 1:
+              rd = request.getRequestDispatcher("financial.html");
+						default:
+					}
+          break;
+				case 5:
+					switch(page) {
+						case 1:
+              rd = request.getRequestDispatcher("engineer.html");
+						default:
+					}
           break;
         default:
       }
