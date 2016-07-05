@@ -133,11 +133,13 @@ public class StaffDA extends DABase {
       String sql;
       if(staff.getPassword() == null) {
         sql = "update User set userName="+
-        "\'"+staff.getUserName()+"\', characters=\'"+staff.getCharacters()+"\'";
+        "\'"+staff.getUserName()+"\', characters=\'"+staff.getCharacters()+"\' "+
+        "where uid = " + staff.getUid();
       } else {
         sql = "update User set userName="+
         "\'"+staff.getUserName()+"\', characters=\'"+staff.getCharacters()+"\',password=\'"+
-        staff.getPassword()+"\'";
+        staff.getPassword()+"\' "+
+        "where uid = " + staff.getUid();
       }
 
       try{
