@@ -8,19 +8,14 @@ function initTable() {
     columns: [
       [
         {
-          field: 'state',
-          checkbox: true,
-          rowspan: 1,
-          align: 'center',
-          valign: 'middle'
-        }, {
           title: 'ID',
-          field: 'did',
+          field: 'uid',
           align: 'center',
         },
         {
-          field: 'cid',
-          title: '客户',
+          field: 'userName',
+          title: '员工姓名',
+          editable: true,
           align: 'center',
           editable: {
             validate: function (value) {
@@ -36,175 +31,39 @@ function initTable() {
           }
         },
         {
-          field: 'ctime',
-          title: '报修时间',
+          field: 'password',
+          title: '密码',
           editable: {
-            type: 'datetime'
-          },
-          align: 'center'
-        },
-        {
-          field: 'expectedPrice',
-          title: '预估价格',
-          editable: {
-            type: 'number'
-          },
-          align: 'center'
-        },
-        {
-          field: 'expectedCompletedTime',
-          title: '预估完成时间',
-          editable: {
-            type: 'datetime',
-          },
-          align: 'center'
-        },
-        {
-          field: 'status',
-          title: '状态',
-          editable: {
-            disabled: true,
-            type: 'select',
-            source: [
-              {value: 0, text: '未打印'},
-              {value: 1, text: '已打印'},
-              {value: 2, text: '已提交'},
-            ]
-          },
-          align: 'center'
-        },
-        {
-          field: 'deviceType',
-          title: '设备类型',
-          editable: {
-            type: 'select',
-            source: [
-              {value: 0, text: '台式机'},
-              {value: 1, text: '笔记本'},
-              {value: 2, text: '投影仪'},
-              {value: 3, text: '打印机'},
-              {value: 4, text: '其他'},
-            ]
-          },
-          align: 'center'
-        },
-        {
-          field: 'deviceBrand',
-          title: '机器品牌',
-          editable: true,
-          align: 'center'
-        },
-        {
-          field: 'deviceModel',
-          title: '机器型号',
-          editable: true,
-          align: 'center'
-        },
-        {
-          field: 'deviceSerialNum',
-          title: '系列号',
-          editable: true,
-          align: 'center'
-        },
-        {
-          field: 'lackPart',
-          title: '缺少零件',
-          editable: true,
-          align: 'center'
-        },
-        {
-          field: 'breakdownAppearance',
-          title: '机器故障现象',
-          editable: {
+            type: "password",
             validate: function (value) {
               value = $.trim(value);
               if (!value) {
-                return '故障现象为必填';
+                return 'This field is required';
+              }
+              if (!/^[_0-9a-zA-Z]{6,16}$/.test(value)) {
+                return '密码为6-16位数字、字母、下划线的组合';
               }
               var data = $table.bootstrapTable('getData'),
               index = $(this).parents('tr').data('index');
-              console.log(data[index]);
               return '';
             }
           },
           align: 'center'
         },
         {
-          field: 'breakdownType',
-          title: '故障类型',
+          field: 'characters',
+          title: '员工类别',
           editable: {
             type: 'select',
             source: [
-              {value: 0, text: '固定性'},
-              {value: 1, text: '间隙性'},
+              {value: 1, text: '客服'},
+              {value: 2, text: '任务调度'},
+              {value: 3, text: '技术工程师'},
+              {value: 4, text: '财务人员'},
+              {value: 5, text: '库管'},
+              {value: 6, text: '运营监督'},
             ]
           },
-          align: 'center'
-        },
-        {
-          field: 'appearanceCheck',
-          title: '机器外观检查',
-          editable: true,
-          align: 'center'
-        },
-        {
-          field: 'startingUpCommand',
-          title: '开机口令',
-          editable: true,
-          align: 'center'
-        },
-        {
-          field: 'significantMaterial',
-          title: '重要资料',
-          editable: true,
-          align: 'center'
-        },
-        {
-          field: 'HHD',
-          title: 'HHD',
-          editable: true,
-          align: 'center'
-        },
-        {
-          field: 'RAM',
-          title: '内存',
-          editable: true,
-          align: 'center'
-        },
-        {
-          field: 'PCCard',
-          title: '外置PC卡',
-          editable: true,
-          align: 'center'
-        },
-        {
-          field: 'ACAdapter',
-          title: 'AC适配器',
-          editable: true,
-          align: 'center'
-        },
-        {
-          field: 'battery',
-          title: '电池',
-          editable: true,
-          align: 'center'
-        },
-        {
-          field: 'CD_ROM',
-          title: '光驱',
-          editable: true,
-          align: 'center'
-        },
-        {
-          field: 'floppy',
-          title: '软驱',
-          editable: true,
-          align: 'center'
-        },
-        {
-          field: 'other',
-          title: '其他',
-          editable: true,
           align: 'center'
         },
         {
@@ -277,21 +136,10 @@ function detailFormatter(index, row) {
 }
 
 function operateFormatter(value, row, index) {
-  var con_str = '<a class="confirm" href="javascript:void(0)" title="confirm">'+
-      '<i class="glyphicon glyphicon-check"></i>'+
-    '</a>  '+
-    '<a class="print" href="javascript:void(0)" title="print">'+
-      '<i class="glyphicon glyphicon-print"></i>'+
-    '</a>  ';
-  if(row.status === '2') {
-    con_str = "";
-  }
   return [
-
     '<a class="like" href="javascript:void(0)" title="save">',
-    '<i class="glyphicon glyphicon-ok"></i>',
+      '<i class="glyphicon glyphicon-ok"></i>',
     '</a>  ',
-    con_str,
     '<a class="remove" href="javascript:void(0)" title="Remove">',
     '<i class="glyphicon glyphicon-remove"></i>',
     '</a>'
@@ -302,11 +150,11 @@ var func_confirm = function() {};
 
 window.operateEvents = {
   'click .like': function (e, value, row, index) {
-    console.log(row);
     row.op = "update";
+    console.log(row);
     $('#confirm_modal').modal('show');
     func_confirm = function() {
-      $.post('device_manage', row, function(data) {
+      $.post('staff_manage', row, function(data) {
         console.log(data);
         if(data.status) {
           $('#confirm_modal').modal('hide');
@@ -322,47 +170,15 @@ window.operateEvents = {
       });
     }
   },
-  'click .print': function (e, value, row, index) {
-    $.post("req_manage", {op: "print", did: row.did}, function(data) {
-      if(data.status) {
-        var str = "?";
-        for(var i in row) {
-          str += i;
-          str += "=";
-          str += row[i];
-          str += "&";
-        }
-        window.open("table"+str);
-      }
-    });
-  },
   'click .remove': function (e, value, row, index) {
     $('#confirm_modal').modal('show');
     func_confirm = function() {
-      $.post('device_manage', {op: "delete", id: row.did}, function(data) {
+      $.post('staff_manage', {op: "delete", uid: row.uid}, function(data) {
         if(data.status) {
           $table.bootstrapTable('remove', {
-            field: 'did',
-            values: [row.did]
+            field: 'uid',
+            values: [row.uid]
           });
-          $('#confirm_modal').find('.alert-field').html("");
-          $('#confirm_modal').modal('hide');
-        } else {
-          var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
-          '<button type="button" class="close" data-dismiss="alert" '+
-          'aria-label="Close"><span aria-hidden="true">×</span></button><p>'+
-          data.error +
-          '</p></div>';
-          $('#confirm_modal').find('.alert-field').html(html);
-        }
-      });
-    }
-  },
-  'click .confirm': function (e, value, row, index) {
-    $('#confirm_modal').modal('show');
-    func_confirm = function() {
-      $.post('req_manage', {op: "confirm", did: row.did}, function(data) {
-        if(data.status) {
           $('#confirm_modal').find('.alert-field').html("");
           $('#confirm_modal').modal('hide');
         } else {
@@ -470,7 +286,7 @@ $('#add_form').on('submit', function(e) {
   }
   var data = $(e.target).serialize();
   data += "&op=add";
-  $.post('req_manage', data, function(data) {
+  $.post('staff_manage', data, function(data) {
     if(!data.status) {
       var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
         '<button type="button" class="close" data-dismiss="alert" '+
@@ -485,22 +301,6 @@ $('#add_form').on('submit', function(e) {
 })
 
 $(function() {
-  $('.form-datetime').datetimepicker("render");
-  $('.selectpicker-ajax').selectpicker({
-    liveSearch: true
-  })
-  .ajaxSelectPicker({
-    ajax: {
-      url: "req_manage",
-      data: function () {
-        var params = {
-          op: "getcname",
-          search: '{{{q}}}'
-        };
-        return params;
-      }
-    }
-  })
   $('#add_form').formValidation({
     framework: 'bootstrap',
     message: '输入不合法',
@@ -510,7 +310,7 @@ $(function() {
       validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-      cid: {
+      customer_name: {
         row: '.controls',
         validators: {
           notEmpty: {
@@ -518,11 +318,53 @@ $(function() {
           }
         }
       },
-      breakdownAppearance: {
+      mobile_phone: {
         row: '.controls',
         validators: {
           notEmpty: {
-            message: '故障现象是必填的'
+            message: '手机是必填的'
+          },
+          regexp: {
+            regexp: /^1[0-9]{10}$/,
+            message: '手机不合法'
+          }
+        }
+      },
+      citizen_id: {
+        row: '.controls',
+        validators: {
+          notEmpty: {
+            message: '身份证号是必填的'
+          },
+          regexp: {
+            regexp: /^[0-9]{17}([0-9,x])$/,
+            message: '身份证号不合法'
+          }
+        }
+      },
+      company_phone: {
+        row: '.controls',
+        validators: {
+          regexp: {
+            regexp: /^[0-9]*[-,0-9][0-9]*$/,
+            message: '单位电话不合法'
+          }
+        }
+      },
+      zip_code: {
+        row: '.controls',
+        validators: {
+          regexp: {
+            regexp: /^[0-9]{6}$/,
+            message: '邮编不合法'
+          }
+        }
+      },
+      email: {
+        row: '.controls',
+        validators: {
+          emailAddress: {
+            message: '请输入有效的电子邮件地址'
           }
         }
       }

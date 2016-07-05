@@ -8,12 +8,6 @@ function initTable() {
     columns: [
       [
         {
-          field: 'state',
-          checkbox: true,
-          rowspan: 1,
-          align: 'center',
-          valign: 'middle'
-        }, {
           title: 'ID',
           field: 'id',
           align: 'center',
@@ -228,9 +222,6 @@ function operateFormatter(value, row, index) {
   return [
     '<a class="like" href="javascript:void(0)" title="save">',
       '<i class="glyphicon glyphicon-ok"></i>',
-    '</a>  ',
-    '<a class="like" href="javascript:void(0)" title="repair">',
-      '<i class="glyphicon glyphicon-wrench"></i>',
     '</a>  ',
     '<a class="remove" href="javascript:void(0)" title="Remove">',
     '<i class="glyphicon glyphicon-remove"></i>',

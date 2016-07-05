@@ -33,9 +33,12 @@ public class DeviceManageService {
      DeviceDA deviceDA = new DeviceDA();
      return deviceDA.update(device);
    }
-   public  DevicePrinter print(int did){
+   public  int print(int did){
      DeviceDA deviceDA = new DeviceDA();
-     return deviceDA.print(did);
+     return deviceDA.print2(did);
    }
-
+   public  int confirm(int did){
+     DeviceDA deviceDA = new DeviceDA();
+     return deviceDA.confirm(did);
+   }
 }

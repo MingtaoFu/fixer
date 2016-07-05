@@ -10,22 +10,24 @@ import team.hustsoft.PD.AccountManageService;
 public class PageManage extends HttpServlet {
 	public void doPost(HttpServletRequest request,
 	HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("charset=utf-8");
     String userId = request.getParameter("name");
     String pwd  = request.getParameter("password");
 
     Staff staff = AccountManageService.getInstance().login(userId, pwd);
     if(staff == null) {
-      response.sendRedirect("login");
+      response.sendRedirect("login?error=Error! Please login again");
     } else {
       HttpSession session = request.getSession();
       session.setAttribute("uname", userId);
       session.setAttribute("pwd", staff.getPassword());
-      response.sendRedirect("page?page=1&property="+staff.getType());
+      response.sendRedirect("page?page=1&property="+staff.getCharacters());
     }
   }
 
   public void doGet(HttpServletRequest request,
 	HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("charset=utf-8");
     int page = Integer.parseInt(request.getParameter("page"));
     int property = Integer.parseInt(request.getParameter("property"));
     HttpSession session = request.getSession();
@@ -33,8 +35,15 @@ public class PageManage extends HttpServlet {
     String pwd = (String)session.getAttribute("pwd");
     Boolean authorized = AccountManageService.getInstance().authorize(userId, pwd, property);
     if(authorized) {
-      RequestDispatcher rd = request.getRequestDispatcher("error");
+      RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
       switch(property) {
+				case 0:
+					switch(page) {
+						case 1:
+              rd = request.getRequestDispatcher("root.html");
+						default:
+					}
+          break;
         case 1:
           switch(page) {
             case 1:
@@ -50,14 +59,38 @@ public class PageManage extends HttpServlet {
           }
           break;
         case 2:
+					switch(page) {
+						case 1:
+              rd = request.getRequestDispatcher("task_schedule.html");
+						default:
+					}
           break;
         case 3:
+					switch(page) {
+						case 1:
+              rd = request.getRequestDispatcher("engineer.html");
+						default:
+					}
+          break;
+				case 4:
+					switch(page) {
+						case 1:
+              rd = request.getRequestDispatcher("financial.html");
+						default:
+					}
+          break;
+				case 5:
+					switch(page) {
+						case 1:
+              rd = request.getRequestDispatcher("engineer.html");
+						default:
+					}
           break;
         default:
       }
       rd.forward(request,response);
     } else {
-      response.sendRedirect("login");
+      response.sendRedirect("login?error=Error! Please login again");
     }
   }
 }
