@@ -15,13 +15,12 @@ function initTable() {
           valign: 'middle'
         }, {
           title: 'ID',
-          field: 'id',
+          field: 'did',
           align: 'center',
         },
         {
-          field: 'name',
-          title: '客户姓名',
-          editable: true,
+          field: 'cid',
+          title: '客户',
           align: 'center',
           editable: {
             validate: function (value) {
@@ -64,11 +63,12 @@ function initTable() {
           field: 'status',
           title: '状态',
           editable: {
+            disabled: true,
             type: 'select',
             source: [
-              {value: 0, text: '进行中'},
-              {value: 1, text: '结束'},
-              {value: 2, text: '撤销'},
+              {value: 0, text: '未打印'},
+              {value: 1, text: '已打印'},
+              {value: 2, text: '已提交'},
             ]
           },
           align: 'center'
@@ -160,8 +160,8 @@ function initTable() {
           align: 'center'
         },
         {
-          field: 'HDD',
-          title: 'HDD',
+          field: 'HHD',
+          title: 'HHD',
           editable: true,
           align: 'center'
         },
@@ -277,15 +277,21 @@ function detailFormatter(index, row) {
 }
 
 function operateFormatter(value, row, index) {
+  var con_str = '<a class="confirm" href="javascript:void(0)" title="confirm">'+
+      '<i class="glyphicon glyphicon-check"></i>'+
+    '</a>  '+
+    '<a class="print" href="javascript:void(0)" title="print">'+
+      '<i class="glyphicon glyphicon-print"></i>'+
+    '</a>  ';
+  if(row.status === '2') {
+    con_str = "";
+  }
   return [
-    '<a class="print" href="javascript:void(0)" title="print">',
-      '<i class="glyphicon glyphicon-print"></i>',
+
+    '<a class="like" href="javascript:void(0)" title="save">',
+    '<i class="glyphicon glyphicon-ok"></i>',
     '</a>  ',
-    '<a class="like" href="javascript:void(0)" title="save">', '<i class="glyphicon glyphicon-ok"></i>',
-    '</a>  ',
-    '<a class="like" href="javascript:void(0)" title="repair">',
-      '<i class="glyphicon glyphicon-wrench"></i>',
-    '</a>  ',
+    con_str,
     '<a class="remove" href="javascript:void(0)" title="Remove">',
     '<i class="glyphicon glyphicon-remove"></i>',
     '</a>'
@@ -296,10 +302,11 @@ var func_confirm = function() {};
 
 window.operateEvents = {
   'click .like': function (e, value, row, index) {
+    console.log(row);
     row.op = "update";
     $('#confirm_modal').modal('show');
     func_confirm = function() {
-      $.post('customer_manage', row, function(data) {
+      $.post('device_manage', row, function(data) {
         console.log(data);
         if(data.status) {
           $('#confirm_modal').modal('hide');
@@ -316,17 +323,46 @@ window.operateEvents = {
     }
   },
   'click .print': function (e, value, row, index) {
-    window.open("table.html");
+    $.post("req_manage", {op: "print", did: row.did}, function(data) {
+      if(data.status) {
+        var str = "?";
+        for(var i in row) {
+          str += i;
+          str += "=";
+          str += row[i];
+          str += "&";
+        }
+        window.open("table"+str);
+      }
+    });
   },
   'click .remove': function (e, value, row, index) {
     $('#confirm_modal').modal('show');
     func_confirm = function() {
-      $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
+      $.post('device_manage', {op: "delete", id: row.did}, function(data) {
         if(data.status) {
           $table.bootstrapTable('remove', {
-            field: 'id',
-            values: [row.id]
+            field: 'did',
+            values: [row.did]
           });
+          $('#confirm_modal').find('.alert-field').html("");
+          $('#confirm_modal').modal('hide');
+        } else {
+          var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
+          '<button type="button" class="close" data-dismiss="alert" '+
+          'aria-label="Close"><span aria-hidden="true">×</span></button><p>'+
+          data.error +
+          '</p></div>';
+          $('#confirm_modal').find('.alert-field').html(html);
+        }
+      });
+    }
+  },
+  'click .confirm': function (e, value, row, index) {
+    $('#confirm_modal').modal('show');
+    func_confirm = function() {
+      $.post('req_manage', {op: "confirm", did: row.did}, function(data) {
+        if(data.status) {
           $('#confirm_modal').find('.alert-field').html("");
           $('#confirm_modal').modal('hide');
         } else {
@@ -434,7 +470,7 @@ $('#add_form').on('submit', function(e) {
   }
   var data = $(e.target).serialize();
   data += "&op=add";
-  $.post('customer_manage', data, function(data) {
+  $.post('req_manage', data, function(data) {
     if(!data.status) {
       var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
         '<button type="button" class="close" data-dismiss="alert" '+
@@ -449,7 +485,22 @@ $('#add_form').on('submit', function(e) {
 })
 
 $(function() {
-  $('.form-datetime').datetimepicker();
+  $('.form-datetime').datetimepicker("render");
+  $('.selectpicker-ajax').selectpicker({
+    liveSearch: true
+  })
+  .ajaxSelectPicker({
+    ajax: {
+      url: "req_manage",
+      data: function () {
+        var params = {
+          op: "getcname",
+          search: '{{{q}}}'
+        };
+        return params;
+      }
+    }
+  })
   $('#add_form').formValidation({
     framework: 'bootstrap',
     message: '输入不合法',
@@ -459,7 +510,7 @@ $(function() {
       validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-      customer_name: {
+      cid: {
         row: '.controls',
         validators: {
           notEmpty: {

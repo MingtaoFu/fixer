@@ -385,7 +385,7 @@ $('#add_form').on('submit', function(e) {
   }
   var data = $(e.target).serialize();
   data += "&op=add";
-  $.post('customer_manage', data, function(data) {
+  $.post('expense_manage', data, function(data) {
     if(!data.status) {
       var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
         '<button type="button" class="close" data-dismiss="alert" '+
@@ -400,6 +400,7 @@ $('#add_form').on('submit', function(e) {
 })
 
 $(function() {
+    $('.form-datetime').datetimepicker("render");
   $('#add_form').formValidation({
     framework: 'bootstrap',
     message: '输入不合法',
@@ -409,19 +410,19 @@ $(function() {
       validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-        mobile_phone: {
+        sid: {
         row: '.controls',
         validators: {
           notEmpty: {
-            message: 'id是必填的'
+            message: 'sid是必填的'
           },
           regexp: {
             regexp: /^1[0-9]{10}$/,
-            message: 'id不合法'
+            message: 'sid不合法'
           }
         }
       },
-      customer_name: {
+      materialsCosts: {
         row: '.controls',
         validators: {
           notEmpty: {
@@ -433,7 +434,7 @@ $(function() {
           }
         }
       },
-      citizen_id: {
+      laborCosts: {
         row: '.controls',
         validators: {
           notEmpty: {
@@ -454,18 +455,18 @@ $(function() {
       //     }
       //   }
       // },
-      zip_code: {
-        row: '.controls',
-        validators: {
-          //  notEmpty: {
-          //   message: '日期是必填的'
-          // },
-          regexp: {
-            regexp: /^([1-2]\d{3})[\/|\-](0?[1-9]|10|11|12)[\/|\-]([1-2]?[0-9]|0[1-9]|30|31)$/,
-            message: '日期不合法'
-          }
-        }
-      }
+      // settlementTime: {
+      //   row: '.controls',
+      //   validators: {
+      //     //  notEmpty: {
+      //     //   message: '日期是必填的'
+      //     // },
+      //     regexp: {
+      //       regexp: /^([1-2]\d{3})[\/|\-](0?[1-9]|10|11|12)[\/|\-]([1-2]?[0-9]|0[1-9]|30|31)$/,
+      //       message: '日期不合法'
+      //     }
+      //   }
+      // }
       // ,
       // email: {
       //   row: '.controls',

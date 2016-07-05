@@ -11,51 +11,51 @@ public class ExpenseDA extends DABase{
    * get all
    * @return Customer[]
    */
-   public ArrayList<Customer> query(String search, String order) {
-     ArrayList<Customer> customers = new ArrayList<Customer>();
-     conn = initialize();
+  //  public ArrayList<Customer> query(String search, String order) {
+  //    ArrayList<Customer> customers = new ArrayList<Customer>();
+  //    conn = initialize();
 
-     String parttern;
-     if(search == null || search.equals("")) {
-       parttern = "\'%\'";
-     } else {
-       parttern = "%";
-       for (int i = 0; i < search.length(); i++) {
-         parttern += search.charAt(i);
-         parttern += "%";
-       }
-       parttern = "\'" + parttern + "\'";
-     }
+  //    String parttern;
+  //    if(search == null || search.equals("")) {
+  //      parttern = "\'%\'";
+  //    } else {
+  //      parttern = "%";
+  //      for (int i = 0; i < search.length(); i++) {
+  //        parttern += search.charAt(i);
+  //        parttern += "%";
+  //      }
+  //      parttern = "\'" + parttern + "\'";
+  //    }
 
-     String sql = "select * from Customer where contactPersonName like " +
-      parttern;
-     try{
-       ResultSet rs = statement.executeQuery(sql);
-       while(rs.next()) {
-         int id = rs.getInt("cid");
-         String citizenId = rs.getString("id");
-         int property = rs.getInt("property");
-         String companyName = rs.getString("companyName");
-         String companyPhone = rs.getString("tel");
-         String mobilePhone = rs.getString("mobilePhone");
-         String addr = rs.getString("address");
-         String zipCode = rs.getString("zipCode");
-         String name = rs.getString("contactPersonName");
-         String email = rs.getString("email");
+  //    String sql = "select * from Customer where contactPersonName like " +
+  //     parttern;
+  //    try{
+  //      ResultSet rs = statement.executeQuery(sql);
+  //      while(rs.next()) {
+  //        int id = rs.getInt("cid");
+  //        String citizenId = rs.getString("id");
+  //        int property = rs.getInt("property");
+  //        String companyName = rs.getString("companyName");
+  //        String companyPhone = rs.getString("tel");
+  //        String mobilePhone = rs.getString("mobilePhone");
+  //        String addr = rs.getString("address");
+  //        String zipCode = rs.getString("zipCode");
+  //        String name = rs.getString("contactPersonName");
+  //        String email = rs.getString("email");
 
-         Customer customer = new Customer(id, property, companyName, companyPhone,
-         mobilePhone, addr, zipCode, name, email, citizenId);
-         customers.add(customer);
-       }
-     } catch (SQLException e) {
-       System.out.println(e);
-       return null;
-     }
-     finally{
-       terminate();
-     }
-    return customers;
-  }
+  //        Customer customer = new Customer(id, property, companyName, companyPhone,
+  //        mobilePhone, addr, zipCode, name, email, citizenId);
+  //        customers.add(customer);
+  //      }
+  //    } catch (SQLException e) {
+  //      System.out.println(e);
+  //      return null;
+  //    }
+  //    finally{
+  //      terminate();
+  //    }
+  //   return customers;
+  // }
 
   /**
    * get by id
@@ -70,8 +70,8 @@ public class ExpenseDA extends DABase{
       try{
         rs = statement.executeQuery(sql);
         if(rs.next())
-          expense = new Expense(sid,rs.getInt("rrid"),rs.getDecimal("laborCosts"),
-                  rs.getDecimal("materialsCosts"),rs.getString("warrantyPromise"),rs.getString("notice"),
+          expense = new Expense(sid,rs.getInt("rrid"),rs.getBigDecimal("laborCosts"),
+                  rs.getBigDecimal("materialsCosts"),rs.getString("warrantyPromise"),rs.getString("notice"),
                   rs.getTimestamp("settlementTime"));
       }
       catch(SQLException e){
@@ -88,7 +88,7 @@ public class ExpenseDA extends DABase{
       return -1;
     }
     //System.out.println(expense.getCitizenId());
-    String sql0 = "SELECT id FROM RepairRecord where rrid=\'"+expense.getRrid()+"\';";
+    String sql0 = "SELECT rrid FROM RepairRecord where rrid=\'"+expense.getRrid()+"\';";
     conn = initialize();
     ResultSet rs  =null;
     try{
@@ -159,7 +159,7 @@ public class ExpenseDA extends DABase{
   }
 
   public int delete(int sid) {
-      String sql0 = "SELECT cid FROM Settlement where sid =\'"+sid+"\';";
+      String sql0 = "SELECT sid FROM Settlement where sid =\'"+sid+"\';";
       conn = initialize();
       ResultSet rs  =null;
       try{

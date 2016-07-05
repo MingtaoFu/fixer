@@ -3,6 +3,7 @@ import team.hustsoft.basic.Expense;
 import team.hustsoft.DA.ExpenseDA;
 import java.util.*;
 
+
 public class ExpenseManageService {
   /**
    * class instance
@@ -15,7 +16,7 @@ public class ExpenseManageService {
 
 public Expense query(int sid){
      ExpenseDA expenseDA = new ExpenseDA();
-     return expense;
+     return expenseDA.query(sid);
    }
 
    public int delete(int sid) {
@@ -27,7 +28,7 @@ public Expense query(int sid){
      ExpenseDA expenseDA = new ExpenseDA();
      return expenseDA.insert(expense);
    }
-expense
+
    public int update(Expense expense) {
      ExpenseDA expenseDA = new ExpenseDA();
      return expenseDA.update(expense);

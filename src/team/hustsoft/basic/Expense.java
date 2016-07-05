@@ -1,19 +1,21 @@
 package team.hustsoft.basic;
 import org.json.simple.JSONObject;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 public class Expense{
 	private int sid;
 	private int rrid;
-	private Decimal laborCosts;
-	private Decimal materialsCosts;
+	private BigDecimal laborCosts;
+	private BigDecimal materialsCosts;
 	private String warrantyPromise;
 	private String notice;
 	private Timestamp settlementTime;
 
 	//setters and getters
-	public Customer(int sid, int rrid, Decimal laborCosts,
-	 	Decimal materialsCosts, String warrantyPromise, String notice,
+	public Expense(int sid, int rrid, BigDecimal laborCosts,
+	 	BigDecimal materialsCosts, String warrantyPromise, String notice,
 		Timestamp settlementT) {
 			this.sid = sid;
 			this.rrid = rrid;
@@ -43,20 +45,20 @@ public class Expense{
  	}
 
 
- 	public String getLaborCosts(){
+ 	public BigDecimal getLaborCosts(){
  	    return this.laborCosts;
  	}
  	
- 	public void setLaborCosts(Decimal laborCosts){
+ 	public void setLaborCosts(BigDecimal laborCosts){
  	    this.laborCosts = laborCosts;
  	}
  	
 
- 	public String getMaterialsCosts(){
+ 	public BigDecimal getMaterialsCosts(){
  	    return this.materialsCosts;
  	}
  	
- 	public void setMaterialsCosts(Decimal materialsCosts){
+ 	public void setMaterialsCosts(BigDecimal materialsCosts){
  	    this.materialsCosts = materialsCosts;
  	}
  	
@@ -76,7 +78,7 @@ public class Expense{
 	    this.notice = notice;
 	}
 	
-	public String getSettlementTime(){
+	public Timestamp getSettlementTime(){
 	    return this.settlementTime;
 	}
 	

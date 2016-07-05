@@ -1,5 +1,5 @@
 CREATE USER 'taotao'@'localhost' IDENTIFIED BY 'taotao666';
-CREATE DATABASE fixer character SET utf8; 
+CREATE DATABASE fixer character SET utf8;
 USE fixer;
 
 CREATE TABLE IF NOT EXISTS Customer(									/* 客户*/
@@ -56,7 +56,7 @@ CREATE TABLE  IF NOT EXISTS RepairRecord(								/* 维修记录*/
 	workload VARCHAR(20),												/* 工作量*/
 	requiredPart VARCHAR(50),											/* 维修所使用的器件*/
 	status enum(0,1,2,3) NOT NULL,						/* 维修状态*/
-	delayDegree enum(0,1,2),									/* 延迟程度*/	
+	delayDegree enum(0,1,2),									/* 延迟程度*/
 	CONSTRAINT PK_RRID PRIMARY KEY(rrid),
 	CONSTRAINT FK_DID FOREIGN KEY(did) REFERENCES Device(did))
 	DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
@@ -106,7 +106,10 @@ CREATE TABLE IF NOT EXISTS Settlement(									/* 结算*/
 CREATE TABLE IF NOT EXISTS User(
 	uid INT(5) AUTO_INCREMENT NOT NULL,
 	userName VARCHAR(50) NOT NULL UNIQUE,
-	passWord VARCHAR(50) NOT NULL,
+	passWord VARCHAR(100) NOT NULL,
 	characters enum(0,1,2,3,4,5,6)  NOT NULL,
 	CONSTRAINT PK_UID PRIMARY KEY(uid))
 	DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
+
+
+insert into Device(cid,status,deviceType,breakdownAppearance,breakdownType) Values(1,0,1,'gaygaygay',1);

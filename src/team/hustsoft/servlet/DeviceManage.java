@@ -64,8 +64,60 @@ public class DeviceManage extends HttpServlet {
 			out.print(json);
 			break;
 		case "update":
+			id = Integer.parseInt(request.getParameter("did"));
+			cid = Integer.parseInt(request.getParameter("cid"));
+			String expectedPriceStr = request.getParameter("expectedPrice").replaceAll(",", "");
+			expectedPrice = expectedPriceStr==""?null:new BigDecimal(expectedPriceStr);
+			deviceType = Integer.parseInt(request.getParameter("deviceType"));
+			deviceBrand = request.getParameter("deviceBrand");
+			deviceModel = request.getParameter("deviceModel");
+			deviceSerialNum = request.getParameter("deviceSerialNum");
+			lackPart = request.getParameter("lackPart");
+			breakdownAppearance = request.getParameter("breakdownAppearance");
+			breakdownType = Integer.parseInt(request.getParameter("breakdownType"));
+			appearanceCheck = request.getParameter("appearanceCheck");
+			status = Integer.parseInt(request.getParameter("status"));
+			startingUpCommand = request.getParameter("startingUpCommand");
+			significantMaterial = request.getParameter("significantMaterial");
+			HHD = request.getParameter("HHD");
+			RAM = request.getParameter("RAM");
+			PCCard = request.getParameter("PCCard");
+			ACAdapter = request.getParameter("ACAdapter");
+			battery = request.getParameter("battery");
+			CD_ROM = request.getParameter("CD_ROM");
+			floppy = request.getParameter("floppy");
+			other = request.getParameter("other");
+			Timestamp expectedCompletedTime = Timestamp.valueOf(request.getParameter("expectedCompletedTime")+":00");
+			ctime = Timestamp.valueOf(request.getParameter("ctime")+":00");
 
+			Device device = new Device(cid, expectedPrice, deviceType, deviceBrand,
+			deviceModel, deviceSerialNum, lackPart, breakdownAppearance, breakdownType,
+			appearanceCheck, startingUpCommand, significantMaterial, HHD, RAM,
+			PCCard, ACAdapter, battery, CD_ROM, floppy, other);
 
+			device.setDid(id);
+			device.setStatus(status);
+			device.setCtime(ctime);
+			device.setExpectedCompletedTime(expectedCompletedTime);
+
+			value = DeviceManageService.getInstance().update(device);
+			switch (value) {
+					case 1:
+						json.put("status", true);
+						break;
+					case -1:
+						json.put("status", false);
+						json.put("error", "无此id");
+						break;
+					case -2:
+						json.put("status", false);
+						json.put("error", "服务器错误");
+						break;
+					default:
+						json.put("status", false);
+						json.put("error", "未知错误，请联系管理员");
+				}
+				out.print(json);
 			break;
 		}
 

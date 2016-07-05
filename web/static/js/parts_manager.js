@@ -22,7 +22,7 @@ function initTable() {
                 align: 'center',
             },
                 {
-                    field: 'part_name',
+                    field: 'partName',
                     title: '种类名称',
                     editable: true,
                     align: 'center',
@@ -113,7 +113,7 @@ function initTable() {
                     align: 'center'
                 },
                 {
-                    field: 'waringQuantity',
+                    field: 'warningQuantity',
                     title: '警戒量',
                     align: 'center',
                     editable: true,
@@ -249,7 +249,7 @@ window.operateEvents = {
         row.op = "update";
         $('#confirm_modal').modal('show');
         func_confirm = function() {
-            $.post('customer_manage', row, function(data) {
+            $.post('parts_manage', row, function(data) {
                 console.log(data);
                 if(data.status) {
                     $('#confirm_modal').modal('hide');
@@ -268,7 +268,7 @@ window.operateEvents = {
     'click .remove': function (e, value, row, index) {
         $('#confirm_modal').modal('show');
         func_confirm = function() {
-            $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
+            $.post('parts_manage', {op: "delete", id: row.id}, function(data) {
                 if(data.status) {
                     $table.bootstrapTable('remove', {
                         field: 'id',
@@ -381,7 +381,7 @@ $('#add_form').on('submit', function(e) {
     }
     var data = $(e.target).serialize();
     data += "&op=add";
-    $.post('customer_manage', data, function(data) {
+    $.post('parts_manage', data, function(data) {
         if(!data.status) {
             var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
                 '<button type="button" class="close" data-dismiss="alert" '+

@@ -3,21 +3,6 @@
   import="team.hustsoft.basic.Staff,
     java.util.*"
 %>
-<%
-if (request.getMethod().equals("POST")) {
-  String name = request.getParameter("name");
-  String password = request.getParameter("password");
-  Staff user = new Staff(name, password);
-  //is not int
-  Map<Integer, String> urlMap = new HashMap<Integer, String>();
-  urlMap.put(1, "customer_care.html");
-  urlMap.put(2, "customer_care.html");
-
-  if (user != null) {
-    response.sendRedirect(urlMap.get(user.getType()));
-  }
-}
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +17,8 @@ if (request.getMethod().equals("POST")) {
   <div class="container">
     <div class="row">
       <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
-        <form class="form-horizontal panel panel-default" id="form" method="post">
+        <form class="form-horizontal panel panel-default"
+           id="form" method="post" action="page">
           <div class="panel-body">
             <fieldset>
               <div id="legend" class="">
@@ -53,14 +39,24 @@ if (request.getMethod().equals("POST")) {
                 <!-- Text input-->
                 <label class="control-label" for="password">密码</label>
                 <div class="controls">
-                  <input type="text" placeholder="请输入密码" class="form-control"
+                  <input type="password" placeholder="请输入密码" class="form-control"
                    id="password" name="password">
                   <p class="help-block">6-16位数字、字母、下划线</p>
                 </div>
               </div>
 
+              <%
+              String error = request.getParameter("error");
+              if(error != null) {
+                String str = "<div class=\"alert alert-danger alert-dismissible fade in\" role=\"alert\">"+
+                "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" "+
+                "aria-label=\"Close\"><span aria-hidden=\"true\">×</span></button><p>" +
+                error +
+                "</p></div>";
+                out.print(str);
+              }
+              %>
               <div class="control-group">
-                <!-- Button -->
                 <div class="controls">
                   <button class="btn btn-default">登录</button>
                 </div>

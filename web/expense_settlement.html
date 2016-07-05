@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>客服操作页面</title>
     <link href="./static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="./static/css/bootstrap-table.css">
     <link rel="stylesheet" href="./static/css/bootstrap-editable/bootstrap-editable.css">
     <script src="./static/js/jquery/jquery.min.js"></script>
@@ -17,6 +18,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
         <script type="text/javascript" src="./static/js/formValidation.min.js"></script>
     <script type="text/javascript" src="./static/js/formValidation-bootstrap.js"></script>
+     <script type="text/javascript" src="./static/js/bootstrap-datetimepicker.min.js"></script>
 
 </head>
 <body>
@@ -75,17 +77,17 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
              
               <div class="control-group">
-                <label class="control-label" for="mobile_phone">sid</label>
+                <label class="control-label" for="sid">sid</label>
                 <div class="controls">
-                  <input type="tel" placeholder="sid" class="form-control"
-                  id="mobile_phone" name="mobile_phone">
+                  <input type="number" placeholder="sid" class="form-control"
+                  id="sid" name="sid">
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label" for="email">维修记录</label>
+                <label class="control-label" for="rrid">维修记录</label>
                 <div class="controls">
-                  <input type="email" placeholder="维修记录" class="form-control"
-                   id="email" name="email">
+                  <input type="text" placeholder="维修记录" class="form-control"
+                   id="rrid" name="rrid">
                 </div>
               </div><!-- 
               <div class="control-group">
@@ -100,17 +102,17 @@
                 </div> 
               </div>-->
               <div class="control-group">
-                <label class="control-label" for="citizen_id">人工费</label>
+                <label class="control-label" for="laborCosts">人工费</label>
                 <div class="controls">
                   <input type="number" placeholder="人工费" class="form-control"
-                   id="citizen_id" name="citizen_id">
+                   id="laborCosts" name="laborCosts">
                 </div>
               </div>
                <div class="control-group">
-                <label class="control-label" for="customer_name">材料费</label>
+                <label class="control-label" for="materialsCosts">材料费</label>
                 <div class="controls">
                   <input type="number" placeholder="材料费" class="form-control"
-                  id="customer_name" name="customer_name">
+                  id="materialsCosts" name="materialsCosts">
                 </div>
               </div>
 
@@ -124,24 +126,24 @@
                 </div> 
               </div>-->
               <div class="control-group">
-                <label class="control-label" for="company_phone">报修承诺</label>
+                <label class="control-label" for="warrantyPromise">报修承诺</label>
                 <div class="controls">
-                  <input type="tel" placeholder="报修承诺" class="form-control"
-                   id="company_phone" name="company_phone">
+                  <input type="text" placeholder="报修承诺" class="form-control"
+                   id="warrantyPromise" name="warrantyPromise">
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label" for="address">注意事项</label>
+                <label class="control-label" for="notice">注意事项</label>
                 <div class="controls">
                   <input type="text" placeholder="注意事项" class="form-control"
-                   id="address" name="address">
+                   id="notice" name="notice">
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label" for="zip_code">结算日期</label>
+                <label class="control-label" for="settlementTime">结算日期</label>
                 <div class="controls">
-                  <input type="text" placeholder="结算日期" class="form-control"
-                   id="zip_code" name="zip_code">
+                  <input type="datetime" placeholder="结算日期" class="form-control form-datetime"
+                   id="settlementTime" name="settlementTime">
                 </div>
               </div>
 
