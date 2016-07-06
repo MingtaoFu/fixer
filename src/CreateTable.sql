@@ -113,3 +113,4 @@ CREATE TABLE IF NOT EXISTS User(
 
 
 insert into Device(cid,status,deviceType,breakdownAppearance,breakdownType) Values(1,0,1,'gaygaygay',1);
+insert into RepairRecord(did,distributeTime,repairTime) Values(1,'2016-01-01 00:00:00','2016-01-02 00:00:00');
