@@ -60,7 +60,7 @@
     data-pagination="true"
     data-id-field="id" data-page-list="[10, 25, 50, 100, ALL]"
     data-show-footer="false" data-side-pagination="server"
-    data-url="customer_manage" data-response-handler="responseHandler">
+    data-url="expense_manage" data-response-handler="responseHandler">
   </table>
 </div>
 <!-- Modal -->
@@ -76,13 +76,13 @@
           <fieldset class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
              
-              <div class="control-group">
+<!--               <div class="control-group">
                 <label class="control-label" for="sid">sid</label>
                 <div class="controls">
                   <input type="number" placeholder="sid" class="form-control"
                   id="sid" name="sid">
                 </div>
-              </div>
+              </div> -->
               <div class="control-group">
                 <label class="control-label" for="rrid">维修记录</label>
                 <div class="controls">
@@ -154,6 +154,24 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="add_submit">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="confirm_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="confirm_modal_label">确认</h4>
+      </div>
+      <div class="modal-body">
+        <div class="alert-field"></div>
+        确定执行操作？
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" onclick="func_confirm()">确定</button>
       </div>
     </div>
   </div>

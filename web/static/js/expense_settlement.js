@@ -82,16 +82,7 @@ function initTable() {
         {
           field: 'warrantyPromise',
           title: '报修承诺',
-          editable:
-          {
-            type: 'select',
-            source: [
-              {value: 0, text: '家庭用户'},
-              {value: 1, text: '单位用户'},
-              {value: 2, text: '代理商'},
-              {value: 3, text: '签约用户'}
-            ]
-          },
+          editable: true,
           align: 'center'
         },
         {
@@ -253,7 +244,7 @@ window.operateEvents = {
     row.op = "update";
     $('#confirm_modal').modal('show');
     func_confirm = function() {
-      $.post('customer_manage', row, function(data) {
+      $.post('expense_manage', row, function(data) {
         console.log(data);
         if(data.status) {
           $('#confirm_modal').modal('hide');
@@ -272,11 +263,11 @@ window.operateEvents = {
   'click .remove': function (e, value, row, index) {
     $('#confirm_modal').modal('show');
     func_confirm = function() {
-      $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
+      $.post('expense_manage', {op: "delete", sid: row.sid}, function(data) {
         if(data.status) {
           $table.bootstrapTable('remove', {
-            field: 'id',
-            values: [row.id]
+            field: 'sid',
+            values: [row.sid]
           });
           $('#confirm_modal').find('.alert-field').html("");
           $('#confirm_modal').modal('hide');
@@ -410,18 +401,18 @@ $(function() {
       validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-        sid: {
-        row: '.controls',
-        validators: {
-          notEmpty: {
-            message: 'sid是必填的'
-          },
-          regexp: {
-            regexp: /^1[0-9]{10}$/,
-            message: 'sid不合法'
-          }
-        }
-      },
+      //   sid: {
+      //   row: '.controls',
+      //   validators: {
+      //     notEmpty: {
+      //       message: 'sid是必填的'
+      //     },
+      //     regexp: {
+      //       regexp: /^1[0-9]{10}$/,
+      //       message: 'sid不合法'
+      //     }
+      //   }
+      // },
       materialsCosts: {
         row: '.controls',
         validators: {

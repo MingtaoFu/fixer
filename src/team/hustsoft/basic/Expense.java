@@ -3,6 +3,7 @@ import org.json.simple.JSONObject;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.regex.*;
 
 public class Expense{
 	private int sid;
@@ -16,7 +17,7 @@ public class Expense{
 	//setters and getters
 	public Expense(int sid, int rrid, BigDecimal laborCosts,
 	 	BigDecimal materialsCosts, String warrantyPromise, String notice,
-		Timestamp settlementT) {
+		Timestamp settlementTime) {
 			this.sid = sid;
 			this.rrid = rrid;
 			this.warrantyPromise = warrantyPromise;
@@ -91,11 +92,20 @@ public class Expense{
 		JSONObject json = new JSONObject();
 		Class cls = this.getClass();
 		Field[] fileds = cls.getDeclaredFields();
+
+		String patternStr = "(20[0-9]{2}(-[0-9]{2}){2} [0-9]{2}:[0-9]{2})";
+    Pattern ptn = Pattern.compile(patternStr);
+
 		for(int i = 0; i < fileds.length; i++) {
 			Field f = fileds[i];
 			f.setAccessible(true);
 			try {
-				json.put(f.getName(), f.get(this));
+				String value = f.get(this).toString();
+				Matcher matcher = ptn.matcher(value);
+        if(matcher.find()) {
+            value = matcher.group(1);
+        }
+				json.put(f.getName(), value);
 			} catch (Exception e) {
 
 			}

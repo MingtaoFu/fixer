@@ -1,5 +1,5 @@
 package team.hustsoft.DA;
-
+import java.math.BigDecimal;
 import team.hustsoft.basic.Expense;
 import com.mysql.jdbc.Driver;
 import team.hustsoft.DA.DABase;
@@ -11,41 +11,38 @@ public class ExpenseDA extends DABase{
    * get all
    * @return Customer[]
    */
-  //  public ArrayList<Customer> query(String search, String order) {
-  //    ArrayList<Customer> customers = new ArrayList<Customer>();
+  //  public ArrayList<Expense> query(String search) {
+  //    ArrayList<Expense> expenses = new ArrayList<Expense>();
   //    conn = initialize();
 
-  //    String parttern;
-  //    if(search == null || search.equals("")) {
-  //      parttern = "\'%\'";
-  //    } else {
-  //      parttern = "%";
-  //      for (int i = 0; i < search.length(); i++) {
-  //        parttern += search.charAt(i);
-  //        parttern += "%";
-  //      }
-  //      parttern = "\'" + parttern + "\'";
-  //    }
+  //    // String parttern;
+  //    // if(search == null || search.equals("")) {
+  //    //   parttern = "\'%\'";
+  //    // } else {
+  //    //   parttern = "%";
+  //    //   for (int i = 0; i < search.length(); i++) {
+  //    //     parttern += search.charAt(i);
+  //    //     parttern += "%";
+  //    //   }
+  //    //   parttern = "\'" + parttern + "\'";
+  //    // }
 
-  //    String sql = "select * from Customer where contactPersonName like " +
-  //     parttern;
+  //    // String sql = "select * from Settlement where contactPersonName like " +
+  //    //  parttern;
   //    try{
   //      ResultSet rs = statement.executeQuery(sql);
   //      while(rs.next()) {
-  //        int id = rs.getInt("cid");
-  //        String citizenId = rs.getString("id");
-  //        int property = rs.getInt("property");
-  //        String companyName = rs.getString("companyName");
-  //        String companyPhone = rs.getString("tel");
-  //        String mobilePhone = rs.getString("mobilePhone");
-  //        String addr = rs.getString("address");
-  //        String zipCode = rs.getString("zipCode");
-  //        String name = rs.getString("contactPersonName");
-  //        String email = rs.getString("email");
+  //        int sid = rs.getInt("sid");
+  //        int rrid = rs.getInt("rrid");
+  //        BigDecimal laborCosts = rs.getBigDecimal("laborCosts");
+  //        BigDecimal materialsCosts = rs.getBigDecimal("materialsCosts");
+  //        String warrantyPromise = rs.getString("warrantyPromise");
+  //        String notice = rs.getString("notice");
+  //        Timestamp settlementTime = rs.getTimestamp("settlementTime");
 
-  //        Customer customer = new Customer(id, property, companyName, companyPhone,
-  //        mobilePhone, addr, zipCode, name, email, citizenId);
-  //        customers.add(customer);
+  //        Expense expense = new Expense(sid, rrid, laborCosts, materialsCosts,
+  //        warrantyPromise, notice, settlementTime);
+  //        expenses.add(expense);
   //      }
   //    } catch (SQLException e) {
   //      System.out.println(e);
@@ -54,7 +51,7 @@ public class ExpenseDA extends DABase{
   //    finally{
   //      terminate();
   //    }
-  //   return customers;
+  //   return expenses;
   // }
 
   /**
@@ -62,17 +59,34 @@ public class ExpenseDA extends DABase{
    * @param  id
    * @return    a expense or null
    */
-  public Expense query(int sid) {
-      String sql ="SELECT *FROM Expense WHERE sid = \'"+sid+"\';";
+  public ArrayList<Expense> query(String sid) {
+    ArrayList<Expense> expenses = new ArrayList<Expense>();
+    String sql;
+      if(sid.equals("")) {
+          sql = "select *  from Settlement";
+      } 
+      else {
+        sql ="SELECT *FROM Settlement WHERE sid = \'"+sid+"\';";}
+      //int sid_int = Integer.parseInt(sid);
        conn = initialize();
        ResultSet rs;
        Expense expense = null;
       try{
         rs = statement.executeQuery(sql);
-        if(rs.next())
-          expense = new Expense(sid,rs.getInt("rrid"),rs.getBigDecimal("laborCosts"),
-                  rs.getBigDecimal("materialsCosts"),rs.getString("warrantyPromise"),rs.getString("notice"),
-                  rs.getTimestamp("settlementTime"));
+         while(rs.next()) {
+         sid = rs.getString("sid");
+         int rrid = rs.getInt("rrid");
+         BigDecimal laborCosts = rs.getBigDecimal("laborCosts");
+         BigDecimal materialsCosts = rs.getBigDecimal("materialsCosts");
+         String warrantyPromise = rs.getString("warrantyPromise");
+         String notice = rs.getString("notice");
+         Timestamp settlementTime = rs.getTimestamp("settlementTime");
+         int sid_int = Integer.parseInt(sid);
+
+         expense = new Expense(sid_int, rrid, laborCosts, materialsCosts,
+         warrantyPromise, notice, settlementTime);
+         expenses.add(expense);
+         }
       }
       catch(SQLException e){
                System.out.println(e);//?
@@ -80,7 +94,7 @@ public class ExpenseDA extends DABase{
       finally{
           terminate();
       }
-       return expense;
+       return expenses;
   }
 
   public int insert(Expense expense){
@@ -103,7 +117,7 @@ public class ExpenseDA extends DABase{
       return -2;
     }
 
-    String sql = "INSERT INTO Expense(rrid,laborCosts,materialsCosts,warrantyPromise,notice,settlementTime)"+
+    String sql = "INSERT INTO Settlement(rrid,laborCosts,materialsCosts,warrantyPromise,notice,settlementTime)"+
     "VALUES(\'"+expense.getRrid()+"\',\'"+expense.getLaborCosts()+"\',\'"+
     expense.getMaterialsCosts()+"\',\'"+expense.getWarrantyPromise()+"\',\'"+expense.getNotice()+"\',\'"+
     expense.getSettlementTime()+"\');";
@@ -141,9 +155,9 @@ public class ExpenseDA extends DABase{
       }
 
 
-    String sql = "UPDATE Settlement SET sid=\'"+expense.getSid()+"\',rrid=\'"+expense.getRrid()+
+    String sql = "UPDATE Settlement SET rrid=\'"+expense.getRrid()+
         "\',laborCosts=\'"+expense.getLaborCosts()+"\',materialsCosts=\'"+expense.getMaterialsCosts()+"\',warrantyPromise=\'"+
-        expense.getWarrantyPromise()+"\',notice=\'"+expense.getNotice()+"\',settlementTime=\'"+expense.getSettlementTime()+"\';";
+        expense.getWarrantyPromise()+"\',notice=\'"+expense.getNotice()+"\',settlementTime=\'"+expense.getSettlementTime()+"\' where sid="+expense.getSid();
       //conn = initialize();
       try{
         statement.executeUpdate(sql);

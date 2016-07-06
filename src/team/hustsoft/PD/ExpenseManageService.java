@@ -14,9 +14,11 @@ public class ExpenseManageService {
      return instance;
    }
 
-public Expense query(int sid){
+
+   public ArrayList<Expense> query(String sid) {
      ExpenseDA expenseDA = new ExpenseDA();
-     return expenseDA.query(sid);
+     ArrayList<Expense> expenses = expenseDA.query(sid);
+     return expenses;
    }
 
    public int delete(int sid) {

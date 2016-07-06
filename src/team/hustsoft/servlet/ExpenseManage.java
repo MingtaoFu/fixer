@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 import team.hustsoft.PD.ExpenseManageService;
 import team.hustsoft.basic.Expense;
 import java.math.BigDecimal;
+import java.util.regex.*;
 
 public class ExpenseManage extends HttpServlet {
 	public void doGet(HttpServletRequest request,
@@ -16,31 +17,27 @@ public class ExpenseManage extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		ArrayList<JSONObject> list = new ArrayList<JSONObject>();
 
-		int search = Integer.parseInt(request.getParameter("search"));
-		// String order = request.getParameter("order");
-		// //to get the total num, do not add offset and limit in SQL
-		// int offset = Integer.parseInt(request.getParameter("offset"));
-		// int limit = Integer.parseInt(request.getParameter("limit"));
 
-		Expense expense = ExpenseManageService.getInstance().query(search);
 
-		// int count = limit + offset < customers.size() ? limit + offset: customers.size();
-		// for(int i = offset; i < count; i++) {
-		// 	list.add(customers.get(i).toJSON());
-		// }
-		//Expense[] expenses = {};
-		ArrayList<Expense> expenses = new ArrayList<Expense>();
+
+		String sid = request.getParameter("search");
+		if(sid==null){
+			sid="";
+		}
+		String order = request.getParameter("order");
+		//to get the total num, do not add offset and limit in SQL
+		int offset = Integer.parseInt(request.getParameter("offset"));
+		int limit = Integer.parseInt(request.getParameter("limit"));
+
+		ArrayList<Expense> expenses = ExpenseManageService.getInstance().query(sid);
+
+		int count = limit + offset < expenses.size() ? limit + offset: expenses.size();
+		for(int i = offset; i < count; i++) {
+			list.add(expenses.get(i).toJSON());
+		}
 		JSONObject json = new JSONObject();
-		if(expense==null){
-			json.put("total",0);
-			//json.put("rows", expenses) ;
-		}
-		else{
-			json.put("total",1);
-			expenses.add(expense);
-		}
-
-		json.put("rows",expenses) ;
+		json.put("total", expenses.size());
+		json.put("rows", list);
 		out.print(json);
 	}
 
