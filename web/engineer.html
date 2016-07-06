@@ -5,6 +5,8 @@
     <title>维修管理页面</title>
     <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./static/css/bootstrap-table.css">
+        <link rel="stylesheet" href="./static/css/bootstrap-datetimepicker.min.css">
+
     <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
     <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -12,6 +14,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/locale/bootstrap-table-zh-CN.min.js"></script>
     -->
+        <script type="text/javascript" src="./static/js/bootstrap-datetimepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
 
@@ -54,7 +57,7 @@
     data-pagination="true"
     data-id-field="id" data-page-list="[10, 25, 50, 100, ALL]"
     data-show-footer="false" data-side-pagination="server"
-    data-url="customer_manage" data-response-handler="responseHandler">
+    data-url="engineer" data-response-handler="responseHandler">
   </table>
 </div>
 <!-- Modal -->
@@ -151,6 +154,25 @@
     </div>
   </div>
 </div>
- --><script type="text/javascript" src="./static/js/engineer.js"></script>
+ -->
+<div class="modal fade" id="confirm_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="confirm_modal_label">确认</h4>
+      </div>
+      <div class="modal-body">
+        <div class="alert-field"></div>
+        确定执行操作？
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" onclick="func_confirm()">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+ <script type="text/javascript" src="./static/js/engineer.js"></script>
 </body>
 </html>

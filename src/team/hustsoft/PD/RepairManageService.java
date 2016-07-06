@@ -21,6 +21,25 @@ public class RepairManageService {
 		RepairRecordDA rrda=new RepairRecordDA();
 		return rrda.query();
 	}
+	public ArrayList<RepairRecord> query(String ename) {
+		RepairRecordDA rrda=new RepairRecordDA();
+		return rrda.query(ename);
+	}
+	public ArrayList<JSONObject> query_u(String search) {
+		RepairRecordDA rrda=new RepairRecordDA();
+		ArrayList<String>rrs =  rrda.query_u(search);
+		ArrayList<JSONObject> list = new ArrayList<JSONObject>();
+		for(int i = 0; i < rrs.size(); i++) {
+			JSONObject json = new JSONObject();
+			json.put("value", rrs.get(i));
+			JSONObject data = new JSONObject();
+			data.put("content", rrs.get(i));
+			json.put("data", data);
+			list.add(json);
+		}
+	    return list;
+	}
+
 
 	public int insert(RepairRecord rr){
 		RepairRecordDA rrda = new RepairRecordDA();

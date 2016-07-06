@@ -14,13 +14,14 @@ function initTable() {
           valign: 'middle'
         },
         {
-          title: 'rrid',
-          field: 'id',
+          title: '维修记录id',
+          field: 'rrid',
+          editable: false,
           align: 'center',
         },
         {
           field: 'did',
-          title: 'did',
+          title: '设备id',
           editable: false,
           align: 'center',
         },
@@ -28,12 +29,13 @@ function initTable() {
           field: 'status',
           title: '维修状态',
           editable: {
+            // disabled:true
             type: 'select',
             source: [
-              {value: 1, text: '未分配'},
-              {value: 2, text: '分配未检测'},
-              {value: 3, text: '检测完成维修未完成'},
-              {value: 4, text: '维修完成'}
+        //      {value: 0, text: '未分配'},
+              {value: 1, text: '分配未检测'},
+              {value: 2, text: '检测完成维修未完成'},
+              {value: 3, text: '维修完成'}
             ]
           },
           align: 'center'
@@ -51,13 +53,13 @@ function initTable() {
           align: 'center'
         },        
         {
-          field: 'detectionRecord ',
+          field: 'detectionRecord',
           title: '检测记录',
           editable: true,
           align: 'center'
         },    
        {
-          field: 'repairRecord ',
+          field: 'repairRecord',
           title: '维修记录',
           editable: true,
           align: 'center'
@@ -65,7 +67,9 @@ function initTable() {
         {
           field: 'repairTime',
           title: '维修检测时间',
-          editable: true,
+          editable: {
+            type: 'datetime'
+          },
           align: 'center'
         },
         {
@@ -86,9 +90,9 @@ function initTable() {
           editable: {
             type: 'select',
             source: [
-              {value: 1, text: '一般'},
-              {value: 2, text: '比较严重'},
-              {value: 3, text: '严重'}
+              {value: 0, text: '一般'},
+              {value: 1, text: '比较严重'},
+              {value: 2, text: '严重'}
             ]
           },
           align: 'center'
@@ -101,6 +105,7 @@ function initTable() {
           events: operateEvents,
           formatter: operateFormatter
         }
+
       ]
   });
   // sometimes footer render error.
@@ -167,33 +172,50 @@ function operateFormatter(value, row, index) {
     '<a class="ok" href="javascript:void(0)" title="Ok">',
       '<i class="glyphicon glyphicon-ok"></i>',
     '</a>  ',
-    '<a class="like" href="javascript:void(0)" title="repair">',
+    '<a class="request" href="javascript:void(0)" title="request">',
       '<i class="glyphicon glyphicon-wrench"></i>',
-    '</a>  ',
-    '<a class="remove" href="javascript:void(0)" title="Remove">',
-    '<i class="glyphicon glyphicon-remove"></i>',
-    '</a>'
+    '</a>  '
+    // ,
+    // '<a class="remove" href="javascript:void(0)" title="Remove">',
+    // '<i class="glyphicon glyphicon-remove"></i>',
+    // '</a>'
   ].join('');
 }
 
+
+var func_confirm = function() {};
+
 window.operateEvents = {
   'click .ok': function (e, value, row, index) {
-    console.log(row)
     row.op = "update";
-    //$("#myModal").modal("show");
-    $.post('customer_manage', row, function(data) {
-      console.log(data);
-    });
+    $('#confirm_modal').modal('show');
+    func_confirm = function() {
+      $.post('engineer', row, function(data) {
+        console.log(data);
+        console.log(row);
+        if(data.status) {
+          $('#confirm_modal').modal('hide');
+          $('#confirm_modal').find('.alert-field').html("");
+        } else {
+          var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
+          '<button type="button" class="close" data-dismiss="alert" '+
+          'aria-label="Close"><span aria-hidden="true">×</span></button><p>'+
+          data.error +
+          '</p></div>';
+          $('#confirm_modal').find('.alert-field').html(html);
+        }
+      });
+    }
   },
-  'click .remove': function (e, value, row, index) {
-    $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
-      if(data.status) {
-        $table.bootstrapTable('remove', {
-          field: 'id',
-          values: [row.id]
-        });
-      }
-    });
+  'click .request': function (e, value, row, index) {
+    // $.post('engineer', {op: "request", id: row.id}, function(data) {
+    //   if(data.status) {
+    //     $table.bootstrapTable('remove', {
+    //       field: 'id',
+    //       values: [row.id]
+    //     });
+    //   }
+    // });
   }
 };
 
@@ -218,6 +240,7 @@ function getHeight() {
 }
 
 $(function () {
+    // $('.form-datetime').datetimepicker("render");
   var scripts = [
     './static/js/bootstrap-table.js',
     'http://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js',

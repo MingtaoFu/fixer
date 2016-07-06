@@ -328,3 +328,22 @@ $('#add_form').on('submit', function(e) {
     }
   });
 })
+
+
+$(function() {
+  $('.selectpicker-ajax').selectpicker({
+    liveSearch: true
+  })
+  .ajaxSelectPicker({
+    ajax: {
+      url: "task_schedule",
+      data: function () {
+        var params = {
+          op: "getuname",
+          search: '{{{q}}}'
+        };
+        return params;
+      }
+    }
+  })
+})
