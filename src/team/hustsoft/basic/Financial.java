@@ -25,23 +25,24 @@ public class Financial{
 			this.notice = notice;
 			this.settlementTime = settlementTime;
 			this.materialsCosts = materialsCosts;
-			this.laborCosts = laborCosts;			
+			this.laborCosts = laborCosts;
+			this.status = status;			
  	}
 
 
  	public int getSid(){
  	    return this.sid;
- 	}		
- 	
+ 	}
+
  	public void setSid(int sid){
  	    this.sid = sid;
- 	}		
+ 	}
 
 
  	public int getRrid(){
  	    return this.rrid;
  	}
- 	
+
  	public void setRrid(int rrid){
  	    this.rrid = rrid;
  	}
@@ -50,20 +51,20 @@ public class Financial{
  	public BigDecimal getLaborCosts(){
  	    return this.laborCosts;
  	}
- 	
+
  	public void setLaborCosts(BigDecimal laborCosts){
  	    this.laborCosts = laborCosts;
  	}
- 	
+
 
  	public BigDecimal getMaterialsCosts(){
  	    return this.materialsCosts;
  	}
- 	
+
  	public void setMaterialsCosts(BigDecimal materialsCosts){
  	    this.materialsCosts = materialsCosts;
  	}
- 	
+
 	public String getWarrantyPromise(){
 	    return this.warrantyPromise;
 	}
@@ -75,27 +76,27 @@ public class Financial{
 	public String getNotice(){
 	    return this.notice;
 	}
-	
+
 	public void setNotice(String notice){
 	    this.notice = notice;
 	}
-	
+
 	public Timestamp getSettlementTime(){
 	    return this.settlementTime;
 	}
-	
+
 	public void setSettlementTime(Timestamp settlementTime){
 	    this.settlementTime = settlementTime;
 	}
-	
+
 	public int getStatus(){
  	    return this.status;
- 	}		
- 	
+ 	}
+
  	public void setStatus(int status){
  	    this.status = status;
  	}
-	
+
 	public JSONObject toJSON() {
 		JSONObject json = new JSONObject();
 		Class cls = this.getClass();

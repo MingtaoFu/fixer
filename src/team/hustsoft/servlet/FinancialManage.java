@@ -85,7 +85,7 @@ public class FinancialManage extends HttpServlet {
 						break;
 					case -1:
 						json.put("status", false);
-						json.put("error", "未通过");
+						json.put("error", "已通过或找不到条目");
 						break;
 					case -2:
 						json.put("status", false);

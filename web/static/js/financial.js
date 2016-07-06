@@ -44,7 +44,7 @@ function initTable() {
         {
           field: 'laborCosts',
           title: '人工费',
-          editable:false 
+          editable:false
           // {
           //   validate: function (value) {
           //     value = $.trim(value);
@@ -126,6 +126,7 @@ function initTable() {
           title: '审批状态',
           align: 'center',
           editable: {
+            disabled: true,
             type: 'select',
             source: [
               {value: 0, text: '未通过'},
@@ -179,7 +180,7 @@ function initTable() {
           events: operateEvents,
           formatter: operateFormatter
         }
-      
+
     ]
   });
   // sometimes footer render error.
@@ -242,10 +243,15 @@ function detailFormatter(index, row) {
 }
 
 function operateFormatter(value, row, index) {
+  var str = '<a class="expense" href="javascript:void(0)" title="expense">'+
+      '<i class="glyphicon glyphicon-saved"></i>'+
+    '</a>  ';
+  if(row.status === "1") {
+    str = null;
+  }
   return [
-    '<a class="expense" href="javascript:void(0)" title="expense">',
-      '<i class="glyphicon glyphicon-saved"></i>',
-    '</a>  '
+    str
+
     // '<a class="like" href="javascript:void(0)" title="repair">',
     //   '<i class="glyphicon glyphicon-wrench"></i>',
     // '</a>  ',

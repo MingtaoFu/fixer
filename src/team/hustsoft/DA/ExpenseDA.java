@@ -64,7 +64,7 @@ public class ExpenseDA extends DABase{
     String sql;
       if(sid.equals("")) {
           sql = "select *  from Settlement";
-      } 
+      }
       else {
         sql ="SELECT *FROM Settlement WHERE sid = \'"+sid+"\';";}
       //int sid_int = Integer.parseInt(sid);
@@ -104,6 +104,7 @@ public class ExpenseDA extends DABase{
     }
     //System.out.println(expense.getCitizenId());
     String sql0 = "SELECT rrid FROM RepairRecord where status=\'3\' and rrid="+expense.getRrid();
+    String sql1_5 = "select price, quantity from DetailedPartsList where rrid="+expense.getRrid();
     String sql1 = "SELECT rrid FROM Settlement where rrid="+expense.getRrid();
     conn = initialize();
     ResultSet rs  =null;
@@ -122,9 +123,22 @@ public class ExpenseDA extends DABase{
       return -2;
     }
 
+    BigDecimal totalPrice = BigDecimal.ZERO;
+    try{
+      rs=statement.executeQuery(sql1_5);
+      while(rs.next()) {
+         BigDecimal price = rs.getBigDecimal("price");
+         int quantity = rs.getInt("quantity");
+         totalPrice = totalPrice.add(price.multiply(new BigDecimal(quantity)));
+      }
+    } catch(SQLException e){
+      System.out.println(e);//?
+      return -2;
+    }
+
     String sql = "INSERT INTO Settlement(rrid,laborCosts,materialsCosts,warrantyPromise,notice,settlementTime,status)"+
     "VALUES(\'"+expense.getRrid()+"\',\'"+expense.getLaborCosts()+"\',\'"+
-    expense.getMaterialsCosts()+"\',\'"+expense.getWarrantyPromise()+"\',\'"+expense.getNotice()+"\',\'"+
+    totalPrice+"\',\'"+expense.getWarrantyPromise()+"\',\'"+expense.getNotice()+"\',\'"+
     expense.getSettlementTime()+"\',\'"+expense.getStatus()+"\');";
 
     try{
@@ -162,7 +176,7 @@ public class ExpenseDA extends DABase{
 
     String sql = "UPDATE Settlement SET rrid=\'"+expense.getRrid()+
         "\',laborCosts=\'"+expense.getLaborCosts()+"\',materialsCosts=\'"+expense.getMaterialsCosts()+"\',warrantyPromise=\'"+
-        expense.getWarrantyPromise()+"\',notice=\'"+expense.getNotice()+"\',settlementTime=\'"+expense.getSettlementTime()+"\',where sid="+expense.getSid();
+        expense.getWarrantyPromise()+"\',notice=\'"+expense.getNotice()+"\',settlementTime=\'"+expense.getSettlementTime()+"\' where sid="+expense.getSid();
       //conn = initialize();
       try{
         statement.executeUpdate(sql);

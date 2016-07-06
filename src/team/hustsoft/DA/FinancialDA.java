@@ -64,7 +64,7 @@ public class FinancialDA extends DABase{
     String sql;
       if(sid.equals("")) {
           sql = "select *  from Settlement";
-      } 
+      }
       else {
         sql ="SELECT *FROM Settlement WHERE sid = \'"+sid+"\';";}
       //int sid_int = Integer.parseInt(sid);
@@ -150,8 +150,9 @@ public class FinancialDA extends DABase{
       ResultSet rs1  =null;
       try{
         rs=statement.executeQuery(sql0);
+        conn = initialize();
         rs1=statement.executeQuery(sql1);
-        if(!rs.next()||!rs1.next()){
+        if(!rs.next()||rs1.next()){
           terminate();
           return -1;
         }
@@ -162,7 +163,7 @@ public class FinancialDA extends DABase{
       }
 
 
-    String sql = "UPDATE Settlement SET status=\'1\'";
+    String sql = "UPDATE Settlement SET status=\'1\' where sid="+sid;
       //conn = initialize();
       try{
         statement.executeUpdate(sql);

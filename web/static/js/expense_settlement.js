@@ -26,18 +26,7 @@ function initTable() {
           field: 'rrid',
           title: ' 维修记录',
           align: 'center',
-          editable: {
-            validate: function (value) {
-              value = $.trim(value);
-              // if (!value) {
-              //   return 'This field is required';
-              // }
-              var data = $table.bootstrapTable('getData'),
-              index = $(this).parents('tr').data('index');
-              console.log(data[index]);
-              return '';
-            }
-          }
+          editable: false
         },
         {
           field: 'laborCosts',
@@ -94,18 +83,9 @@ function initTable() {
         {
           field: 'settlementTime',
           title: '结算日期',
-           editable: 
+           editable:
            {
-            validate: function (value) {
-              value = $.trim(value);
-              if (!/^([1-2]\d{3})[\/|\-](0?[1-9]|10|11|12)[\/|\-]([1-2]?[0-9]|0[1-9]|30|31)$/.test(value) && value != '') {
-                return '请输入正确的日期';
-              }
-              var data = $table.bootstrapTable('getData'),
-              index = $(this).parents('tr').data('index');
-              console.log(data[index]);
-              return '';
-            }
+             type: "datetime"
           },
           align: 'center'
         },
@@ -115,6 +95,7 @@ function initTable() {
           align: 'center',
           editable: {
             type: 'select',
+            disabled: true,
             source: [
               {value: 0, text: '未通过'},
               {value: 1, text: '通过'},
@@ -167,7 +148,7 @@ function initTable() {
           events: operateEvents,
           formatter: operateFormatter
         }
-      
+
     ]
   });
   // sometimes footer render error.
