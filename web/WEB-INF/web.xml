@@ -214,6 +214,16 @@
       <url-pattern>/staff_manage</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>delivery_list</servlet-name>
+        <servlet-class>team.hustsoft.servlet.deliveryManage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>delivery_list</servlet-name>
+        <url-pattern>/delivery_list</url-pattern>
+    </servlet-mapping>
+
+
     <!-- Define mappings that are used by the servlet container to
          translate a particular request URI (context-relative) to a
          particular servlet.  The examples below correspond to the
