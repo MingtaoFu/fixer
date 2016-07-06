@@ -51,6 +51,7 @@ public class RepairManageService {
 		return rrda.update(rr);
 	}
 
+<<<<<<< HEAD
 /*
 	public int delete(int rrid){
 		RepairRecordDA rrda = new RepairRecordDA();
@@ -58,3 +59,10 @@ public class RepairManageService {
 	}
 	*/
 }
+=======
+	// public int delete(int rrid){
+	// 	RepairRecordDA rrda = new RepairRecordDA();
+	// 	return rrda.delete(rrid);
+	// }
+}
+>>>>>>> d21dca9f63cd8c15dfa1256af42f1116b5309b08
