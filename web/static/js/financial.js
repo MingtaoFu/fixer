@@ -14,7 +14,7 @@ function initTable() {
           valign: 'middle'
         }, {
           title: 'sid',
-          field: 'id',
+          field: 'sid',
           align: 'center',
         // },
         // {
@@ -22,6 +22,7 @@ function initTable() {
         //   field: 'id',
         //   align: 'center',
         // },
+      },
         {
           field: 'rrid',
           title: ' 维修记录',
@@ -255,7 +256,7 @@ window.operateEvents = {
     row.op = "update";
     $('#confirm_modal').modal('show');
     func_confirm = function() {
-      $.post('customer_manage', row, function(data) {
+      $.post('financial_manage', row, function(data) {
         console.log(data);
         if(data.status) {
           $('#confirm_modal').modal('hide');
@@ -274,7 +275,7 @@ window.operateEvents = {
   // 'click .remove': function (e, value, row, index) {
   //   $('#confirm_modal').modal('show');
   //   func_confirm = function() {
-  //     $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
+  //     $.post('financial_manage', {op: "delete", id: row.id}, function(data) {
   //       if(data.status) {
   //         $table.bootstrapTable('remove', {
   //           field: 'id',
@@ -387,7 +388,7 @@ $('#add_form').on('submit', function(e) {
   }
   var data = $(e.target).serialize();
   data += "&op=add";
-  $.post('customer_manage', data, function(data) {
+  $.post('financial_manage', data, function(data) {
     if(!data.status) {
       var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
         '<button type="button" class="close" data-dismiss="alert" '+

@@ -102,12 +102,15 @@ public class ExpenseDA extends DABase{
       return -1;
     }
     //System.out.println(expense.getCitizenId());
-    String sql0 = "SELECT rrid FROM RepairRecord where rrid=\'"+expense.getRrid()+"\';";
+    String sql0 = "SELECT rrid FROM RepairRecord where status=\'3\'' and rrid=\'"+expense.getRrid()+"\';";
+    String sql1 = "SELECT rrid FROM Settlement where rrid=\'"+expense.getRrid()+"\';";
     conn = initialize();
     ResultSet rs  =null;
+    ResultSet rs1  =null;
     try{
       rs=statement.executeQuery(sql0);
-      if(!rs.next()){
+      rs1=statement.executeQuery(sql1);
+      if(!rs.next()||rs1.next()){
         terminate();
         return -1;
       }

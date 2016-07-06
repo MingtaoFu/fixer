@@ -125,7 +125,7 @@ public class ExpenseManage extends HttpServlet {
 						break;
 					case -1:
 						json.put("status", false);
-						json.put("error", "无此维修记录");
+						json.put("error", "无此维修记录或重复的维修记录编号");
 						break;
 					case -2:
 						json.put("status", false);
