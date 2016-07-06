@@ -82,7 +82,7 @@ public class PageManage extends HttpServlet {
 				case 5:
 					switch(page) {
 						case 1:
-              rd = request.getRequestDispatcher("engineer.html");
+              rd = request.getRequestDispatcher("parts_manager.html");
 						default:
 					}
           break;
