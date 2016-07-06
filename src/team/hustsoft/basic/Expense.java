@@ -13,18 +13,20 @@ public class Expense{
 	private String warrantyPromise;
 	private String notice;
 	private Timestamp settlementTime;
+	private int status;
 
 	//setters and getters
 	public Expense(int sid, int rrid, BigDecimal laborCosts,
 	 	BigDecimal materialsCosts, String warrantyPromise, String notice,
-		Timestamp settlementTime) {
+		Timestamp settlementTime,int status) {
 			this.sid = sid;
 			this.rrid = rrid;
 			this.warrantyPromise = warrantyPromise;
 			this.notice = notice;
 			this.settlementTime = settlementTime;
 			this.materialsCosts = materialsCosts;
-			this.laborCosts = laborCosts;			
+			this.laborCosts = laborCosts;		
+			this.status = status;	
  	}
 
 
@@ -87,6 +89,13 @@ public class Expense{
 	    this.settlementTime = settlementTime;
 	}
 	
+	public int getStatus(){
+ 	    return this.status;
+ 	}		
+ 	
+ 	public void setStatus(int status){
+ 	    this.status = status;
+ 	}
 	
 	public JSONObject toJSON() {
 		JSONObject json = new JSONObject();

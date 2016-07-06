@@ -55,8 +55,6 @@ public class FinancialManage extends HttpServlet {
 		Timestamp settlementTime;
 		int sid,rrid;
 		switch (operation) {
-			case "comfirm":
-			value = 
 			// case "delete":
 			// 	sid = Integer.parseInt(request.getParameter("sid"));
 		 // 		value = FinancialManageService.getInstance().delete(sid);
@@ -78,37 +76,27 @@ public class FinancialManage extends HttpServlet {
 			// 	}
 			// 	out.print(json);
 			// 	break;
-			// case "update":
-			// 	String laborCostsStr = request.getParameter("laborCosts").replaceAll(",", "");
-			// 	laborCosts = laborCostsStr==""?null:new BigDecimal(laborCostsStr);
-			// 	String materialsCostsStr = request.getParameter("materialsCosts").replaceAll(",", "");
-			// 	materialsCosts = materialsCostsStr==""?null:new BigDecimal(materialsCostsStr);
-			// 	warrantyPromise = request.getParameter("warrantyPromise");
-			// 	notice = request.getParameter("notice");
-			// 	settlementTime = Timestamp.valueOf(request.getParameter("settlementTime")+":00");
-			// 	sid = Integer.parseInt(request.getParameter("sid"));
-			// 	rrid = Integer.parseInt(request.getParameter("rrid"));
-			// 	Financial = new Financial(sid,rrid,laborCosts, materialsCosts,
-			// 		warrantyPromise, notice, settlementTime);
-			// 	value = FinancialManageService.getInstance().update(Financial);
-			// 	switch (value) {
-			// 		case 1:
-			// 			json.put("status", true);
-			// 			break;
-			// 		case -1:
-			// 			json.put("status", false);
-			// 			json.put("error", "无此rrid");
-			// 			break;
-			// 		case -2:
-			// 			json.put("status", false);
-			// 			json.put("error", "服务器错误");
-			// 			break;
-			// 		default:
-			// 			json.put("status", false);
-			// 			json.put("error", "未知错误，请联系管理员");
-			// 	}
-			// 	out.print(json);
-			// 	break;
+			case "update":
+			  	sid = Integer.parseInt(request.getParameter("sid"));
+				value = FinancialManageService.getInstance().update(sid);
+				switch (value) {
+					case 1:
+						json.put("status", true);
+						break;
+					case -1:
+						json.put("status", false);
+						json.put("error", "未通过");
+						break;
+					case -2:
+						json.put("status", false);
+						json.put("error", "服务器错误");
+						break;
+					default:
+						json.put("status", false);
+						json.put("error", "未知错误，请联系管理员");
+				}
+				out.print(json);
+				break;
 			// case "add":
 			// 	laborCostsStr = request.getParameter("laborCosts").replaceAll(",", "");
 			// 	laborCosts = laborCostsStr==""?null:new BigDecimal(laborCostsStr);

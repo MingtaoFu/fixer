@@ -81,10 +81,11 @@ public class FinancialDA extends DABase{
          String warrantyPromise = rs.getString("warrantyPromise");
          String notice = rs.getString("notice");
          Timestamp settlementTime = rs.getTimestamp("settlementTime");
+         int status = rs.getInt("status");
          int sid_int = Integer.parseInt(sid);
 
          financial = new Financial(sid_int, rrid, laborCosts, materialsCosts,
-         warrantyPromise, notice, settlementTime);
+         warrantyPromise, notice, settlementTime,status);
          financials.add(financial);
          }
       }
@@ -97,28 +98,30 @@ public class FinancialDA extends DABase{
        return financials;
   }
 
+
+
   // public int insert(financial financial){
-  //   if (financial == null) {
-  //     return -1;
-  //   }
-  //   //System.out.println(financial.getCitizenId());
-  //   String sql0 = "SELECT rrid FROM RepairRecord where rrid=\'"+financial.getRrid()+"\';";
-  //   String sql1 = "SELECT rrid FROM Settlement where rrid=\'"+financial.getRrid()+"\';";
-  //   conn = initialize();
-  //   ResultSet rs  =null;
-  //   ResultSet rs1  =null;
-  //   try{
-  //     rs=statement.executeQuery(sql0);
-  //     rs1=statement.executeQuery(sql1);
-  //     if(!rs.next()||!rs1.next()){
-  //       terminate();
-  //       return -1;
-  //     }
-  //   }
-  //   catch(SQLException e){
-  //     System.out.println(e);//?
-  //     return -2;
-  //   }
+    // if (financial == null) {
+    //   return -1;
+    // }
+    // //System.out.println(financial.getCitizenId());
+    // String sql0 = "SELECT rrid FROM RepairRecord where rrid=\'"+financial.getRrid()+"\';";
+    // String sql1 = "SELECT rrid FROM Settlement where rrid=\'"+financial.getRrid()+"\';";
+    // conn = initialize();
+    // ResultSet rs  =null;
+    // ResultSet rs1  =null;
+    // try{
+    //   rs=statement.executeQuery(sql0);
+    //   rs1=statement.executeQuery(sql1);
+    //   if(!rs.next()||!rs1.next()){
+    //     terminate();
+    //     return -1;
+    //   }
+    // }
+    // catch(SQLException e){
+    //   System.out.println(e);//?
+    //   return -2;
+    // }
 
   //   String sql = "INSERT INTO Settlement(rrid,laborCosts,materialsCosts,warrantyPromise,notice,settlementTime)"+
   //   "VALUES(\'"+financial.getRrid()+"\',\'"+financial.getLaborCosts()+"\',\'"+
@@ -138,42 +141,41 @@ public class FinancialDA extends DABase{
   //   return 1;
   // }
 
-  // public int update(financial financial) {
-  //     if (financial == null) {
-  //       return -1;
-  //     }
-  //     String sql0 = "SELECT sid FROM Settlement where sid =\'"+financial.getSid()+"\';";
-  //     conn = initialize();
-  //     ResultSet rs  =null;
-  //     try{
-  //       rs=statement.executeQuery(sql0);
-  //       if(!rs.next()){
-  //         terminate();
-  //         return -1;
-  //       }
-  //     }
-  //     catch(SQLException e){
-  //              System.out.println(e);//?
-  //              return -2;
-  //     }
+  public int update(int sid) {
+
+      String sql0 = "SELECT sid FROM Settlement where sid =\'"+sid+"\';";
+      String sql1 = "SELECT sid FROM Settlement where status =\'1\'";
+      conn = initialize();
+      ResultSet rs  =null;
+      ResultSet rs1  =null;
+      try{
+        rs=statement.executeQuery(sql0);
+        rs1=statement.executeQuery(sql1);
+        if(!rs.next()||!rs1.next()){
+          terminate();
+          return -1;
+        }
+      }
+      catch(SQLException e){
+               System.out.println(e);//?
+               return -2;
+      }
 
 
-  //   String sql = "UPDATE Settlement SET rrid=\'"+financial.getRrid()+
-  //       "\',laborCosts=\'"+financial.getLaborCosts()+"\',materialsCosts=\'"+financial.getMaterialsCosts()+"\',warrantyPromise=\'"+
-  //       financial.getWarrantyPromise()+"\',notice=\'"+financial.getNotice()+"\',settlementTime=\'"+financial.getSettlementTime()+"\' where sid="+financial.getSid();
-  //     //conn = initialize();
-  //     try{
-  //       statement.executeUpdate(sql);
-  //     }
-  //     catch(SQLException e){
-  //              System.out.println(e);//?
-  //              return -2;
-  //     }
-  //     finally{
-  //         terminate();
-  //     }
-  //           return 1;
-  // }
+    String sql = "UPDATE Settlement SET status=\'1\'";
+      //conn = initialize();
+      try{
+        statement.executeUpdate(sql);
+      }
+      catch(SQLException e){
+               System.out.println(e);//?
+               return -2;
+      }
+      finally{
+          terminate();
+      }
+            return 1;
+  }
 
   // public int delete(int sid) {
   //     String sql0 = "SELECT sid FROM Settlement where sid =\'"+sid+"\';";

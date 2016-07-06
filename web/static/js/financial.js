@@ -121,12 +121,18 @@ function initTable() {
           // },
           align: 'center'
         },
-        // {
-        //   field: 'addr',
-        //   title: '地址',
-        //   align: 'center',
-        //   editable: true,
-        // },
+        {
+          field: 'status',
+          title: '审批状态',
+          align: 'center',
+          editable: {
+            type: 'select',
+            source: [
+              {value: 0, text: '未通过'},
+              {value: 1, text: '通过'},
+            ]
+          },
+        },
         // {
         //   field: 'zipCode',
         //   title: '邮编',
@@ -238,7 +244,7 @@ function detailFormatter(index, row) {
 function operateFormatter(value, row, index) {
   return [
     '<a class="expense" href="javascript:void(0)" title="expense">',
-      '<i class="glyphicon glyphicon-yen"></i>',
+      '<i class="glyphicon glyphicon-saved"></i>',
     '</a>  '
     // '<a class="like" href="javascript:void(0)" title="repair">',
     //   '<i class="glyphicon glyphicon-wrench"></i>',

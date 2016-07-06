@@ -21,6 +21,8 @@ public class FinancialManageService {
      return financials;
    }
 
+
+
    // public int delete(int sid) {
    //   FinancialDA financialDA = new FinancialDA();
    //   return financialDA.delete(sid);
@@ -31,8 +33,8 @@ public class FinancialManageService {
    //   return financialDA.insert(financial);
    // }
 
-   // public int update(Financial financial) {
-   //   FinancialDA financialDA = new FinancialDA();
-   //   return financialDA.update(financial);
-   // }
+   public int update(int sid) {
+     FinancialDA financialDA = new FinancialDA();
+     return financialDA.update(sid);
+   }
 }

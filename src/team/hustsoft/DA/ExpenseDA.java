@@ -81,10 +81,11 @@ public class ExpenseDA extends DABase{
          String warrantyPromise = rs.getString("warrantyPromise");
          String notice = rs.getString("notice");
          Timestamp settlementTime = rs.getTimestamp("settlementTime");
+         int status = rs.getInt("status");
          int sid_int = Integer.parseInt(sid);
 
          expense = new Expense(sid_int, rrid, laborCosts, materialsCosts,
-         warrantyPromise, notice, settlementTime);
+         warrantyPromise, notice, settlementTime,status);
          expenses.add(expense);
          }
       }
@@ -102,13 +103,14 @@ public class ExpenseDA extends DABase{
       return -1;
     }
     //System.out.println(expense.getCitizenId());
-    String sql0 = "SELECT rrid FROM RepairRecord where status=\'3\'' and rrid=\'"+expense.getRrid()+"\';";
-    String sql1 = "SELECT rrid FROM Settlement where rrid=\'"+expense.getRrid()+"\';";
+    String sql0 = "SELECT rrid FROM RepairRecord where status=\'3\' and rrid="+expense.getRrid();
+    String sql1 = "SELECT rrid FROM Settlement where rrid="+expense.getRrid();
     conn = initialize();
     ResultSet rs  =null;
     ResultSet rs1  =null;
     try{
       rs=statement.executeQuery(sql0);
+      conn=initialize();
       rs1=statement.executeQuery(sql1);
       if(!rs.next()||rs1.next()){
         terminate();
@@ -120,10 +122,10 @@ public class ExpenseDA extends DABase{
       return -2;
     }
 
-    String sql = "INSERT INTO Settlement(rrid,laborCosts,materialsCosts,warrantyPromise,notice,settlementTime)"+
+    String sql = "INSERT INTO Settlement(rrid,laborCosts,materialsCosts,warrantyPromise,notice,settlementTime,status)"+
     "VALUES(\'"+expense.getRrid()+"\',\'"+expense.getLaborCosts()+"\',\'"+
     expense.getMaterialsCosts()+"\',\'"+expense.getWarrantyPromise()+"\',\'"+expense.getNotice()+"\',\'"+
-    expense.getSettlementTime()+"\');";
+    expense.getSettlementTime()+"\',\'"+expense.getStatus()+"\');";
 
     try{
       statement.executeUpdate(sql);
@@ -160,7 +162,7 @@ public class ExpenseDA extends DABase{
 
     String sql = "UPDATE Settlement SET rrid=\'"+expense.getRrid()+
         "\',laborCosts=\'"+expense.getLaborCosts()+"\',materialsCosts=\'"+expense.getMaterialsCosts()+"\',warrantyPromise=\'"+
-        expense.getWarrantyPromise()+"\',notice=\'"+expense.getNotice()+"\',settlementTime=\'"+expense.getSettlementTime()+"\' where sid="+expense.getSid();
+        expense.getWarrantyPromise()+"\',notice=\'"+expense.getNotice()+"\',settlementTime=\'"+expense.getSettlementTime()+"\',where sid="+expense.getSid();
       //conn = initialize();
       try{
         statement.executeUpdate(sql);

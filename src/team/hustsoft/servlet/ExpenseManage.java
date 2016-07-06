@@ -53,7 +53,7 @@ public class ExpenseManage extends HttpServlet {
 		String warrantyPromise,notice;
 		BigDecimal laborCosts,materialsCosts;
 		Timestamp settlementTime;
-		int sid,rrid;
+		int sid,rrid,status;
 		switch (operation) {
 			case "delete":
 				sid = Integer.parseInt(request.getParameter("sid"));
@@ -86,8 +86,9 @@ public class ExpenseManage extends HttpServlet {
 				settlementTime = Timestamp.valueOf(request.getParameter("settlementTime")+":00");
 				sid = Integer.parseInt(request.getParameter("sid"));
 				rrid = Integer.parseInt(request.getParameter("rrid"));
+				status = Integer.parseInt(request.getParameter("status"));
 				expense = new Expense(sid,rrid,laborCosts, materialsCosts,
-					warrantyPromise, notice, settlementTime);
+					warrantyPromise, notice, settlementTime,status);
 				value = ExpenseManageService.getInstance().update(expense);
 				switch (value) {
 					case 1:
@@ -116,8 +117,9 @@ public class ExpenseManage extends HttpServlet {
 				notice = request.getParameter("notice");
 				settlementTime = Timestamp.valueOf(request.getParameter("settlementTime")+":00");
 				rrid = Integer.parseInt(request.getParameter("rrid"));
+				status = 0;
 				expense = new Expense(0, rrid,laborCosts, materialsCosts,
-					warrantyPromise, notice, settlementTime);
+					warrantyPromise, notice, settlementTime,status);
 		 		value = ExpenseManageService.getInstance().insert(expense);
 				switch (value) {
 					case 1:

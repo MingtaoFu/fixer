@@ -109,12 +109,18 @@ function initTable() {
           },
           align: 'center'
         },
-        // {
-        //   field: 'addr',
-        //   title: '地址',
-        //   align: 'center',
-        //   editable: true,
-        // },
+        {
+          field: 'status',
+          title: '审批状态',
+          align: 'center',
+          editable: {
+            type: 'select',
+            source: [
+              {value: 0, text: '未通过'},
+              {value: 1, text: '通过'},
+            ]
+          },
+        },
         // {
         //   field: 'zipCode',
         //   title: '邮编',
