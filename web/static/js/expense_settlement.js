@@ -32,6 +32,7 @@ function initTable() {
           field: 'laborCosts',
           title: '人工费',
           editable: {
+            type: "number",
             validate: function (value) {
               value = $.trim(value);
               if (!value) {
@@ -54,6 +55,7 @@ function initTable() {
           title: '材料费',
           editable:
           {
+            type: "number",
             validate: function (value) {
               value = $.trim(value);
               if (!/^(0|[1-9][0-9]*)$/.test(value) && value != '') {

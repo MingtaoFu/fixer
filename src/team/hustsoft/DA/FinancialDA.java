@@ -144,7 +144,7 @@ public class FinancialDA extends DABase{
   public int update(int sid) {
 
       String sql0 = "SELECT sid FROM Settlement where sid =\'"+sid+"\';";
-      String sql1 = "SELECT sid FROM Settlement where status =\'1\'";
+      String sql1 = "SELECT sid FROM Settlement where status =\'1\' and sid="+sid;
       conn = initialize();
       ResultSet rs  =null;
       ResultSet rs1  =null;

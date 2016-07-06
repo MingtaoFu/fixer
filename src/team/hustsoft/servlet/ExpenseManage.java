@@ -111,8 +111,7 @@ public class ExpenseManage extends HttpServlet {
 			case "add":
 				laborCostsStr = request.getParameter("laborCosts").replaceAll(",", "");
 				laborCosts = laborCostsStr==""?null:new BigDecimal(laborCostsStr);
-				materialsCostsStr = request.getParameter("materialsCosts").replaceAll(",", "");
-				materialsCosts = materialsCostsStr==""?null:new BigDecimal(materialsCostsStr);
+				materialsCosts = BigDecimal.ZERO;
 				warrantyPromise = request.getParameter("warrantyPromise");
 				notice = request.getParameter("notice");
 				settlementTime = Timestamp.valueOf(request.getParameter("settlementTime")+":00");
