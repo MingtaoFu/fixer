@@ -11,7 +11,7 @@ import team.hustsoft.basic.RepairRecord;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class TaskSchedule extends HttpServlet{
+public class Engineer extends HttpServlet{
 	public void doPost(HttpServletRequest request,
 	HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json;charset=utf-8");
@@ -20,18 +20,23 @@ public class TaskSchedule extends HttpServlet{
 		String operation = request.getParameter("op");
 		JSONObject json = new JSONObject();
 
-		// System.out.println(operation);
-		if(operation.equals("distribute")){
+
+		if(operation.equals("update")){
 			int rrid = Integer.parseInt(request.getParameter("rrid"));
 			int did = Integer.parseInt(request.getParameter("did"));
-			String maintenance_name = request.getParameter("maintenance_name");
-			int status = 1;
-			Timestamp distributeTime = new Timestamp(System.currentTimeMillis());
-			RepairRecord rr = new RepairRecord(did,distributeTime,maintenance_name,null,null,null,null,null,status,0);
-			rr.setRrid(rrid);
-			int result = RepairManageService.getInstance().update(rr);
-			System.out.println(result);
-
+			String maintenance = request.getParameter("maintenance");
+			int status = Integer.parseInt(request.getParameter("status"));
+			Timestamp distributeTime = Timestamp.valueOf(request.getParameter("distributeTime")+":00");
+			Timestamp repairTime = Timestamp.valueOf(request.getParameter("repairTime")+":00");
+			String detectionRecord = request.getParameter("detectionRecord");
+			String repairRecord = request.getParameter("repairRecord");
+			String workload = request.getParameter("workload");
+			String requiredPart = request.getParameter("requiredPart");
+			int delayDegree = Integer.parseInt(request.getParameter("delayDegree"));
+			RepairRecord repairRecord0 = new RepairRecord(did,distributeTime,maintenance,detectionRecord,
+						repairRecord,repairTime,workload,requiredPart,status,delayDegree);
+			repairRecord0.setRrid(rrid);
+			int result = RepairManageService.getInstance().update(repairRecord0);
 			switch(result){
 			case -1:
 				json.put("status",false);
@@ -50,31 +55,27 @@ public class TaskSchedule extends HttpServlet{
 			}
 			out.print(json);
 		}
-		else if(operation.equals("getuname")){
-			String search = request.getParameter("search");
-			ArrayList<JSONObject> list = RepairManageService.getInstance().query_u(search);
-			out.println(list);
-		}
-
-
 
 	}
 	public void doGet(HttpServletRequest request,
 	HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json;charset=utf-8");
 		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
+    		String uname = (String)session.getAttribute("uname");
 
-		// String search = request.getParameter("search");
-		// String order = request.getParameter("order");
+    		System.out.println(uname);
+    		ArrayList<RepairRecord> records = RepairManageService.getInstance().query(uname);
 
-		ArrayList<RepairRecord> records = RepairManageService.getInstance().query();
-		ArrayList<JSONObject> list = new ArrayList<JSONObject>();
-		for(int i=0;i<records.size();i++){
-			list.add(records.get(i).toJSON());
-		}
+    		ArrayList<JSONObject> list = new ArrayList<JSONObject>();
+    		if(records != null){
+			for(int i=0;i<records.size();i++){
+				list.add(records.get(i).toJSON());
+			}	
+    		}
 
 		JSONObject json = new JSONObject();
-		json.put("total", records.size());
+		json.put("total", records != null?records.size():0);
 		json.put("rows", list);
 		out.print(json);
 	}

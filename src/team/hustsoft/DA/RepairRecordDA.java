@@ -3,10 +3,45 @@ package team.hustsoft.DA;
 import team.hustsoft.basic.RepairRecord;
 import com.mysql.jdbc.Driver;
 import team.hustsoft.DA.DABase;
+
 import java.util.*;
 import java.sql.*;
 
 public class RepairRecordDA extends DABase{
+	public ArrayList<String> query_u(String search) {
+     		ArrayList<String> records = new ArrayList<String>();
+		conn = initialize();
+		     String parttern;
+		     if(search == null || search.equals("")) {
+		       parttern = "\'%\'";
+		     } else {
+		       parttern = "%";
+		       for (int i = 0; i < search.length(); i++) {
+		         parttern += search.charAt(i);
+		         parttern += "%";
+		       }
+		       parttern = "\'" + parttern + "\'";
+		     }
+
+		String sql = "select userName from User where userName like"+parttern+"and characters=\'3\';";
+		ResultSet rs = null;
+		RepairRecord repairRecord0  = null;
+		try{
+			rs = statement.executeQuery(sql);
+			while(rs.next()) {
+				String userName = rs.getString("userName");
+				records.add(userName);
+			}
+		}
+		catch (SQLException e) {
+			System.out.println(e);
+			return null;
+		}
+		finally{
+			terminate();
+		}
+		return records;
+	}
 	public ArrayList<RepairRecord> query(int did) {
      		ArrayList<RepairRecord> records = new ArrayList<RepairRecord>();
 		conn = initialize();
@@ -45,6 +80,45 @@ public class RepairRecordDA extends DABase{
      		ArrayList<RepairRecord> records = new ArrayList<RepairRecord>();
 		conn = initialize();
 		String sql = "select * from RepairRecord ORDER BY status;";
+		ResultSet rs = null;
+		RepairRecord repairRecord0  = null;
+		try{
+			rs = statement.executeQuery(sql);
+			while(rs.next()) {
+				int did = rs.getInt("did");
+				int rrid = rs.getInt("rrid");
+				Timestamp distributeTime = rs.getTimestamp("distributeTime");
+				String maintenance = rs.getString("maintenance");
+				String detectionRecord  = rs.getString("detectionRecord");
+				String repairRecord = rs.getString("repairRecord");
+				Timestamp repairTime = rs.getTimestamp("repairTime");
+				String workload = rs.getString("workload");
+				String requiredPart = rs.getString("requiredPart");
+				int status = rs.getInt("status");
+				int delayDegree = rs.getInt("delayDegree");
+				repairRecord0 = new RepairRecord(did,distributeTime,maintenance,detectionRecord,
+						repairRecord,repairTime,workload,requiredPart,status,delayDegree);
+				repairRecord0.setRrid(rrid);
+				records.add(repairRecord0);
+			}
+		}
+		catch (SQLException e) {
+			System.out.println(e);
+			return null;
+		}
+		finally{
+			terminate();
+		}
+		return records;
+	}
+
+	public ArrayList<RepairRecord> query(String ename) {
+		if(ename == null){
+			return null;
+		}
+     		ArrayList<RepairRecord> records = new ArrayList<RepairRecord>();
+		conn = initialize();
+		String sql = "select * from RepairRecord WHERE maintenance=\'"+ename+"\' ORDER BY status;";
 		ResultSet rs = null;
 		RepairRecord repairRecord0  = null;
 		try{
@@ -154,36 +228,60 @@ public class RepairRecordDA extends DABase{
 		return 1;
 	}
 
-	public  int delete(int rrid) {
-		String sql0="SELECT rrid FROM RepairRecord WHERE rrid="+rrid+";";
+	public ArrayList<String> query_p(){
+		String sql0="SELECT requiredPart FROM RepairRecord WHERE status=\'2\'";
 		ResultSet rs = null;
+		ArrayList<String> parts = new ArrayList<String>();
+		String part = null;
 		conn = initialize();
 		try{
 			rs = statement.executeQuery(sql0);
 			if(!rs.next()){
-				terminate();
-				return -1;
+				return null;
 			}
+			do
+			{
+				part = rs.getString("requiredPart");
+				parts.add(part);
+			}while(rs.next());
 		}
 		catch(SQLException e){
 			System.out.println(e);//?
-			return -2;
-		}
-		String sql = "DELETE FROM RepairRecord where rrid ="+rrid+";";
-		//conn = initialize();
-		try{
-			statement.executeUpdate(sql);
-		}
-		catch(SQLException e){
-			System.out.println(e);//?
-			return -2;
+			return null;
 		}
 		finally{
 			terminate();
 		}
-		return 1;
-
-
+		return parts;
 
 	}
+	// public  int delete(int rrid) {
+	// 	String sql0="SELECT rrid FROM RepairRecord WHERE rrid="+rrid+";";
+	// 	ResultSet rs = null;
+	// 	conn = initialize();
+	// 	try{
+	// 		rs = statement.executeQuery(sql0);
+	// 		if(!rs.next()){
+	// 			terminate();
+	// 			return -1;
+	// 		}
+	// 	}
+	// 	catch(SQLException e){
+	// 		System.out.println(e);//?
+	// 		return -2;
+	// 	}
+	// 	String sql = "DELETE FROM RepairRecord where rrid ="+rrid+";";
+	// 	//conn = initialize();
+	// 	try{
+	// 		statement.executeUpdate(sql);
+	// 	}
+	// 	catch(SQLException e){
+	// 		System.out.println(e);//?
+	// 		return -2;
+	// 	}
+	// 	finally{
+	// 		terminate();
+	// 	}
+	// 	return 1;
+	// }
 }

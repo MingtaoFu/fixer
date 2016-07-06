@@ -2,7 +2,7 @@ package team.hustsoft.basic;
 import java.sql.Timestamp;
 import org.json.simple.JSONObject;
 import java.lang.reflect.Field;
-
+import java.util.regex.*;
 public class RepairRecord{
 	private int rrid;
 	private int did;
@@ -132,25 +132,50 @@ public class RepairRecord{
 	public void setDelayDegree(int delayDegree){
 	    this.delayDegree = delayDegree;
 	}
-	public JSONObject toJSON() {
+	// public JSONObject toJSON() {
+	// 	JSONObject json = new JSONObject();
+	// 	Class cls = this.getClass();
+	// 	Field[] fileds = cls.getDeclaredFields();
+	// 	for(int i = 0; i < fileds.length; i++) {
+	// 		Field f = fileds[i];
+	// 		f.setAccessible(true);
+	// 		try {
+	// 			if(f.get(this) instanceof Timestamp){
+	// 				json.put(f.getName(), f.get(this).toString());	
+	// 			}
+	// 			else{
+	// 				json.put(f.getName(), f.get(this));
+	// 			}
+	// 		} catch (Exception e) {
+	// 			System.out.println(e);
+	// 		}
+	// 	}
+	// 	return json;
+	// }
+		public JSONObject toJSON() {
 		JSONObject json = new JSONObject();
 		Class cls = this.getClass();
 		Field[] fileds = cls.getDeclaredFields();
+
+		String patternStr = "(20[0-9]{2}(-[0-9]{2}){2} [0-9]{2}:[0-9]{2})";
+    Pattern ptn = Pattern.compile(patternStr);
+
 		for(int i = 0; i < fileds.length; i++) {
 			Field f = fileds[i];
 			f.setAccessible(true);
 			try {
-				if(f.get(this) instanceof Timestamp){
-					json.put(f.getName(), f.get(this).toString());	
-				}
-				else{
-					json.put(f.getName(), f.get(this));
-				}
+				String value = f.get(this).toString();
+				Matcher matcher = ptn.matcher(value);
+        if(matcher.find()) {
+            value = matcher.group(1);
+        }
+				json.put(f.getName(), value);
 			} catch (Exception e) {
-				System.out.println(e);
+
 			}
 		}
 		return json;
 	}
+
 
 }
