@@ -118,7 +118,7 @@ public class RepairRecordDA extends DABase{
 		}
      		ArrayList<RepairRecord> records = new ArrayList<RepairRecord>();
 		conn = initialize();
-		String sql = "select * from RepairRecord WHERE maintenance=\'"+ename+"\'' ORDER BY status;";
+		String sql = "select * from RepairRecord WHERE maintenance=\'"+ename+"\' ORDER BY status;";
 		ResultSet rs = null;
 		RepairRecord repairRecord0  = null;
 		try{
@@ -228,36 +228,60 @@ public class RepairRecordDA extends DABase{
 		return 1;
 	}
 
-	public  int delete(int rrid) {
-		String sql0="SELECT rrid FROM RepairRecord WHERE rrid="+rrid+";";
+	public ArrayList<String> query_p(){
+		String sql0="SELECT requiredPart FROM RepairRecord WHERE status=\'2\'";
 		ResultSet rs = null;
+		ArrayList<String> parts = new ArrayList<String>();
+		String part = null;
 		conn = initialize();
 		try{
 			rs = statement.executeQuery(sql0);
 			if(!rs.next()){
-				terminate();
-				return -1;
+				return null;
 			}
+			do
+			{
+				part = rs.getString("requiredPart");
+				parts.add(part);
+			}while(rs.next());
 		}
 		catch(SQLException e){
 			System.out.println(e);//?
-			return -2;
-		}
-		String sql = "DELETE FROM RepairRecord where rrid ="+rrid+";";
-		//conn = initialize();
-		try{
-			statement.executeUpdate(sql);
-		}
-		catch(SQLException e){
-			System.out.println(e);//?
-			return -2;
+			return null;
 		}
 		finally{
 			terminate();
 		}
-		return 1;
-
-
+		return parts;
 
 	}
+	// public  int delete(int rrid) {
+	// 	String sql0="SELECT rrid FROM RepairRecord WHERE rrid="+rrid+";";
+	// 	ResultSet rs = null;
+	// 	conn = initialize();
+	// 	try{
+	// 		rs = statement.executeQuery(sql0);
+	// 		if(!rs.next()){
+	// 			terminate();
+	// 			return -1;
+	// 		}
+	// 	}
+	// 	catch(SQLException e){
+	// 		System.out.println(e);//?
+	// 		return -2;
+	// 	}
+	// 	String sql = "DELETE FROM RepairRecord where rrid ="+rrid+";";
+	// 	//conn = initialize();
+	// 	try{
+	// 		statement.executeUpdate(sql);
+	// 	}
+	// 	catch(SQLException e){
+	// 		System.out.println(e);//?
+	// 		return -2;
+	// 	}
+	// 	finally{
+	// 		terminate();
+	// 	}
+	// 	return 1;
+	// }
 }
