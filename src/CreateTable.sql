@@ -99,6 +99,7 @@ CREATE TABLE IF NOT EXISTS Settlement(									/* 结算*/
 	warrantyPromise VARCHAR(100),										/* 报修承诺*/
 	notice VARCHAR(100),													/* 注意事项*/
 	settlementTime TIMESTAMP,											/* 结算日期*/
+	status enum(\"0\",\"1\") NOT NULL DEFAULT \"0\",			/* 审核状态*/
 	CONSTRAINT PK_SID PRIMARY KEY(sid),
 	CONSTRAINT FK_S_RRID FOREIGN KEY(rrid) REFERENCES RepairRecord(rrid))
 	DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;

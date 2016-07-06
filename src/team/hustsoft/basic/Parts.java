@@ -5,12 +5,7 @@ import java.sql.Timestamp;
 import java.math.BigDecimal;
 import java.util.regex.*;
 
-enum STATUS{
-	NORMAL,
-	CRITICAL,
-	WARNING,
-	LACK
-};
+
 
 public class Parts{
     private int pid;
@@ -20,7 +15,7 @@ public class Parts{
 	private int quantity;
 	private Timestamp inTime;
 	private int warningQuantity;
-	private STATUS status;
+	private int status;
   public Parts(String partName,BigDecimal price,String modelNumber,int quantity,int warningQuantity){
 		this.partName = partName;
 		this.price = price;
@@ -86,18 +81,18 @@ public class Parts{
     this.warningQuantity = warningQuantity;
   }
   public int getStatus(){
-    return this.status.ordinal();
+    return this.status;
   }
   public void setStatus(){
     if(this.quantity>this.warningQuantity)
-      this.status = STATUS.NORMAL;
+      this.status = 0;
     else if(this.quantity==this.warningQuantity)
-      this.status = STATUS.CRITICAL;
+      this.status = 1;
     else if(this.quantity<this.warningQuantity)
       if(this.quantity>0)
-        this.status = STATUS.WARNING;
+        this.status = 2;
       else
-        this.status = STATUS.LACK;
+        this.status = 3;
   }
 
   public JSONObject toJSON() {
