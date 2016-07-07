@@ -28,19 +28,19 @@ public class DetailedPLManageService {
         RepairRecordDA request = new RepairRecordDA();
         return request.query();
     }
-//
-//    public int insert(RepairRecord rr){
-//        RepairRecordDA rrda = new RepairRecordDA();
-//        return rrda.insert(rr);
-//    }
-//
-//    public int update(RepairRecord rr) {
-//        RepairRecordDA rrda = new RepairRecordDA();
-//        return rrda.update(rr);
-//    }
-//
-//    public int delete(int rrid){
-//        RepairRecordDA rrda = new RepairRecordDA();
-//        return rrda.delete(rrid);
-//    }
+
+    public int insert(DetailedPartsList pl){
+        DetailedPartsListDA plda = new DetailedPartsListDA();
+        return plda.insert(pl);
+    }
+
+    public int update(DetailedPartsList pl) {
+        DetailedPartsListDA plda = new DetailedPartsListDA();
+        return plda.update(pl);
+    }
+
+    public int delete(DetailedPartsList pl) {
+        DetailedPartsListDA plda = new DetailedPartsListDA();
+        return plda.delete(pl.getPlid());
+    }
 }
