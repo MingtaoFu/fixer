@@ -186,6 +186,23 @@
         <url-pattern>/parts_manage</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>expense_manage</servlet-name>
+        <servlet-class>team.hustsoft.servlet.ExpenseManage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>expense_manage</servlet-name>
+        <url-pattern>/expense_manage</url-pattern>
+    </servlet-mapping>
+
+       <servlet>
+        <servlet-name>financial_manage</servlet-name>
+        <servlet-class>team.hustsoft.servlet.FinancialManage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>financial_manage</servlet-name>
+        <url-pattern>/financial_manage</url-pattern>
+    </servlet-mapping>
 
     <servlet>
       <servlet-name>table</servlet-name>

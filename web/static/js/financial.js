@@ -14,7 +14,7 @@ function initTable() {
           valign: 'middle'
         }, {
           title: 'sid',
-          field: 'id',
+          field: 'sid',
           align: 'center',
         // },
         // {
@@ -22,6 +22,7 @@ function initTable() {
         //   field: 'id',
         //   align: 'center',
         // },
+      },
         {
           field: 'rrid',
           title: ' 维修记录',
@@ -43,7 +44,7 @@ function initTable() {
         {
           field: 'laborCosts',
           title: '人工费',
-          editable:false 
+          editable:false
           // {
           //   validate: function (value) {
           //     value = $.trim(value);
@@ -120,12 +121,19 @@ function initTable() {
           // },
           align: 'center'
         },
-        // {
-        //   field: 'addr',
-        //   title: '地址',
-        //   align: 'center',
-        //   editable: true,
-        // },
+        {
+          field: 'status',
+          title: '审批状态',
+          align: 'center',
+          editable: {
+            disabled: true,
+            type: 'select',
+            source: [
+              {value: 0, text: '未通过'},
+              {value: 1, text: '通过'},
+            ]
+          },
+        },
         // {
         //   field: 'zipCode',
         //   title: '邮编',
@@ -172,7 +180,7 @@ function initTable() {
           events: operateEvents,
           formatter: operateFormatter
         }
-      
+
     ]
   });
   // sometimes footer render error.
@@ -235,10 +243,15 @@ function detailFormatter(index, row) {
 }
 
 function operateFormatter(value, row, index) {
+  var str = '<a class="expense" href="javascript:void(0)" title="expense">'+
+      '<i class="glyphicon glyphicon-saved"></i>'+
+    '</a>  ';
+  if(row.status === "1") {
+    str = null;
+  }
   return [
-    '<a class="expense" href="javascript:void(0)" title="expense">',
-      '<i class="glyphicon glyphicon-yen"></i>',
-    '</a>  '
+    str
+
     // '<a class="like" href="javascript:void(0)" title="repair">',
     //   '<i class="glyphicon glyphicon-wrench"></i>',
     // '</a>  ',
@@ -255,7 +268,7 @@ window.operateEvents = {
     row.op = "update";
     $('#confirm_modal').modal('show');
     func_confirm = function() {
-      $.post('customer_manage', row, function(data) {
+      $.post('financial_manage', row, function(data) {
         console.log(data);
         if(data.status) {
           $('#confirm_modal').modal('hide');
@@ -274,7 +287,7 @@ window.operateEvents = {
   // 'click .remove': function (e, value, row, index) {
   //   $('#confirm_modal').modal('show');
   //   func_confirm = function() {
-  //     $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
+  //     $.post('financial_manage', {op: "delete", id: row.id}, function(data) {
   //       if(data.status) {
   //         $table.bootstrapTable('remove', {
   //           field: 'id',
@@ -387,7 +400,7 @@ $('#add_form').on('submit', function(e) {
   }
   var data = $(e.target).serialize();
   data += "&op=add";
-  $.post('customer_manage', data, function(data) {
+  $.post('financial_manage', data, function(data) {
     if(!data.status) {
       var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
         '<button type="button" class="close" data-dismiss="alert" '+

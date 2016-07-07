@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>客服操作页面</title>
     <link href="./static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="./static/css/bootstrap-table.css">
     <link rel="stylesheet" href="./static/css/bootstrap-editable/bootstrap-editable.css">
     <script src="./static/js/jquery/jquery.min.js"></script>
@@ -17,6 +18,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
         <script type="text/javascript" src="./static/js/formValidation.min.js"></script>
     <script type="text/javascript" src="./static/js/formValidation-bootstrap.js"></script>
+     <script type="text/javascript" src="./static/js/bootstrap-datetimepicker.min.js"></script>
 
 </head>
 <body>
@@ -58,7 +60,7 @@
     data-pagination="true"
     data-id-field="id" data-page-list="[10, 25, 50, 100, ALL]"
     data-show-footer="false" data-side-pagination="server"
-    data-url="customer_manage" data-response-handler="responseHandler">
+    data-url="expense_manage" data-response-handler="responseHandler">
   </table>
 </div>
 <!-- Modal -->
@@ -73,21 +75,21 @@
         <form class="form-horizontal container-fluid" id="add_form" method="post">
           <fieldset class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-             
-              <div class="control-group">
-                <label class="control-label" for="mobile_phone">sid</label>
+
+<!--               <div class="control-group">
+                <label class="control-label" for="sid">sid</label>
                 <div class="controls">
-                  <input type="tel" placeholder="sid" class="form-control"
-                  id="mobile_phone" name="mobile_phone">
+                  <input type="number" placeholder="sid" class="form-control"
+                  id="sid" name="sid">
                 </div>
-              </div>
+              </div> -->
               <div class="control-group">
-                <label class="control-label" for="email">维修记录</label>
+                <label class="control-label" for="rrid">维修记录</label>
                 <div class="controls">
-                  <input type="email" placeholder="维修记录" class="form-control"
-                   id="email" name="email">
+                  <input type="text" placeholder="维修记录" class="form-control"
+                   id="rrid" name="rrid">
                 </div>
-              </div><!-- 
+              </div><!--
               <div class="control-group">
                 <label class="control-label" for="property">性质</label>
                 <div class="controls">
@@ -97,51 +99,44 @@
                     <option title="3">Relish</option>
                     <option title="4">Relish</option>
                   </select>
-                </div> 
+                </div>
               </div>-->
               <div class="control-group">
-                <label class="control-label" for="citizen_id">人工费</label>
+                <label class="control-label" for="laborCosts">人工费</label>
                 <div class="controls">
                   <input type="number" placeholder="人工费" class="form-control"
-                   id="citizen_id" name="citizen_id">
-                </div>
-              </div>
-               <div class="control-group">
-                <label class="control-label" for="customer_name">材料费</label>
-                <div class="controls">
-                  <input type="number" placeholder="材料费" class="form-control"
-                  id="customer_name" name="customer_name">
+                   id="laborCosts" name="laborCosts">
                 </div>
               </div>
 
            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><!--  
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><!--
               <div class="control-group">
                 <label class="control-label" for="company_name">材料费</label>
                 <div class="controls">
                   <input type="text" placeholder="材料费" class="form-control"
                    id="company_name" name="company_name">
-                </div> 
+                </div>
               </div>-->
               <div class="control-group">
-                <label class="control-label" for="company_phone">报修承诺</label>
+                <label class="control-label" for="warrantyPromise">报修承诺</label>
                 <div class="controls">
-                  <input type="tel" placeholder="报修承诺" class="form-control"
-                   id="company_phone" name="company_phone">
+                  <input type="text" placeholder="报修承诺" class="form-control"
+                   id="warrantyPromise" name="warrantyPromise">
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label" for="address">注意事项</label>
+                <label class="control-label" for="notice">注意事项</label>
                 <div class="controls">
                   <input type="text" placeholder="注意事项" class="form-control"
-                   id="address" name="address">
+                   id="notice" name="notice">
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label" for="zip_code">结算日期</label>
+                <label class="control-label" for="settlementTime">结算日期</label>
                 <div class="controls">
-                  <input type="text" placeholder="结算日期" class="form-control"
-                   id="zip_code" name="zip_code">
+                  <input type="datetime" placeholder="结算日期" class="form-control form-datetime"
+                   id="settlementTime" name="settlementTime">
                 </div>
               </div>
 
@@ -152,6 +147,24 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="add_submit">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="confirm_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="confirm_modal_label">确认</h4>
+      </div>
+      <div class="modal-body">
+        <div class="alert-field"></div>
+        确定执行操作？
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" onclick="func_confirm()">确定</button>
       </div>
     </div>
   </div>
