@@ -129,8 +129,9 @@ function initTable() {
             disabled: true,
             type: 'select',
             source: [
-              {value: 0, text: '未通过'},
-              {value: 1, text: '通过'},
+              {value: 0, text: '未打印'},
+              {value: 1, text: '已打印'},
+              {value: 2, text: '通过'},
             ]
           },
         },
@@ -246,7 +247,7 @@ function operateFormatter(value, row, index) {
   var str = '<a class="expense" href="javascript:void(0)" title="expense">'+
       '<i class="glyphicon glyphicon-saved"></i>'+
     '</a>  ';
-  if(row.status === "1") {
+  if(row.status === "2") {
     str = null;
   }
   return [
