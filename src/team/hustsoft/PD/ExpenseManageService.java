@@ -2,6 +2,7 @@ package team.hustsoft.PD;
 import team.hustsoft.basic.Expense;
 import team.hustsoft.DA.ExpenseDA;
 import java.util.*;
+import org.json.simple.JSONObject;
 
 
 public class ExpenseManageService {
@@ -34,5 +35,13 @@ public class ExpenseManageService {
    public int update(Expense expense) {
      ExpenseDA expenseDA = new ExpenseDA();
      return expenseDA.update(expense);
+   }
+
+   public JSONObject print(int ssid) {
+     ExpenseDA expenseDA = new ExpenseDA();
+     JSONObject printInfo = expenseDA.printInfo(ssid);
+     ArrayList<JSONObject> parts = expenseDA.getParts(ssid);
+     printInfo.put("parts", parts);
+     return printInfo;
    }
 }

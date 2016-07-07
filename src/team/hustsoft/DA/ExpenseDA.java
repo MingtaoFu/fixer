@@ -5,6 +5,7 @@ import com.mysql.jdbc.Driver;
 import team.hustsoft.DA.DABase;
 import java.util.*;
 import java.sql.*;
+import org.json.simple.JSONObject;
 
 public class ExpenseDA extends DABase{
   /**
@@ -66,7 +67,7 @@ public class ExpenseDA extends DABase{
           sql = "select *  from Settlement";
       }
       else {
-        sql ="SELECT *FROM Settlement WHERE sid = \'"+sid+"\';";}
+        sql ="SELECT *FROM Settlement sid = \'"+sid+"\';";}
       //int sid_int = Integer.parseInt(sid);
        conn = initialize();
        ResultSet rs;
@@ -219,5 +220,68 @@ public class ExpenseDA extends DABase{
           terminate();
       }
             return 1;
+  }
+
+  public ArrayList<JSONObject> getParts(int rrid) {
+    conn = initialize();
+    String sql = "select * from DetailedPartsList where rrid ="+ rrid;
+    ResultSet rs = null;
+    JSONObject json = null;
+    ArrayList<JSONObject> list = new ArrayList<JSONObject>();
+    try {
+      rs = statement.executeQuery(sql);
+      while(rs.next()) {
+        json = new JSONObject();
+        json.put("partName", rs.getString("partName"));
+        json.put("price", rs.getBigDecimal("price"));
+        json.put("modelNumber", rs.getString("modelNumber"));
+        json.put("quantity", rs.getInt("quantity"));
+        list.add(json);
+      }
+    } catch (Exception e) {
+      System.out.println(e);
+    } finally {
+      terminate();
+    }
+    return list;
+  }
+
+  public JSONObject printInfo(int rrid) {
+    conn = initialize();
+    String sql = "select RepairRecord.distributeTime, RepairRecord.repairTime,"+
+    "  Settlement.warrantyPromise, Settlement.notice, Settlement.laborCosts, "+
+    "Settlement.materialsCosts, Customer.companyName, Customer.contactPersonName,"+
+    " Device.deviceType, Device.deviceBrand ,Device.deviceModel, Device.deviceSerialNum,"+
+    " Device.breakdownAppearance from RepairRecord, Device, Customer, Settlement"+
+    " where RepairRecord.rrid = Settlement.rrid ="+rrid+" and RepairRecord.did = Device.did and Customer.cid = Device.cid;";
+    String sql1 = "update Settlement set status = \'1\' where rrid = "+rrid;
+    ResultSet rs  =null;
+    JSONObject json = null;
+    try {
+      rs = statement.executeQuery(sql);
+      conn = initialize();
+      statement.executeUpdate(sql1);
+      if(rs.next()) {
+        json = new JSONObject();
+        json.put("dt", rs.getString("distributeTime"));
+        json.put("rt", rs.getString("repairTime"));
+        json.put("wp", rs.getString("warrantyPromise"));
+        json.put("nt", rs.getString("notice"));
+        json.put("lc", rs.getBigDecimal("laborCosts"));
+        json.put("mc", rs.getBigDecimal("materialsCosts"));
+        json.put("cn", rs.getString("companyName"));
+        json.put("cpn", rs.getString("contactPersonName"));
+        json.put("deviceT", rs.getInt("deviceType"));
+        json.put("deviceB", rs.getString("deviceBrand"));
+        json.put("deviceM", rs.getString("deviceModel"));
+        json.put("deviceSN", rs.getString("deviceSerialNum"));
+        json.put("deviceBA", rs.getString("breakdownAppearance"));
+      }
+    } catch (Exception e) {
+      System.out.println(e);
+    } finally {
+      terminate();
+    }
+    return json;
   }
 }

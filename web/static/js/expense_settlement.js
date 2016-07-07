@@ -99,8 +99,9 @@ function initTable() {
             type: 'select',
             disabled: true,
             source: [
-              {value: 0, text: '未通过'},
-              {value: 1, text: '通过'},
+              {value: 0, text: '未打印'},
+              {value: 1, text: '已打印'},
+              {value: 2, text: '通过'}
             ]
           },
         },
@@ -217,9 +218,9 @@ function operateFormatter(value, row, index) {
     '<a class="like" href="javascript:void(0)" title="save">',
       '<i class="glyphicon glyphicon-ok"></i>',
     '</a>  ',
-    // '<a class="like" href="javascript:void(0)" title="repair">',
-    //   '<i class="glyphicon glyphicon-wrench"></i>',
-    // '</a>  ',
+     '<a class="print" href="javascript:void(0)" title="print">',
+       '<i class="glyphicon glyphicon-print"></i>',
+     '</a>  ',
     '<a class="remove" href="javascript:void(0)" title="Remove">',
     '<i class="glyphicon glyphicon-remove"></i>',
     '</a>'
@@ -248,6 +249,9 @@ window.operateEvents = {
         }
       });
     }
+  },
+  'click .print': function (e, value, row, index) {
+    window.open("table2?rrid="+row.rrid);
   },
   'click .remove': function (e, value, row, index) {
     $('#confirm_modal').modal('show');

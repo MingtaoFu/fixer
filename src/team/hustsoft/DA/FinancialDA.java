@@ -63,10 +63,10 @@ public class FinancialDA extends DABase{
     ArrayList<Financial> financials = new ArrayList<Financial>();
     String sql;
       if(sid.equals("")) {
-          sql = "select *  from Settlement";
+          sql = "select *  from Settlement where status = \'1\'";
       }
       else {
-        sql ="SELECT *FROM Settlement WHERE sid = \'"+sid+"\';";}
+        sql ="SELECT *FROM Settlement WHERE status = \'1\' and sid = \'"+sid+"\';";}
       //int sid_int = Integer.parseInt(sid);
        conn = initialize();
        ResultSet rs;
@@ -143,8 +143,8 @@ public class FinancialDA extends DABase{
 
   public int update(int sid) {
 
-      String sql0 = "SELECT sid FROM Settlement where sid =\'"+sid+"\';";
-      String sql1 = "SELECT sid FROM Settlement where status =\'1\' and sid="+sid;
+      String sql0 = "SELECT sid FROM Settlement where status = \'1\' and  sid =\'"+sid+"\';";
+      String sql1 = "SELECT sid FROM Settlement where status =\'2\' and sid="+sid;
       conn = initialize();
       ResultSet rs  =null;
       ResultSet rs1  =null;
@@ -163,7 +163,8 @@ public class FinancialDA extends DABase{
       }
 
 
-    String sql = "UPDATE Settlement SET status=\'1\' where sid="+sid;
+    String sql = "UPDATE Settlement SET status=\'2\' where sid="+sid;
+    System.out.println(sql);
       //conn = initialize();
       try{
         statement.executeUpdate(sql);

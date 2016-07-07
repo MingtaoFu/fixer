@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS Settlement(									/* 结算*/
 	warrantyPromise VARCHAR(100),										/* 报修承诺*/
 	notice VARCHAR(100),													/* 注意事项*/
 	settlementTime TIMESTAMP,											/* 结算日期*/
-	status enum(\"0\",\"1\") NOT NULL DEFAULT \"0\",			/* 审核状态*/
+	status enum(\"0\",\"1\", \"2\") NOT NULL DEFAULT \"0\",			/* 审核状态*/
 	CONSTRAINT PK_SID PRIMARY KEY(sid),
 	CONSTRAINT FK_S_RRID FOREIGN KEY(rrid) REFERENCES RepairRecord(rrid))
 	DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
@@ -114,3 +114,4 @@ CREATE TABLE IF NOT EXISTS User(
 
 
 insert into Device(cid,status,deviceType,breakdownAppearance,breakdownType) Values(1,0,1,'gaygaygay',1);
+insert into RepairRecord(did,distributeTime,repairTime) Values(1,'2016-01-01 00:00:00','2016-01-02 00:00:00');
