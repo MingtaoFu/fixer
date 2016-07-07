@@ -37,20 +37,18 @@ public class PartsRequestManage extends HttpServlet{
 				return;
 			}
 			DetailedPartsList part = new DetailedPartsList(rrid,pid,partName,price,modelNumber,quantity);
-			int result = DetailedPLManageService.getInstance().insert(part);
-			switch(result){
-			case -1:
-				json.put("status",false);
-				json.put("error","记录不存在!");
-				break;
-			case -2:
-				json.put("status",false);
-				json.put("error","服务器错误");
-				break;
-			case 1:
+			int result1 = DetailedPLManageService.getInstance().insert(part);
+			int result2 = PartsManageService.getInstance().delivery(pid,quantity);
+			//int result = result1&result2;
+			if (result1==-1 || result2==-1) {
+				json.put("status", false);
+				json.put("error", "记录不存在!");
+			}else if (result1==-2 || result2 == -2) {
+				json.put("status", false);
+				json.put("error", "服务器错误");
+			}else if(result1==1 && result2==1 )
 				json.put("status",true);
-				break;
-			default:
+			else{
 				json.put("status", false);
 				json.put("error", "未知错误，请联系管理员");
 			}

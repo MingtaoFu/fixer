@@ -51,6 +51,11 @@ public class PartsManageService {
         PartsDA partsDA = new PartsDA();
         return partsDA.update(parts);
     }
+    public int delivery(int pid,int quantity) {
+        PartsDA partsDA = new PartsDA();
+        return partsDA.delivery(pid,quantity);
+    }
+
 //    public  DevicePrinter print(int did){
 //        PartsDA partsDA = new PartsDA();
 //        return partsDADA.print(did);

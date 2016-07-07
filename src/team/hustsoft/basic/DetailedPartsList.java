@@ -25,6 +25,14 @@ public class DetailedPartsList{
         this.quantity = quantity;
         this.outTime = outTime;
     }
+    public DetailedPartsList(int rrid,int pid,String partName,BigDecimal price,String modelNumber,int quantity){
+        this.rrid = rrid;
+        this.pid = pid;
+        this.partName = partName;
+        this.price = price;
+        this.modelNumber = modelNumber;
+        this.quantity = quantity;
+    }
 
     public int getPlid() {
         return plid;
