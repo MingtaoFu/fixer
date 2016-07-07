@@ -224,6 +224,7 @@ public  class PartsDA extends DABase{
     }
 
 
+
     public  int update(Parts parts) {
         if (parts == null)
             return -1;
@@ -295,4 +296,38 @@ public  class PartsDA extends DABase{
         return 1;
     }
 
+    public int delivery(int pid,int quantity) {
+        String sql0 ="SELECT * FROM Parts WHERE pid = \'"+pid+"\';";
+        conn = initialize();
+        int originQuantity;
+        ResultSet rs;
+        try{
+            rs = statement.executeQuery(sql0);
+            if(!rs.next()){
+                terminate();
+                return -1;
+            }
+            else{
+                originQuantity = rs.getInt("quantity");
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e);//?
+            return -2;
+        }
+
+        int totalQuantity = originQuantity-quantity;
+        String sql = "UPDATE Parts SET quantity=\'"+totalQuantity+"\';";
+        try{
+            statement.executeUpdate(sql);
+        }
+        catch(SQLException e){
+            System.out.println(e);//?
+            return -2;
+        }
+        finally{
+            terminate();
+        }
+        return 1;
+    }
 }
