@@ -6,32 +6,38 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import org.json.simple.JSONObject;
 import team.hustsoft.PD.RepairManageService;
-// import team.hustsoft.PD.DeviceManageService;
+import team.hustsoft.PD.PartsManageService;
+import team.hustsoft.PD.DetailedPLManageService;
 import team.hustsoft.basic.RepairRecord;
+import team.hustsoft.basic.DetailedPartsList;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class TaskSchedule extends HttpServlet{
+
+public class PartsRequestManage extends HttpServlet{
 	public void doPost(HttpServletRequest request,
 	HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json;charset=utf-8");
 		PrintWriter out = response.getWriter();
-
-		String operation = request.getParameter("op");
+		
 		JSONObject json = new JSONObject();
-
-		// System.out.println(operation);
-		if(operation.equals("distribute")){
+		//String search = request.getParameter("search");
+		String op = request.getParameter("op");
+		if(op.equals("confirm")){
+			String partName = request.getParameter("partName");
+			BigDecimal price =new BigDecimal(request.getParameter("price"));
+			int quantity = Integer.parseInt(request.getParameter("quantity"));
+			String modelNumber = request.getParameter("modelNumber");
 			int rrid = Integer.parseInt(request.getParameter("rrid"));
-			int did = Integer.parseInt(request.getParameter("did"));
-			String maintenance_name = request.getParameter("maintenance_name");
-			int status = 1;
-			Timestamp distributeTime = new Timestamp(System.currentTimeMillis());
-			RepairRecord rr = new RepairRecord(did,distributeTime,maintenance_name,null,null,null,null,null,status,0);
-			rr.setRrid(rrid);
-			int result = RepairManageService.getInstance().update(rr);
-			System.out.println(result);
-
+			int pid = PartsManageService.getInstance().query_pid(partName);
+			if(pid<=0){
+				json.put("status",false);
+				json.put("error","零件不存在!");
+				out.print(json);
+				return;
+			}
+			DetailedPartsList part = new DetailedPartsList(rrid,pid,partName,price,modelNumber,quantity);
+			int result = DetailedPLManageService.getInstance().insert(part);
 			switch(result){
 			case -1:
 				json.put("status",false);
@@ -49,37 +55,41 @@ public class TaskSchedule extends HttpServlet{
 				json.put("error", "未知错误，请联系管理员");
 			}
 			out.print(json);
+			//???将请求显示在模态框中,,,直接跳转页面
 		}
-		else if(operation.equals("getuname")){
+		else if(op.equals("getpname")){
 			String search = request.getParameter("search");
-			ArrayList<JSONObject> list = RepairManageService.getInstance().query_u(search);
+			ArrayList<JSONObject> list = PartsManageService.getInstance().query_p(search);
 			out.println(list);
 		}
 
 
 
 	}
+
 	public void doGet(HttpServletRequest request,
 	HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
-		// String search = request.getParameter("search");
-		// String order = request.getParameter("order");
-
-		ArrayList<RepairRecord> records = RepairManageService.getInstance().query();
+		ArrayList<RepairRecord> records = RepairManageService.getInstance().query_p();
 		ArrayList<JSONObject> list = new ArrayList<JSONObject>();
+		JSONObject obj = new JSONObject();
 		if(records!=null){
 			for(int i=0;i<records.size();i++){
-				list.add(records.get(i).toJSON());
+				obj.put("rrid",records.get(i).getRrid());
+				obj.put("maintenance",records.get(i).getMaintenance());
+				obj.put("requiredPart",records.get(i).getRequiredPart());
+				list.add(obj);
 			}
-
 			JSONObject json = new JSONObject();
 			json.put("total", records.size());
 			json.put("rows", list);
 			out.print(json);	
 		}
-		
+
+
 	}
+
 
 }

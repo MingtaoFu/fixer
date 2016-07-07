@@ -43,4 +43,5 @@ public class DetailedPLManageService {
         DetailedPartsListDA plda = new DetailedPartsListDA();
         return plda.delete(pl.getPlid());
     }
+    
 }

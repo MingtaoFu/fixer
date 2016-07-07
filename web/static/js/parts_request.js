@@ -6,99 +6,25 @@ function initTable() {
   $table.bootstrapTable({
     height: getHeight(),
     columns: [
-        {
-          field: 'state',
-          checkbox: true,
-          rowspan: 1,
-          align: 'center',
-          valign: 'middle'
-        },
+      [
         {
           title: '维修记录id',
           field: 'rrid',
           align: 'center',
-          editable:false
+          editable: false
         },
-        {
-          field: 'did',
-          title: '设备id',
-          editable: false,
-          align: 'center',
-        },
-        {
-          field: 'status',
-          title: '维修状态',
-          editable: 
-          {
-            disabled:true,
-            type: 'select',
-            source: [
-              {value: 0, text: '未分配'},
-              {value: 1, text: '分配未检测'},
-              {value: 2, text: '检测完成维修未完成'},
-              {value: 3, text: '维修完成'}
-            ]
-          },
-          align: 'center'
-        },
-        {
-          field: 'distributeTime',
-          title: '分配时间',
-          editable: false,
-          align: 'center'
-        },
-        {
+         {
           field: 'maintenance',
           title: '维修人员',
-          editable: false,
-          align: 'center'
-        },        
-        {
-          field: 'detectionRecord ',
-          title: '检测记录',
-          editable: false,
-          align: 'center'
-        },    
-       {
-          field: 'repairRecord ',
-          title: '维修记录',
-          editable: false,
-          align: 'center'
-        },    
-        {
-          field: 'repairTime',
-          title: '维修检测时间',
-          editable: false,
-          align: 'center'
-        },
-        {
-          field: 'workload',
-          title: '工作量',
           editable: false,
           align: 'center'
         },
         {
           field: 'requiredPart',
-          title: '所需器件',
+          title: '所需备件信息',
           editable: false,
           align: 'center'
         },
-        {
-          field: 'delayDegree',
-          title: '延迟程度',
-          editable: 
-          {
-            disabled:true,
-            type: 'select',
-            source: [
-              {value: 0, text: '一般'},
-              {value: 1, text: '比较严重'},
-              {value: 2, text: '严重'}
-            ]
-          },
-          align: 'center'
-        },
-
         {
           field: 'operate',
           title: '操作',
@@ -107,6 +33,7 @@ function initTable() {
           formatter: operateFormatter
         }
       ]
+    ]
   });
   // sometimes footer render error.
   setTimeout(function () {
@@ -169,56 +96,64 @@ function detailFormatter(index, row) {
 
 function operateFormatter(value, row, index) {
   return [
-    '<a class="distribute" href="javascript:void(0)" title="distribute">',
-      '<i class="glyphicon glyphicon-cog"></i>',
+    '<a class="like" href="javascript:void(0)" title="save">',
+      '<i class="glyphicon glyphicon-ok"></i>',
     '</a>  '
     // ,
-    // '<a class="like" href="javascript:void(0)" title="repair">',
-    //   '<i class="glyphicon glyphicon-wrench"></i>',
-    // '</a>  ',
     // '<a class="remove" href="javascript:void(0)" title="Remove">',
     // '<i class="glyphicon glyphicon-remove"></i>',
     // '</a>'
   ].join('');
 }
 
+// var func_confirm = function() {};
 var g_row;
 
 window.operateEvents = {
-  'click .distribute': function (e, value, row, index) {
-    console.log(row)
-    row.op = "distribute";
+  'click .like': function (e, value, row, index) {
+    row.op = "confirm";
     g_row = row;
-    if(row.status == 0){
-        $("#myModal").modal("show");
-    }
+    $("#myModal").modal("show");
+    // $('#confirm_modal').modal('show');
     // func_confirm = function() {
-    // $.post('task_schedule', row, function(data) {
-    //   console.log(data);
-    //   if(data.status){
-    //       $('#myModal').modal('hide');
-    //       $('#myModal').find('.alert-field').html("");
-    //   }
-    //   else{
+    //   $.post('customer_manage', row, function(data) {
+    //     console.log(data);
+    //     if(data.status) {
+    //       $('#confirm_modal').modal('hide');
+    //       $('#confirm_modal').find('.alert-field').html("");
+    //     } else {
     //       var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
     //       '<button type="button" class="close" data-dismiss="alert" '+
     //       'aria-label="Close"><span aria-hidden="true">×</span></button><p>'+
     //       data.error +
     //       '</p></div>';
-    //       $('#myModal').find('.alert-field').html(html);
-    //   }
-    // });
+    //       $('#confirm_modal').find('.alert-field').html(html);
+    //     }
+    //   });
     // }
   }
+  // ,
   // 'click .remove': function (e, value, row, index) {
-  //   $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
-  //     if(data.status) {
-  //       $table.bootstrapTable('remove', {
-  //         field: 'id',
-  //         values: [row.id]
-  //       });
-  //     }
-  //   });
+  //   $('#confirm_modal').modal('show');
+  //   func_confirm = function() {
+  //     $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
+  //       if(data.status) {
+  //         $table.bootstrapTable('remove', {
+  //           field: 'id',
+  //           values: [row.id]
+  //         });
+  //         $('#confirm_modal').find('.alert-field').html("");
+  //         $('#confirm_modal').modal('hide');
+  //       } else {
+  //         var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
+  //         '<button type="button" class="close" data-dismiss="alert" '+
+  //         'aria-label="Close"><span aria-hidden="true">×</span></button><p>'+
+  //         data.error +
+  //         '</p></div>';
+  //         $('#confirm_modal').find('.alert-field').html(html);
+  //       }
+  //     });
+  //   }
   // }
 };
 
@@ -306,31 +241,29 @@ function getScript(url, callback) {
 $('#add_submit').click(function() {
   $('#add_form').submit();
 });
-
 $('#add_form').on('submit', function(e) {
   e.preventDefault();
-  var did = g_row.did;
-  var rrid = g_row.rrid;
+  var isValidForm = $('#add_form').data('formValidation').isValid();
+  if(!isValidForm) {
+    return;
+  }
   var data = $(e.target).serialize();
-  data += "&op=distribute";
-  data = data+"&did="+did+"&rrid="+rrid;
-  $.post('task_schedule', data, function(data) {
-    console.log(data);
-    if(data.status){
-      $('#myModal').modal('hide');
-      $('#myModal').find('.alert-field').html("");
-    }
-    else{
+  data += "&op=confirm";
+  data = data+"&rrid="+g_row.rrid;
+  $.post('parts_request', data, function(data) {
+    if(!data.status) {
       var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
-      '<button type="button" class="close" data-dismiss="alert" '+
-      'aria-label="Close"><span aria-hidden="true">×</span></button><p>'+
-      data.error +
-      '</p></div>';
-      $('#myModal').find('.alert-field').html(html);
+        '<button type="button" class="close" data-dismiss="alert" '+
+        'aria-label="Close"><span aria-hidden="true">×</span></button><p>'+
+        data.error +
+        '</p></div>';
+      $('#add_form_modal').html(html);
+    } else {
+      $('#myModal').modal('hide');
+      location.href = "delivery_list.html";
     }
   });
 });
-
 
 $(function() {  
   $('.selectpicker-ajax').selectpicker({
@@ -338,10 +271,10 @@ $(function() {
   })
   .ajaxSelectPicker({
     ajax: {
-      url: "task_schedule",
+      url: "parts_request",
       data: function () {
         var params = {
-          op: "getuname",
+          op: "getpname",
           search: '{{{q}}}'
         };
         return params;
@@ -349,3 +282,51 @@ $(function() {
     }
   })
 })
+
+$(function() {
+  $('#add_form').formValidation({
+    framework: 'bootstrap',
+    message: '输入不合法',
+    icon: {
+      valid: 'glyphicon glyphicon-ok',
+      invalid: 'glyphicon glyphicon-remove',
+      validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {
+      partName : {
+        row: '.controls',
+        validators: {
+          notEmpty: {
+            message: '备件名称是必填的'
+          }
+        }
+      },
+      quantity: {
+        row: '.controls',
+        validators: {
+          notEmpty: {
+            message: '出库数量是必填的'
+          },
+          regexp: {
+            regexp: /^[1-9]\d*$/,
+            message: '出库数量不合法'
+          }
+        }
+      },
+      price: {
+        row: '.controls',
+        validators: {
+          notEmpty: {
+            message: '出库单价是必填的'
+          },
+          regexp: {
+            regexp: /^(?:[1-9][0-9]*(?:\.[0-9]+)?|0\.(?!0+$)[0-9]+)$/,
+            message: '出库单价不合法'
+          }
+        }
+      }
+    }
+  });
+})
+
+
