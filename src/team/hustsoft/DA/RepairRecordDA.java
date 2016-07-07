@@ -227,12 +227,16 @@ public class RepairRecordDA extends DABase{
 		}
 		return 1;
 	}
-
-	public ArrayList<String> query_p(){
-		String sql0="SELECT requiredPart FROM RepairRecord WHERE status=\'2\'";
+	
+	public ArrayList<RepairRecord> query_p(){
+		String sql0="SELECT * FROM RepairRecord WHERE status=\'2\'";
 		ResultSet rs = null;
-		ArrayList<String> parts = new ArrayList<String>();
-		String part = null;
+		ArrayList<RepairRecord> parts = new ArrayList<RepairRecord>();
+		String requiredPart = null;
+		int rrid = 0;
+		String maintenance = null;
+		RepairRecord rr=null;
+
 		conn = initialize();
 		try{
 			rs = statement.executeQuery(sql0);
@@ -241,8 +245,12 @@ public class RepairRecordDA extends DABase{
 			}
 			do
 			{
-				part = rs.getString("requiredPart");
-				parts.add(part);
+				requiredPart = rs.getString("requiredPart");
+				rrid = rs.getInt("rrid");
+				maintenance = rs.getString("maintenance");
+				rr = new RepairRecord(0,null,maintenance,null,null,null,null,requiredPart,0,0);
+				rr.setRrid(rrid);
+				parts.add(rr);
 			}while(rs.next());
 		}
 		catch(SQLException e){

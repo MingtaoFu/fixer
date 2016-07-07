@@ -28,6 +28,12 @@ public class Engineer extends HttpServlet{
 			int status = Integer.parseInt(request.getParameter("status"));
 			Timestamp distributeTime = Timestamp.valueOf(request.getParameter("distributeTime")+":00");
 			Timestamp repairTime = Timestamp.valueOf(request.getParameter("repairTime")+":00");
+			if(repairTime.before(Timestamp.valueOf("1971-01-01 00:00:00"))){
+				json.put("status",false);
+				json.put("error","维修日期不合法!");
+				return;
+			}
+
 			String detectionRecord = request.getParameter("detectionRecord");
 			String repairRecord = request.getParameter("repairRecord");
 			String workload = request.getParameter("workload");

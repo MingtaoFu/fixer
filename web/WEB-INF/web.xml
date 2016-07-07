@@ -222,6 +222,14 @@
         <servlet-name>delivery_list</servlet-name>
         <url-pattern>/delivery_list</url-pattern>
     </servlet-mapping>
+        <servlet>
+        <servlet-name>parts_request</servlet-name>
+        <servlet-class>team.hustsoft.servlet.PartsRequestManage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>parts_request</servlet-name>
+        <url-pattern>/parts_request</url-pattern>
+    </servlet-mapping>
 
 
     <!-- Define mappings that are used by the servlet container to

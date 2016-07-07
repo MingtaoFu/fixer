@@ -9,6 +9,39 @@ import java.sql.*;
 import java.math.BigDecimal;
 
 public  class PartsDA extends DABase{
+    public ArrayList<String> query_p(String search) {
+            ArrayList<String> records = new ArrayList<String>();
+        conn = initialize();
+             String parttern;
+             if(search == null || search.equals("")) {
+               parttern = "\'%\'";
+             } else {
+               parttern = "%";
+               for (int i = 0; i < search.length(); i++) {
+                 parttern += search.charAt(i);
+                 parttern += "%";
+               }
+               parttern = "\'" + parttern + "\'";
+             }
+
+        String sql = "select partName from Parts where partName like"+parttern;
+        ResultSet rs = null;
+        try{
+            rs = statement.executeQuery(sql);
+            while(rs.next()) {
+                String partName = rs.getString("partName");
+                records.add(partName);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+        finally{
+            terminate();
+        }
+        return records;
+    }
     public ArrayList<Parts> query(String search, String order){
         ArrayList<Parts> partsList = new ArrayList<Parts>();
         conn = initialize();
@@ -56,6 +89,29 @@ public  class PartsDA extends DABase{
             System.out.println(sql);
         }
         return partsList;
+    }
+
+    public int query_pid(String partName){
+        String sql = "SELECT pid FROM Parts WHERE partName = \'"+partName+"\'";
+        conn = initialize();
+        ResultSet rs = null;
+        int pid= 0;
+        try{
+            rs = statement.executeQuery(sql);
+            if(rs.next())
+                pid=rs.getInt("pid");
+            else{
+                pid=-1;
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e);//?
+            return -2;
+        }
+        finally{
+            terminate();
+        }
+        return pid;
     }
 
     public Parts query(int pid) {

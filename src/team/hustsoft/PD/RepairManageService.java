@@ -39,7 +39,10 @@ public class RepairManageService {
 		}
 	    return list;
 	}
-
+	public ArrayList<RepairRecord> query_p() {
+		RepairRecordDA rrda=new RepairRecordDA();
+		return rrda.query_p();
+	}
 
 	public int insert(RepairRecord rr){
 		RepairRecordDA rrda = new RepairRecordDA();
@@ -51,8 +54,8 @@ public class RepairManageService {
 		return rrda.update(rr);
 	}
 
-	public int delete(int rrid){
-		RepairRecordDA rrda = new RepairRecordDA();
-		return rrda.delete(rrid);
-	}
+	// public int delete(int rrid){
+	// 	RepairRecordDA rrda = new RepairRecordDA();
+	// 	return rrda.delete(rrid);
+	// }
 }

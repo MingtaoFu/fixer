@@ -24,15 +24,15 @@ public class DetailedPLManageService {
         return plda.query(search,order);
     }
 
-    public ArrayList<RepairRecord> queryRequest() {
-        RepairRecordDA request = new RepairRecordDA();
-        return request.query();
-    }
+    // public ArrayList<DetailedPartsList> queryRequest() {
+    //     DetailedPartsListDA request = new DetailedPartsListDA();
+    //     return request.query();
+    // }
 //
-//    public int insert(RepairRecord rr){
-//        RepairRecordDA rrda = new RepairRecordDA();
-//        return rrda.insert(rr);
-//    }
+   public int insert(DetailedPartsList rr){
+       DetailedPartsListDA rrda = new DetailedPartsListDA();
+       return rrda.insert(rr);
+   }
 //
 //    public int update(RepairRecord rr) {
 //        RepairRecordDA rrda = new RepairRecordDA();
