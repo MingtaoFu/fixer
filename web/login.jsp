@@ -60,7 +60,7 @@
               %>
               <div class="control-group">
                 <div class="controls">
-                  <button class="btn btn-default">登录</button>
+                  <button type="submit" class="btn btn-default">登录</button>
                 </div>
               </div>
 
