@@ -57,6 +57,5 @@ public class RepairManageService {
 		return rrda.delete(rrid);
 	}
 	*/
-	
 }
 
