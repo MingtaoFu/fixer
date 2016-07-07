@@ -13,22 +13,15 @@
     <link rel="stylesheet" href="./static/css/bootstrap-editable/bootstrap-editable.css">
     <script src="./static/js/jquery/jquery.min.js"></script>
     <script src="./static/js/bootstrap/bootstrap.min.js"></script>
-    <!--
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/locale/bootstrap-table-zh-CN.min.js"></script>
-    -->
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
-        <script type="text/javascript" src="./static/js/formValidation.min.js"></script>
+    <script type="text/javascript" src="./static/js/formValidation.min.js"></script>
     <script type="text/javascript" src="./static/js/formValidation-bootstrap.js"></script>
-     <script type="text/javascript" src="./static/js/bootstrap-datetimepicker.min.js"></script>
-
+    <script type="text/javascript" src="./static/js/bootstrap-datetimepicker.min.js"></script>
 </head>
 <body>
   <nav class="navbar navbar-default">
     <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
@@ -38,8 +31,6 @@
         </button>
         <a class="navbar-brand" href="login">Fixer 客服版</a>
       </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li><a href="page?property=1&page=1">客户管理</a></li>
@@ -97,9 +88,9 @@
                 </div>
               </div> -->
               <div class="control-group">
-                <label class="control-label" for="rrid">维修记录</label>
+                <label class="control-label" for="rrid">维修编号</label>
                 <div class="controls">
-                  <input type="text" placeholder="维修记录" class="form-control"
+                  <input type="number" placeholder="维修编号" class="form-control"
                    id="rrid" name="rrid">
                 </div>
               </div><!--
@@ -146,9 +137,9 @@
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label" for="settlementTime">结算日期</label>
+                <label class="control-label" for="settlementTime">结算时间</label>
                 <div class="controls">
-                  <input type="datetime" placeholder="结算日期" class="form-control form-datetime"
+                  <input type="datetime" placeholder="结算时间" class="form-control form-datetime"
                    id="settlementTime" name="settlementTime">
                 </div>
               </div>

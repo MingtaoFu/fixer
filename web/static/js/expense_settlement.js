@@ -390,27 +390,11 @@ $(function() {
       validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-      //   sid: {
-      //   row: '.controls',
-      //   validators: {
-      //     notEmpty: {
-      //       message: 'sid是必填的'
-      //     },
-      //     regexp: {
-      //       regexp: /^1[0-9]{10}$/,
-      //       message: 'sid不合法'
-      //     }
-      //   }
-      // },
-      materialsCosts: {
+      rrid: {
         row: '.controls',
         validators: {
           notEmpty: {
-            message: '材料费是必填的'
-          },
-           regexp: {
-            regexp: /^(0|[1-9][0-9]*)$/,
-            message: '材料费不合法'
+            message: '维修编号'
           }
         }
       },
@@ -419,13 +403,17 @@ $(function() {
         validators: {
           notEmpty: {
             message: '人工费是必填的'
-          },
-          regexp: {
-            regexp: /^(0|[1-9][0-9]*)$/,
-            message: '人工费不合法'
           }
         }
       },
+      settlementTime: {
+        row: '.controls',
+        validators: {
+          notEmpty: {
+            message: '结算时间必填的'
+          }
+        }
+      }
       // company_phone: {
       //   row: '.controls',
       //   validators: {

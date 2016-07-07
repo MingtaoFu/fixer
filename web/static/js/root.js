@@ -311,61 +311,23 @@ $(function() {
       validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-      customer_name: {
+      userName: {
         row: '.controls',
         validators: {
           notEmpty: {
-            message: '客户名是必填的'
+            message: '员工姓名是必填的'
           }
         }
       },
-      mobile_phone: {
+      password: {
         row: '.controls',
         validators: {
           notEmpty: {
-            message: '手机是必填的'
+            message: '密码是必填的'
           },
           regexp: {
-            regexp: /^1[0-9]{10}$/,
-            message: '手机不合法'
-          }
-        }
-      },
-      citizen_id: {
-        row: '.controls',
-        validators: {
-          notEmpty: {
-            message: '身份证号是必填的'
-          },
-          regexp: {
-            regexp: /^[0-9]{17}([0-9,x])$/,
-            message: '身份证号不合法'
-          }
-        }
-      },
-      company_phone: {
-        row: '.controls',
-        validators: {
-          regexp: {
-            regexp: /^[0-9]*[-,0-9][0-9]*$/,
-            message: '单位电话不合法'
-          }
-        }
-      },
-      zip_code: {
-        row: '.controls',
-        validators: {
-          regexp: {
-            regexp: /^[0-9]{6}$/,
-            message: '邮编不合法'
-          }
-        }
-      },
-      email: {
-        row: '.controls',
-        validators: {
-          emailAddress: {
-            message: '请输入有效的电子邮件地址'
+            regexp: /^[\w]{6,16}$/,
+            message: '密码必须为6-16位的字母、数字或下划线'
           }
         }
       }
