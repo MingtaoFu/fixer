@@ -7,13 +7,6 @@ function initTable() {
     height: getHeight(),
     columns: [
         {
-          field: 'state',
-          checkbox: true,
-          rowspan: 1,
-          align: 'center',
-          valign: 'middle'
-        },
-        {
           title: '维修记录id',
           field: 'rrid',
           editable: false,
@@ -51,19 +44,19 @@ function initTable() {
           title: '维修人员',
           editable: false,
           align: 'center'
-        },        
+        },
         {
           field: 'detectionRecord',
           title: '检测记录',
           editable: true,
           align: 'center'
-        },    
+        },
        {
           field: 'repairRecord',
           title: '维修记录',
           editable: true,
           align: 'center'
-        },    
+        },
         {
           field: 'repairTime',
           title: '维修检测时间',

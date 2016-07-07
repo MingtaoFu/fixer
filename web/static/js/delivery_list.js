@@ -13,13 +13,6 @@ function initTable() {
         height: getHeight(),
         columns: [
             [
-                {
-                    field: 'state',
-                    checkbox: true,
-                    rowspan: 1,
-                    align: 'center',
-                    valign: 'middle'
-                },
                 //{
                 //title: 'ID',
                 //field: 'id',

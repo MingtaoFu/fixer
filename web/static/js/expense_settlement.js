@@ -7,12 +7,6 @@ function initTable() {
     height: getHeight(),
     columns: [
         {
-          field: 'state',
-          checkbox: true,
-          rowspan: 1,
-          align: 'center',
-          valign: 'middle'
-        }, {
           title: 'sid',
           field: 'sid',
           align: 'center',
@@ -235,7 +229,6 @@ window.operateEvents = {
     $('#confirm_modal').modal('show');
     func_confirm = function() {
       $.post('expense_manage', row, function(data) {
-        console.log(data);
         if(data.status) {
           $('#confirm_modal').modal('hide');
           $('#confirm_modal').find('.alert-field').html("");

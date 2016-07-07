@@ -11,12 +11,6 @@ function initTable() {
         columns: [
             [
                 {
-                    field: 'state',
-                    checkbox: true,
-                    rowspan: 1,
-                    align: 'center',
-                    valign: 'middle'
-                }, {
                 title: 'ID',
                 field: 'pid',
                 align: 'center',
