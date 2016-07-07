@@ -23,7 +23,7 @@ public class DetailedPartsListDA extends DABase{
             }
             parttern = "\'" + parttern + "\'";
         }
-        String sql = "select * from Parts where partName like " + parttern + ";";
+        String sql = "select * from DetailedPartsList where partName like " + parttern + ";";
         ResultSet rs = null;
         DetailedPartsList detailedPartsRecord = null;
         try{
@@ -36,7 +36,7 @@ public class DetailedPartsListDA extends DABase{
                 String modelNumber  = rs.getString("modelNumber");
                 int quantity = rs.getInt("quantity");
                 Timestamp outTime =rs.getTimestamp("outTime");
-                detailedPartsRecord = new DetailedPartsList(rrid,pid,partName,price,modelNumber,quantity);
+                detailedPartsRecord = new DetailedPartsList(rrid,pid,partName,price,modelNumber,quantity,outTime);
                 partsList.add(detailedPartsRecord);
             }
         }
@@ -81,82 +81,68 @@ public class DetailedPartsListDA extends DABase{
         }
         return 1;
     }
-//
-//    public int update(RepairRecord rr) {
-//        if (rr == null)
-//            return -1;
-//        int rrid =rr.getRrid();
-//        String sql0="SELECT rrid FROM RepairRecord WHERE rrid="+rrid+";";
-//        ResultSet rs = null;
-//        conn = initialize();
-//        try{
-//            rs = statement.executeQuery(sql0);
-//            if(!rs.next()){
-//                terminate();
-//                return -1;
-//            }
-//        }
-//        catch(SQLException e){
-//            System.out.println(e);//?
-//            return -2;
-//        }
-//        int did = rr.getDid();
-//        Timestamp distributeTime = rr.getDistributeTime();
-//        String maintenance = rr.getMaintenance();
-//        String detectionRecord  = rr.getDetectionRecord();
-//        String repairRecord = rr.getRepairRecord();
-//        Timestamp repairTime = rr.getRepairTime();
-//        String workload = rr.getWorkload();
-//        String requiredPart = rr.getRequiredPart();
-//        int status = rr.getStatus();
-//        int delayDegree = rr.getDelayDegree();
-//        String sql = "UPDATE RepairRecord SET did ="+did+",distributeTime=\'"+distributeTime.toString()+"\',maintenance=\'"+maintenance+
-//                "\',detectionRecord=\'"+detectionRecord+"\',repairRecord=\'"+repairRecord+"\',repairTime=\'"+repairTime.toString()+
-//                "\',workload=\'"+workload+"\',requiredPart=\'"+requiredPart+"\',status=\'"+status+"\',delayDegree=\'"+delayDegree+
-//                "\' WHERE rrid = "+rrid+";";
-//        try{
-//            statement.executeUpdate(sql);
-//        }
-//        catch(SQLException e){
-//            System.out.println(e);//?
-//            return -2;
-//        }
-//        finally{
-//            terminate();
-//        }
-//        return 1;
-//    }
-//
-//    public  int delete(int rrid) {
-//        String sql0="SELECT rrid FROM RepairRecord WHERE rrid="+rrid+";";
-//        ResultSet rs = null;
-//        conn = initialize();
-//        try{
-//            rs = statement.executeQuery(sql0);
-//            if(!rs.next()){
-//                terminate();
-//                return -1;
-//            }
-//        }
-//        catch(SQLException e){
-//            System.out.println(e);//?
-//            return -2;
-//        }
-//        String sql = "DELETE FROM RepairRecord where rrid ="+rrid+";";
-//        //conn = initialize();
-//        try{
-//            statement.executeUpdate(sql);
-//        }
-//        catch(SQLException e){
-//            System.out.println(e);//?
-//            return -2;
-//        }
-//        finally{
-//            terminate();
-//        }
-//        return 1;
-//
-//
-//
-//    }
+
+    public int update(DetailedPartsList pl) {
+        if (pl == null)
+            return -1;
+        int plid = pl.getPlid();
+        String sql0="SELECT pl FROM DetailedPartsList WHERE plid="+plid+";";
+        ResultSet rs = null;
+        conn = initialize();
+        try{
+            rs = statement.executeQuery(sql0);
+            if(!rs.next()){
+                terminate();
+                return -1;
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e);//?
+            return -2;
+        }
+
+        Timestamp outTime = pl.getOutTime();
+        String sql = "UPDATE DetailedPartsList SET outTime ="+outTime+";";
+        try{
+            statement.executeUpdate(sql);
+        }
+        catch(SQLException e){
+            System.out.println(e);//?
+            return -2;
+        }
+        finally{
+            terminate();
+        }
+        return 1;
+    }
+
+    public  int delete(int plid) {
+        String sql0="SELECT rrid FROM DetailedPartsList WHERE plid="+plid+";";
+        ResultSet rs = null;
+        conn = initialize();
+        try{
+            rs = statement.executeQuery(sql0);
+            if(!rs.next()){
+                terminate();
+                return -1;
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e);//?
+            return -2;
+        }
+        String sql = "DELETE FROM DetailedPartsList WHERE plid="+plid+";";
+        //conn = initialize();
+        try{
+            statement.executeUpdate(sql);
+        }
+        catch(SQLException e){
+            System.out.println(e);//?
+            return -2;
+        }
+        finally{
+            terminate();
+        }
+        return 1;
+    }
 }
