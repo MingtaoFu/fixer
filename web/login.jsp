@@ -15,9 +15,9 @@ if(op != null && op.equals("logout")) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>登录</title>
-  <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-  <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-  <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link href="./static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script src="./static/js/jquery/jquery.min.js"></script>
+  <script src="./static/js/bootstrap/bootstrap.min.js"></script>
   <script type="text/javascript" src="./static/js/formValidation.min.js"></script>
   <script type="text/javascript" src="./static/js/formValidation-bootstrap.js"></script>
 </head>

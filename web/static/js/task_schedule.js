@@ -28,7 +28,7 @@ function initTable() {
         {
           field: 'status',
           title: '维修状态',
-          editable: 
+          editable:
           {
             disabled:true,
             type: 'select',
@@ -52,19 +52,19 @@ function initTable() {
           title: '维修人员',
           editable: false,
           align: 'center'
-        },        
+        },
         {
           field: 'detectionRecord ',
           title: '检测记录',
           editable: false,
           align: 'center'
-        },    
+        },
        {
           field: 'repairRecord ',
           title: '维修记录',
           editable: false,
           align: 'center'
-        },    
+        },
         {
           field: 'repairTime',
           title: '维修检测时间',
@@ -86,7 +86,7 @@ function initTable() {
         {
           field: 'delayDegree',
           title: '延迟程度',
-          editable: 
+          editable:
           {
             disabled:true,
             type: 'select',
@@ -245,9 +245,9 @@ function getHeight() {
 $(function () {
   var scripts = [
     './static/js/bootstrap-table.js',
-    'http://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js',
+    './static/js/tableExport.js',
     './static/js/bootstrap-table-editable.js',
-    'http://rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/js/bootstrap-editable.js'
+    './static/js/bootstrap-editable/bootstrap-editable.js'
   ],
   eachSeries = function (arr, iterator, callback) {
     callback = callback || function () {};
@@ -333,7 +333,7 @@ $('#add_form').on('submit', function(e) {
 });
 
 
-$(function() {  
+$(function() {
   $('.selectpicker-ajax').selectpicker({
     liveSearch: true
   })

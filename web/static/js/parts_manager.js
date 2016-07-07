@@ -304,49 +304,49 @@ function getHeight() {
 }
 
 $(function () {
-    var scripts = [
-            './static/js/bootstrap-table.js',
-            'http://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js',
-            './static/js/bootstrap-table-editable.js',
-            'http://rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/js/bootstrap-editable.js'
-        ],
-        eachSeries = function (arr, iterator, callback) {
-            callback = callback || function () {};
-            if (!arr.length) {
-                return callback();
-            }
-            var completed = 0;
-            var iterate = function () {
-                iterator(arr[completed], function (err) {
-                    if (err) {
-                        callback(err);
-                        callback = function () {};
-                    }
-                    else {
-                        completed += 1;
-                        if (completed >= arr.length) {
-                            callback(null);
-                        }
-                        else {
-                            iterate();
-                        }
-                    }
-                });
-            };
+  var scripts = [
+    './static/js/bootstrap-table.js',
+    './static/js/tableExport.js',
+    './static/js/bootstrap-table-editable.js',
+    './static/js/bootstrap-editable/bootstrap-editable.js'
+  ],
+  eachSeries = function (arr, iterator, callback) {
+    callback = callback || function () {};
+    if (!arr.length) {
+      return callback();
+    }
+    var completed = 0;
+    var iterate = function () {
+      iterator(arr[completed], function (err) {
+        if (err) {
+          callback(err);
+          callback = function () {};
+        }
+        else {
+          completed += 1;
+          if (completed >= arr.length) {
+            callback(null);
+          }
+          else {
             iterate();
-        };
+          }
+        }
+      });
+    };
+    iterate();
+  };
 
-    eachSeries(scripts, getScript, initTable);
+  eachSeries(scripts, getScript, initTable);
 });
 
 function getScript(url, callback) {
-    var head = document.getElementsByTagName('head')[0];
-    var script = document.createElement('script');
-    script.src = url;
+  var head = document.getElementsByTagName('head')[0];
+  var script = document.createElement('script');
+  script.src = url;
 
-    var done = false;
-    // Attach handlers for all browsers
-    script.onload = script.onreadystatechange = function() {
+  var done = false;
+  // Attach handlers for all browsers
+  script.onload = script.onreadystatechange = function() {
         if (!done && (!this.readyState ||
             this.readyState == 'loaded' || this.readyState == 'complete')) {
             done = true;

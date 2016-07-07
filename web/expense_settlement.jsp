@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="./static/css/bootstrap-editable/bootstrap-editable.css">
     <script src="./static/js/jquery/jquery.min.js"></script>
     <script src="./static/js/bootstrap/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="./static/css/bootstrap-select/bootstrap-select.min.css">
+    <script src="./static/js/bootstrap-select/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="./static/js/formValidation.min.js"></script>
     <script type="text/javascript" src="./static/js/formValidation-bootstrap.js"></script>
     <script type="text/javascript" src="./static/js/bootstrap-datetimepicker.min.js"></script>

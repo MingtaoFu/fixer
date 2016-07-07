@@ -7,21 +7,15 @@
   <head>
     <meta charset="utf-8">
     <title>维修管理页面</title>
-    <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./static/css/bootstrap-table.css">
-        <link rel="stylesheet" href="./static/css/bootstrap-datetimepicker.min.css">
-
-    <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
-    <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-    <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <!--
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/locale/bootstrap-table-zh-CN.min.js"></script>
-    -->
-        <script type="text/javascript" src="./static/js/bootstrap-datetimepicker.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
-
+    <link rel="stylesheet" href="./static/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="./static/css/bootstrap-editable/bootstrap-editable.css">
+    <script src="./static/js/jquery/jquery.min.js"></script>
+    <script src="./static/js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./static/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="./static/css/bootstrap-select/bootstrap-select.min.css">
+    <script src="./static/js/bootstrap-select/bootstrap-select.min.js"></script>
 </head>
 <body>
   <nav class="navbar navbar-default">
@@ -30,6 +24,9 @@
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="login">Fixer 工程师版</a>
       </div>

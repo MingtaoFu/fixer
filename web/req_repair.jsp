@@ -11,20 +11,16 @@
     <link rel="stylesheet" href="./static/css/bootstrap-table.css">
     <link rel="stylesheet" href="./static/css/formValidation.css">
     <link rel="stylesheet" href="./static/css/bootstrap-datetimepicker.min.css">
-    <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ajax-bootstrap-select/1.3.7/css/ajax-bootstrap-select.min.css">
-    <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="./static/css/bootstrap-editable/bootstrap-editable.css">
+    <link rel="stylesheet" href="./static/css/bootstrap-select/ajax.css">
+    <script src="./static/js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="./static/js/formValidation.min.js"></script>
     <script type="text/javascript" src="./static/js/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript" src="./static/js/formValidation-bootstrap.js"></script>
     <script src="./static/js/bootstrap/bootstrap.min.js"></script>
-    <!--
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/locale/bootstrap-table-zh-CN.min.js"></script>
-    -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ajax-bootstrap-select/1.3.7/js/ajax-bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="./static/css/bootstrap-select/bootstrap-select.min.css">
+    <script src="./static/js/bootstrap-select/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="./static/js/bootstrap-select/ajax.js"></script>
 
 </head>
 <body>
