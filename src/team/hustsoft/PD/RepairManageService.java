@@ -11,7 +11,7 @@ public class RepairManageService {
 	public static RepairManageService getInstance() {
 		return instance;
 	}
-	
+
 	public ArrayList<RepairRecord> query(int did) {
 		RepairRecordDA rrda=new RepairRecordDA();
 		return rrda.query(did);

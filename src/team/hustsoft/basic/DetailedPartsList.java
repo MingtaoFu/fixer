@@ -3,6 +3,7 @@ import java.sql.Timestamp;
 import org.json.simple.JSONObject;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.util.regex.*;
 
 
 public class DetailedPartsList{
@@ -15,13 +16,14 @@ public class DetailedPartsList{
     private int quantity;
     private Timestamp outTime;
 
-    public DetailedPartsList(int rrid,int pid,String partName,BigDecimal price,String modelNumber,int quantity){
+    public DetailedPartsList(int rrid,int pid,String partName,BigDecimal price,String modelNumber,int quantity,Timestamp outTime){
         this.rrid = rrid;
         this.pid = pid;
         this.partName = partName;
         this.price = price;
         this.modelNumber = modelNumber;
         this.quantity = quantity;
+        this.outTime = outTime;
     }
 
     public int getPlid() {
@@ -94,18 +96,20 @@ public class DetailedPartsList{
         JSONObject json = new JSONObject();
         Class cls = this.getClass();
         Field[] fileds = cls.getDeclaredFields();
+        String patternStr = "(20[0-9]{2}(-[0-9]{2}){2} [0-9]{2}:[0-9]{2})";
+        Pattern ptn = Pattern.compile(patternStr);
         for(int i = 0; i < fileds.length; i++) {
             Field f = fileds[i];
             f.setAccessible(true);
             try {
-                if(f.get(this) instanceof Timestamp){
-                    json.put(f.getName(), f.get(this).toString());
+                String value = f.get(this).toString();
+                Matcher matcher = ptn.matcher(value);
+                if(matcher.find()) {
+                    value = matcher.group(1);
                 }
-                else{
-                    json.put(f.getName(), f.get(this));
-                }
+                json.put(f.getName(), value);
             } catch (Exception e) {
-                System.out.println(e);
+
             }
         }
         return json;

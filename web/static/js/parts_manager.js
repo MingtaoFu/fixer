@@ -18,7 +18,7 @@ function initTable() {
                     valign: 'middle'
                 }, {
                 title: 'ID',
-                field: 'id',
+                field: 'pid',
                 align: 'center',
             },
                 {

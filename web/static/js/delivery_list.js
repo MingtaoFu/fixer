@@ -19,27 +19,28 @@ function initTable() {
                     rowspan: 1,
                     align: 'center',
                     valign: 'middle'
-                }, {
-                title: 'ID',
-                field: 'id',
-                align: 'center',
-            },
+                },
+                //{
+                //title: 'ID',
+                //field: 'id',
+                //align: 'center',
+                //},
                 {
-                    field: 'partName',
-                    title: '种类名称',
+                    field: 'rrid',
+                    title: '维修记录',
                     align: 'center',
                     editable: false
                 },
 
                 {
-                    field: 'price',
-                    title: '单价',
+                    field: 'partName',
+                    title: '备件名称',
                     editable:false,
                     align: 'center'
                 },
                 {
-                    field: 'modelNumber',
-                    title: '型号',
+                    field: 'price',
+                    title: '单价',
                     editable: false,
                     align: 'center'
                 },
@@ -50,24 +51,16 @@ function initTable() {
                     align: 'center'
                 },
                 {
-                    field: 'status',
-                    title: '状态',
+                    field: 'modelNumber',
+                    title: '型号',
                     editable: false,
                     align: 'center'
                 },
                 {
-                    field: 'warningQuantity',
-                    title: '警戒量',
+                    field: 'outTime',
+                    title: '出库时间',
                     align: 'center',
                     editable: false
-                },
-                {
-                    field: 'inTime',
-                    title: '更新时间',
-                    align: 'center',
-                    editable: {
-                        type: "datetime"
-                    }
                 }
 
             ]
@@ -317,42 +310,7 @@ $('#add_form').on('submit', function(e) {
 //                    }
 //                }
 //            },
-//            price: {
-//                row: '.controls',
-//                validators: {
-//                    notEmpty: {
-//                        message: '单价是必填的'
-//                    },
-//                }
-//            },
 //
-//            quantity: {
-//                row: '.controls',
-//                validators: {
-//                    regexp: {
-//                        regexp: /^[0-9]*[-,0-9][0-9]*$/,
-//                        message: '数量不合法'
-//                    }
-//                }
-//            },
-//            modelNumber: {
-//                //row: '.controls',
-//                //validators: {
-//                //    regexp: {
-//                //        regexp: /^[0-9]{6}$/,
-//                //        message: '邮编不合法'
-//                //    }
-//                //}
-//            },
-//            warningQuantity: {
-//                row: '.controls',
-//                validators: {
-//                    regexp: {
-//                        regexp: /^[0-9]*[-,0-9][0-9]*$/,
-//                        message: '数量不合法'
-//                    }
-//                }
-//            }
 //        }
 //    });
 //});
