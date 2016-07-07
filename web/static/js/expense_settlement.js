@@ -252,6 +252,7 @@ window.operateEvents = {
   },
   'click .print': function (e, value, row, index) {
     window.open("table2?rrid="+row.rrid);
+    $table.bootstrapTable('refresh',{slient:true});
   },
   'click .remove': function (e, value, row, index) {
     $('#confirm_modal').modal('show');
@@ -264,6 +265,7 @@ window.operateEvents = {
           });
           $('#confirm_modal').find('.alert-field').html("");
           $('#confirm_modal').modal('hide');
+
         } else {
           var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
           '<button type="button" class="close" data-dismiss="alert" '+
@@ -378,7 +380,8 @@ $('#add_form').on('submit', function(e) {
         '</p></div>';
       $('#add_form_modal').html(html);
     } else {
-      $('#myModal').modal('hide')
+      $('#myModal').modal('hide');
+      $table.bootstrapTable('refresh',{slient:true});
     }
   });
 })

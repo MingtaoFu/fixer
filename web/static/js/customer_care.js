@@ -377,7 +377,8 @@ $('#add_form').on('submit', function(e) {
         '</p></div>';
       $('#add_form_modal').html(html);
     } else {
-      $('#myModal').modal('hide')
+      $('#myModal').modal('hide');
+      $table.bootstrapTable('refresh',{slient:true});
     }
   });
 })

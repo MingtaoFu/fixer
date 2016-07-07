@@ -98,11 +98,10 @@ function operateFormatter(value, row, index) {
   return [
     '<a class="like" href="javascript:void(0)" title="save">',
       '<i class="glyphicon glyphicon-ok"></i>',
-    '</a>  '
-    // ,
-    // '<a class="remove" href="javascript:void(0)" title="Remove">',
-    // '<i class="glyphicon glyphicon-remove"></i>',
-    // '</a>'
+    '</a>  ',
+    '<a class="remove" href="javascript:void(0)" title="Remove">',
+    '<i class="glyphicon glyphicon-remove"></i>',
+    '</a>'
   ].join('');
 }
 
@@ -131,30 +130,29 @@ window.operateEvents = {
     //     }
     //   });
     // }
+  },
+  'click .remove': function (e, value, row, index) {
+    $('#confirm_modal').modal('show');
+    func_confirm = function() {
+      $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
+        if(data.status) {
+          $table.bootstrapTable('remove', {
+            field: 'rrid',
+            values: [row.rrid]
+          });
+          $('#confirm_modal').find('.alert-field').html("");
+          $('#confirm_modal').modal('hide');
+        } else {
+          var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
+          '<button type="button" class="close" data-dismiss="alert" '+
+          'aria-label="Close"><span aria-hidden="true">×</span></button><p>'+
+          data.error +
+          '</p></div>';
+          $('#confirm_modal').find('.alert-field').html(html);
+        }
+      });
+    }
   }
-  // ,
-  // 'click .remove': function (e, value, row, index) {
-  //   $('#confirm_modal').modal('show');
-  //   func_confirm = function() {
-  //     $.post('customer_manage', {op: "delete", id: row.id}, function(data) {
-  //       if(data.status) {
-  //         $table.bootstrapTable('remove', {
-  //           field: 'id',
-  //           values: [row.id]
-  //         });
-  //         $('#confirm_modal').find('.alert-field').html("");
-  //         $('#confirm_modal').modal('hide');
-  //       } else {
-  //         var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+
-  //         '<button type="button" class="close" data-dismiss="alert" '+
-  //         'aria-label="Close"><span aria-hidden="true">×</span></button><p>'+
-  //         data.error +
-  //         '</p></div>';
-  //         $('#confirm_modal').find('.alert-field').html(html);
-  //       }
-  //     });
-  //   }
-  // }
 };
 
 function totalTextFormatter(data) {

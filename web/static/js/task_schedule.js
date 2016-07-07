@@ -318,6 +318,7 @@ $('#add_form').on('submit', function(e) {
     console.log(data);
     if(data.status){
       $('#myModal').modal('hide');
+      $table.bootstrapTable('refresh',{slient:true});
       $('#myModal').find('.alert-field').html("");
     }
     else{
