@@ -253,7 +253,7 @@ public class ExpenseDA extends DABase{
     "Settlement.materialsCosts, Customer.companyName, Customer.contactPersonName,"+
     " Device.deviceType, Device.deviceBrand ,Device.deviceModel, Device.deviceSerialNum,"+
     " Device.breakdownAppearance from RepairRecord, Device, Customer, Settlement"+
-    " where RepairRecord.rrid = Settlement.rrid ="+rrid+" and RepairRecord.did = Device.did and Customer.cid = Device.cid;";
+    " where RepairRecord.rrid = "+rrid+" and Settlement.rrid ="+rrid+" and RepairRecord.did = Device.did and Customer.cid = Device.cid;";
     String sql1 = "update Settlement set status = \'1\' where rrid = "+rrid;
     ResultSet rs  =null;
     JSONObject json = null;

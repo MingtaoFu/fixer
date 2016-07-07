@@ -3,6 +3,12 @@
   import="team.hustsoft.basic.Staff,
     java.util.*"
 %>
+<%
+String op = request.getParameter("op");
+if(op != null && op.equals("logout")) {
+  session.invalidate();
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>

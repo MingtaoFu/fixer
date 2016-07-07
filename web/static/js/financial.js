@@ -267,6 +267,7 @@ window.operateEvents = {
         console.log(data);
         if(data.status) {
           $('#confirm_modal').modal('hide');
+          $table.bootstrapTable('refresh',{slient:true});
           $('#confirm_modal').find('.alert-field').html("");
         } else {
           var html = '<div class="alert alert-danger alert-dismissible fade in" role="alert">'+

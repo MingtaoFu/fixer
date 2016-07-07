@@ -40,20 +40,20 @@ public class PageManage extends HttpServlet {
 				case 0:
 					switch(page) {
 						case 1:
-              rd = request.getRequestDispatcher("root.html");
+              rd = request.getRequestDispatcher("root.jsp");
 						default:
 					}
           break;
         case 1:
           switch(page) {
             case 1:
-              rd = request.getRequestDispatcher("customer_care.html");
+              rd = request.getRequestDispatcher("customer_care.jsp");
               break;
             case 2:
-              rd = request.getRequestDispatcher("req_repair.html");
+              rd = request.getRequestDispatcher("req_repair.jsp");
               break;
             case 3:
-              rd = request.getRequestDispatcher("expense_settlement.html");
+              rd = request.getRequestDispatcher("expense_settlement.jsp");
               break;
             default:
           }
@@ -61,34 +61,34 @@ public class PageManage extends HttpServlet {
         case 2:
 					switch(page) {
 						case 1:
-              rd = request.getRequestDispatcher("task_schedule.html");
+              rd = request.getRequestDispatcher("task_schedule.jsp");
 						default:
 					}
           break;
         case 3:
 					switch(page) {
 						case 1:
-              rd = request.getRequestDispatcher("engineer.html");
+              rd = request.getRequestDispatcher("engineer.jsp");
 						default:
 					}
           break;
 				case 4:
 					switch(page) {
 						case 1:
-              rd = request.getRequestDispatcher("financial.html");
+              rd = request.getRequestDispatcher("financial.jsp");
 						default:
 					}
           break;
 				case 5:
 					switch(page) {
 						case 1:
-              rd = request.getRequestDispatcher("parts_manager.html");
+              rd = request.getRequestDispatcher("parts_manager.jsp");
               break;
               case 2:
-              rd = request.getRequestDispatcher("delivery_list.html");
+              rd = request.getRequestDispatcher("delivery_list.jsp");
               break;
               case 3:
-              rd = request.getRequestDispatcher("parts_request.html");
+              rd = request.getRequestDispatcher("parts_request.jsp");
               break;
 						default:
 					}

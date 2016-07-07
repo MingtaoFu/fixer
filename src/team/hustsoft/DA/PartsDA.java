@@ -317,7 +317,7 @@ public  class PartsDA extends DABase{
         }
 
         int totalQuantity = originQuantity-quantity;
-        String sql = "UPDATE Parts SET quantity=\'"+totalQuantity+"\';";
+        String sql = "UPDATE Parts SET quantity=\'"+totalQuantity+"\' where pid = "+pid;
         try{
             statement.executeUpdate(sql);
         }
