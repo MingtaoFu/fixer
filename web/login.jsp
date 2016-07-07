@@ -12,6 +12,8 @@
   <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
   <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="./static/js/formValidation.min.js"></script>
+  <script type="text/javascript" src="./static/js/formValidation-bootstrap.js"></script>
 </head>
 <body>
   <div class="container">
@@ -58,7 +60,7 @@
               %>
               <div class="control-group">
                 <div class="controls">
-                  <button class="btn btn-default">登录</button>
+                  <button type="submit" class="btn btn-default">登录</button>
                 </div>
               </div>
 
@@ -70,4 +72,39 @@
     </div>
   </div>
   </body>
+  <script>
+  $(function() {
+    $('#form').formValidation({
+      framework: 'bootstrap',
+      message: '输入不合法',
+      icon: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+        name: {
+          row: '.controls',
+          validators: {
+            notEmpty: {
+              message: '此项是必填的'
+            }
+          }
+        },
+        password: {
+          row: '.controls',
+          validators: {
+            notEmpty: {
+              message: '此项是必填的'
+            },
+            regexp: {
+              regexp: /^[\w]{6,16}$/,
+              message: '密码不合法'
+            }
+          }
+        }
+      }
+    })
+  });
+  </script>
 </html>

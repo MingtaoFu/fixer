@@ -63,10 +63,10 @@ public class FinancialDA extends DABase{
     ArrayList<Financial> financials = new ArrayList<Financial>();
     String sql;
       if(sid.equals("")) {
-          sql = "select *  from Settlement where status = \'1\'";
+          sql = "select *  from Settlement";
       }
       else {
-        sql ="SELECT *FROM Settlement WHERE status = \'1\' and sid = \'"+sid+"\';";}
+        sql ="SELECT *FROM Settlement  sid = \'"+sid+"\';";}
       //int sid_int = Integer.parseInt(sid);
        conn = initialize();
        ResultSet rs;
